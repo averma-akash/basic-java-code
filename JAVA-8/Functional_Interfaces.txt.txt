@@ -1,0 +1,43 @@
+An interface with only single abstract method is called functional interface. we can either use the predefined functional interface provided by Java or create our own functional interface and use it.
+
+While creating our own functional interface, mark it with @FunctionalInterface annotation, this annotation is optional,
+we should use it so that we get a compilation error if the interface we marked with this annotation is not following the rules of functional interfaces.
+
+The functional interface should have Only one abstract method. Along with the one abstract method, they can have any number of default and static methods.
+
+Predefined Functional Interface :
+Function<T,R> - Represents a function that accepts one argument and produces a result.
+Consumer<T> - Represents an operation that accepts a single input argument and returns no result.
+BiConsumer<T,U>	- Represents an operation that accepts two input arguments and returns no result.
+BiFunction<T,U,R> - Represents a function that accepts two arguments and produces a result.
+BinaryOperator<T> - Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
+BiPredicate<T,U> - Represents a predicate (boolean-valued function) of two arguments.
+
+public interface Printable {
+ 
+    void print();
+    default void printColor()
+    {
+        System.out.println("Printing Color copy");
+    }
+}
+
+Main Class : 
+
+public class FunctionalIntefaceMain {
+ 
+    public static void main(String[] args)
+    {
+        FunctionalIntefaceMain pMain=new FunctionalIntefaceMain();
+        pMain.printForm(() -> System.out.println("Printing form"));
+    }
+ 
+    public void printForm(Printable p)
+    {
+        p.print();
+    }
+}
+
+Output: Printing form
+
+As you can see, since Printable has only one abstract method called print(), we were able to call it using lambda expression.
