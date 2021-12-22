@@ -1,0 +1,25 @@
+A lambda expression is an anonymous function. A function that doesn’t have a name and doesn’t belong to any class.
+To create a lambda expression, we specify input parameters (if there are any) on the left side of the lambda operator ->,
+and place the expression or block of statements on the right side of lambda operator. For example, the lambda expression (x, y) -> x + y 
+specifies that lambda expression takes two arguments x and y and returns the sum of these.
+To use lambda expression, you need to either create your own functional interface or use the pre defined functional interface provided by Java.
+
+
+public class ThreadSample {
+ 
+ public static void main(String[] args) {
+ 
+  // old way
+  new Thread(new Runnable() {
+ 
+   @Override
+   public void run() {
+    System.out.println("Thread is started");
+   }
+  }).start();
+ 
+  // using lambda Expression
+  new Thread(()->System.out.println("Thread is started")).start();
+ }
+ 
+}
