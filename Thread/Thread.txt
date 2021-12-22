@@ -1,0 +1,43 @@
+1. ******* Thread *******
+a thread is a part of an application that shares a common memory with other threads of the same application.
+
+2. ******* Different state of Thread ? *******
+
+NEW — a new Thread instance that was not yet started via Thread.start()
+RUNNABLE — a running thread. It is called runnable because at any given time it could be either running or waiting for the next quantum of time from the thread scheduler. A NEW thread enters the RUNNABLE state when you call Thread.start() on it
+BLOCKED — a running thread becomes blocked if it needs to enter a synchronized section but cannot do that due to another thread holding the monitor of this section
+WAITING — a thread enters this state if it waits for another thread to perform a particular action. For instance, a thread enters this state upon calling the Object.wait() method on a monitor it holds, or the Thread.join() method on another thread
+TIMED_WAITING — same as the above, but a thread enters this state after calling timed versions of Thread.sleep(), Object.wait(), Thread.join() and some other methods
+TERMINATED — a thread has completed the execution of its Runnable.run() method and terminated
+
+3. ***** CountDown latch and CyclicBarrier ******
+
+CountDownLatch − 
+A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.
+It maintains a count of tasks
+Only current thread will throw InterruptedException. It will not impact other threads
+
+CyclicBarrier − 
+A synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point.
+It maintains a count of threads
+If one thread is interrupted while waiting then all other waiting threads will throw BrokenBarrierException
+
+4. ***** Broken Barrier ******
+
+A barrier breaks when any of the waiting thread leaves the barrier. This happens when one or more waiting thread is interrupted or when the waiting time is completed because the thread called the await() methods with a timeout as follows:
+
+newBarrier.await(1000, TimeUnit.MILLISECONDS);
+// thread calling this await() 
+// methods waits for only 1000 milliseconds.
+When the barrier breaks due to one of more participating threads, the await() methods of all the other threads throws a BrokenThreadException. Whereas, the threads that are already waiting in the barriers have their await() call terminated.
+
+5. ***** Executor Framework ******
+
+The Executor Framework contains a bunch of components that are used to efficiently manage multiple threads. It was released with the JDK 5 which is used to run the Runnable objects without creating new threads every time and also mostly re-using the already created threads.
+
+There are mainly 4 types of Executors available.
+
+SingleThreadExecutor
+FixedThreadPool
+CachedThreadPool
+ScheduledExecutor
