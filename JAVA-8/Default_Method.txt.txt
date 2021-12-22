@@ -1,0 +1,6 @@
+If several classes such as A, B, C and D implements an interface XYZInterface then if we add a new method to the XYZInterface, 
+we have to change the code in all the classes(A, B, C and D) that implements this interface.
+default methods can be added to any existing interface and we do not need to implement these methods in the implementation classes mandatorily,
+thus we can add these default methods to existing interfaces without breaking the code.
+
+Static methods in interfaces are similar to the default methods except that we cannot override these methods in the classes that implements these interfaces.
