@@ -1,0 +1,76 @@
+
+With abstraction, we can hide the internal workings of an object and only show the features the user needs to know about.
+
+Java provides two ways to implement abstraction: 
+
+abstract classes and interfaces.
+
+With abstract classes, we can achieve partial abstraction, while interfaces make total (100%) abstraction possible.
+
+An abstract class is a superclass (parent class) that cannot be instantiated. we need to instantiate one of its child classes if we want to create a new object. Abstract classes can have both abstract and concrete methods. Abstract methods contain only the method signature, while concrete methods declare a method body as well. Abstract classes are defined with the abstract keyword.
+
+Example:
+
+abstract class Animal {
+	// abstract methods
+	abstract void move();
+	abstract void eat();
+
+	// concrete method
+	void label() {
+		System.out.println("Animal's data:");
+	}
+}
+
+Extend the Animal abstract class with two child classes: Bird and Fish. Both of them set up their own functionality for the move() and eat() abstract methods.
+
+class Bird extends Animal {
+
+void move() {
+		 System.out.println("Moves by flying.");
+     }
+	void eat() {
+		 System.out.println("Eats birdfood.");
+}	 
+}
+
+class Fish extends Animal {
+		 void move() {
+			 System.out.println("Moves by swimming.");
+	     }
+		 void eat() {
+			 System.out.println("Eats seafood.");
+		 }
+}
+
+Now, test it with the TestBird and TestFish classes. Both call the one concrete (label()) and the two abstract (move() and eat()) methods.
+
+class TestBird {
+	public static void main(String[] args) {
+		Animal myBird = new Bird();
+
+		myBird.label();
+		myBird.move();
+		myBird.eat();
+	}
+}
+
+class TestFish {
+	public static void main(String[] args) {
+		Animal myFish = new Fish();
+
+		myFish.label();
+		myFish.move();
+		myFish.eat();
+	}
+}
+
+[Console output of TestBird]
+Animal's data:
+Moves by flying.
+Eats birdfood.
+
+[Console output of TestFish]
+Animal's data:
+Moves by swimming.
+Eats seafood.

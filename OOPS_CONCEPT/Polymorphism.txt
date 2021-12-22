@@ -1,0 +1,74 @@
+Polymorphism makes it possible to use the same entity in different forms. In Java, this means that we can declare several methods with the same name until they are different in certain characteristics. Java provides us with two ways to implement polymorphism: method overloading and method overriding.
+
+Static polymorphism
+
+Method overloading means that we can have several methods with the same name within a class. However, the number, names, or types of their parameters need to be different.
+
+For example, the Bird() class below has three fly() methods. The first one doesn’t have any parameters, the second one has one parameter (height), and the third one has two parameters (name and height).
+
+class Bird {
+	public void fly() {
+		System.out.println("The bird is flying.");
+	}
+	public void fly(int height) {
+		System.out.println("The bird is flying " + height + " feet high.");
+	}
+	public void fly(String name, int height) {
+		System.out.println("The " + name + " is flying " + height + " feet high.");
+	}
+}
+
+The test class instantiates a new Bird object and calls the fly() method three times. Firstly, without parameters, secondly, with one integer parameter for height, and thirdly, with two parameters for name and height.
+
+class TestBird {
+	public static void main(String[] args) {
+		Bird myBird = new Bird();
+
+		myBird.fly();
+		myBird.fly(10000);
+		myBird.fly("eagle", 10000);
+	}
+}
+
+[Console output of TestBird]
+The bird is flying.
+The bird is flying 10000 feet high.
+The eagle is flying 10000 feet high.
+
+Dynamic polymorphism
+
+By using the method overriding feature of Java, we can override the methods of a parent class from its child class.
+
+The Bird class extends the Animal class in the example below. Both have an eat() method. By default, Bird inherits its parent’s eat() method. However, as it also defines its own eat() method, Java will override the original method and call eat() from the child class.
+
+class Animal {
+	public void eat() {
+		System.out.println("This animal eats insects.");
+	}
+}
+
+class Bird extends Animal {
+
+	public void eat() {
+		System.out.println("This bird eats seeds.");
+	}
+
+}
+
+The TestBird class first instantiates a new Animal object and calls its eat() method. Then, it also creates a Bird object and calls the polymorphic eat() method again.
+
+class TestBird {
+	public static void main(String[] args) {
+		Animal myAnimal = new Animal();
+		myAnimal.eat();
+
+		Bird myBird = new Bird();
+		myBird.eat();
+	}
+}
+
+The console returns the values of the relevant methods properly. Therefore Java could have differentiated the two eat() methods indeed.
+
+[Console output of TestBird]
+This animal eats insects.
+This bird eats seeds.
