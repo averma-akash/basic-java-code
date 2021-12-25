@@ -1,0 +1,48 @@
+1. Callable Vs Runnable ?
+
+Runnable interface
+It is a part of java.lang package since Java 1.0
+It cannot return the return of computation.
+It cannot throw a checked Exception.
+In a runnable interface, one needs to override the run() method in Java.		
+
+Callable Interface
+It is a part of the java.util.concurrent package since Java 1.5.
+It can return the result of the parallel processing of a task.
+It can throw a checked Exception.
+In order to use Callable, you need to override the call()
+
+2. Imuutable object ?
+
+The immutable objects are objects whose value can not be changed after initialization. We can not change anything once the object is created. For example, primitive objects such as int, long, float, double, all legacy classes, Wrapper class, String class, etc.
+
+3. String pool ?
+
+String pool is a storage area in Java heap where string literals stores. By default, it is empty and privately maintained by the Java String class. Whenever we create a string the string object occupies some space in the heap memory.
+
+The JVM performs some steps during the initialization of string literals that increase the performance and decrease the memory load. To decrease the number of String objects created in the JVM the String class keeps a pool of strings.
+
+When we create a string literal, the JVM first check that literal in the String pool. If the literal is already present in the pool, it returns a reference to the pooled instance. If the literal is not present in the pool, a new String object takes place in the String pool.
+
+4. How to Create an Immutable Class
+
+The following things are essential for creating an immutable class:
+
+Final class, which is declared as final so that it can't be extended.
+All fields should be private so that direct access to the fields is blocked.
+No Setters
+All mutable fields should be as final so that they can not be iterated once initialized.
+
+public class JtpExample1 {  
+        private final String s;  
+        JtpExample1(final String s) {  
+        this.s = s;  
+        }  
+        public final String getName() {  
+        return s;  
+        }  
+        public static void main(String[] args) {  
+        JtpExample obj = new JtpExample("Core Java Training");  
+        System.out.println(obj.getName());  
+        }  
+        }  
