@@ -1,0 +1,77 @@
+1... What Is Inversion of Control?
+
+Inversion of control is a pattern used to decouple the dependencies between layers and components in the system. The Dependency-Injection (DI) pattern is an example of an IoC pattern that helps in removing dependencies in the code.
+
+Let us understand this with the help of an example. Consider we have a class A that makes use of class B as shown below:
+
+public class A{
+   private B b;
+   
+   public A(){
+       this.b = new B();
+   }
+}
+Here, we have a dependency between classes A and B. If we had the IoC pattern implemented, we would not have used the new operator to assign value to the dependent variable. It would have been something as shown below:
+
+public class A {
+   private IocB b;
+   public A(IocB b) {
+       this.b = b;
+   }
+}
+We have inverted the control of handing the dependency of instantiating the object of class B to the IoC class IocB.
+
+The advantages of this architecture are:
+
+decoupling the execution of a task from its implementation
+making it easier to switch between different implementations
+greater modularity of a program
+greater ease in testing a program by isolating a component or mocking its dependencies, and allowing components to communicate through contracts
+
+2... What Is Dependency Injection?
+
+Dependency injection, an aspect of Inversion of Control (IoC), is a general concept stating that we do not create our objects manually but instead describe how they should be created. Then an IoC container will instantiate required classes if needed.
+
+In Java, the 2 major ways of achieving dependency injection are:
+Constructor injection: Here, the IoC container invokes the class constructor with a number of arguments where each argument represents a dependency on the other class.
+
+Setter injection: Here, the spring container calls the setter methods on the beans after invoking a no-argument static factory method or default constructor to instantiate the bean.
+
+Explain the difference between constructor and setter injection?
+
+In constructor injection, partial injection is not allowed whereas it is allowed in setter injection.
+The constructor injection doesn’t override the setter property whereas the same is not true for setter injection.
+Constructor injection creates a new instance if any modification is done. The creation of a new instance is not possible in setter injection.
+In case the bean has many properties, then constructor injection is preferred. If it has few properties, then setter injection is preferred.
+
+
+3... What are the bean scopes available in Spring?
+
+The Spring Framework has five scope supports. They are:
+
+Singleton: The scope of bean definition while using this would be a single instance per IoC container.
+Prototype: Here, the scope for a single bean definition can be any number of object instances.
+Request: The scope of the bean definition is an HTTP request.
+Session: Here, the scope of the bean definition is HTTP-session.
+Global-session: The scope of the bean definition here is a Global HTTP session.
+
+4... Explain Bean life cycle in Spring Bean Factory Container? 
+The Bean life cycle is as follows:
+
+The IoC container instantiates the bean from the bean’s definition in the XML file.
+Spring then populates all of the properties using the dependency injection as specified in the bean definition.
+The bean factory container calls setBeanName() which take the bean ID and the corresponding bean has to implement BeanNameAware interface.
+The factory then calls setBeanFactory() by passing an instance of itself (if BeanFactoryAware interface is implemented in the bean).
+If BeanPostProcessors is associated with a bean, then the preProcessBeforeInitialization() methods are invoked.
+If an init-method is specified, then it will be called.
+Lastly, postProcessAfterInitialization() methods will be called if there are any BeanPostProcessors associated with the bean that needs to be run post creation.
+
+5... The Spring IoC Container
+
+An IoC container is a common characteristic of frameworks that implement IoC.
+
+In the Spring framework, the interface ApplicationContext represents the IoC container. The Spring container is responsible for instantiating, configuring and assembling objects known as beans, as well as managing their life cycles.
+
+The Spring framework provides several implementations of the ApplicationContext interface: ClassPathXmlApplicationContext and FileSystemXmlApplicationContext for standalone applications, and WebApplicationContext for web applications.
+
+In order to assemble beans, the container uses configuration metadata, which can be in the form of XML configuration or annotations.

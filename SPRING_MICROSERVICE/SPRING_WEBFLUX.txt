@@ -1,0 +1,17 @@
+Spring WebFlux is parallel version of Spring MVC and supports fully non-blocking reactive streams. It support the back pressure concept and uses Netty as inbuilt server to run reactive applications. 
+
+What is reactive programming?
+
+The term, “reactive,” refers to programming models that are built around reacting to changes. It is build around publisher-subscriber pattern (observer pattern). In reactive style of programming, we make a request for resource and start performing other things. When the data is available, we get the notification along with data inform of call back function. In callback function, we handle the response as per application/user needs.
+
+Blocking request processing
+	
+In traditional MVC applications, when a request come to server, a servlet thread is created. It delegates the request to worker threads for I/O operations such as database access etc. During the time worker threads are busy, servlet thread (request thread) remain in waiting status and thus it is blocked. It is also called synchronous request processing.
+
+Non-blocking request processing
+
+In non-blocking or asynchronous request processing, no thread is in waiting state. There is generally only one request thread receiving the request.
+
+All incoming requests come with a event handler and call back information. Request thread delegates the incoming requests to a thread pool (generally small number of threads) which delegate the request to it’s handler function and immediately start processing other incoming requests from request thread.
+
+When the handler function is complete, one of thread from pool collect the response and pass it to the call back function.
