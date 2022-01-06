@@ -1,0 +1,45 @@
+********************* AOP ***************************
+
+Aspect-oriented programming or AOP is a programming technique which allows programmers to modularize crosscutting concerns or behavior that cuts across the typical divisions of responsibility. Examples of cross-cutting concerns can be logging and transaction management.
+
+The core of AOP is an aspect. It encapsulates behaviors that can affect multiple classes into reusable modules.
+
+
+*************************** What do you mean by Aspect? ***************************
+
+ Aspect is a modularization of concern which cuts across multiple objects. Transaction management is a good example of a crosscutting concern in J2EE applications. Aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation in Spring Framework.
+
+*************************** Explain JoinPoint. ***************************
+
+A point during the execution of a program is called JoinPoint, such as the execution of a method or the handling of an exception. In Spring AOP, a joinpoint always represents a method execution.
+
+
+*************************** What is an Advice?  ***************************
+
+An Action taken by an aspect at a particular joinpoint is known as an Advice. Spring AOP uses an advice as an interceptor, maintaining a chain of interceptors “around” the join point.
+
+***************************  What are the different types of Advices? ***************************
+
+Different types of Advices in Spring AOP are:
+
+Before: These types of advices execute before the joinpoint methods and are configured using @Before annotation mark.
+
+After returning: These types of advices execute after the joinpoint methods completes executing normally and are configured using @AfterReturning annotation mark.
+
+After throwing:  These types of advices execute only if joinpoint method exits by throwing an exception and are configured using @AfterThrowing annotation mark.
+
+After (finally): These types of advices execute after a joinpoint method, regardless of the method’s exit whether normally or exceptional return and are configured using @After annotation mark.
+
+Around: These types of advices execute before and after a joinpoint and are configured using @Around annotation mark.
+
+***************************  Spring AOP vs AspectJ AOP ***************************
+
+ 
+
+Runtime weaving through proxy is done *************************** Compile time weaving through AspectJ Java tools is done
+
+It supports only method level PointCut ***************************         It suports field level Pointcuts
+
+It is DTD based *************************** It is schema based and Annotation configuration
+
+ 

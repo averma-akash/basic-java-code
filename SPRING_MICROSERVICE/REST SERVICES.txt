@@ -13,4 +13,48 @@ To get access to a resource, the client sends an HTTP request. In return, the se
 
 ************** What happens when we return a bean from a Request Mapping Method? **************
 
-It depends on how we have configured spring. If the controller is marked as RestController and it's method return a bean the bean is either serialized into json or xml based on our configuration.. If we try to pass a bean from controller method and the controller is annotated as @Controller we will get a server error. Because a controller marked as @Controller usually returns a string or ModelAndView which will resolve to a jsp. Still if you want to return a bean from a controller method which has @Controller you can add annotation to the controller method with @ResponseBody the bean will be serialized to either json or xml based on configuration . 
+It depends on how we have configured spring. If the controller is marked as RestController and it's method return a bean the bean is either serialized into json or xml based on our configuration.. If we try to pass a bean from controller method and the controller is annotated as @Controller we will get a server error. Because a controller marked as @Controller usually returns a string or ModelAndView which will resolve to a jsp. Still if you want to return a bean from a controller method which has @Controller you can add annotation to the controller method with @ResponseBody the bean will be serialized to either json or xml based on configuration .
+
+************** What is the concept of statelessness in REST? **************
+
+The REST architecture is designed in such a way that the client state is not maintained on the server. This is known as statelessness. The context is provided by the client to the server using which the server processes the client’s request. The session on the server is identified by the session identifier sent by the client. 
+
+************** What are the HTTP Methods? **************
+
+HTTP Methods are also known as HTTP Verbs. They form a major portion of uniform interface restriction followed by the REST that specifies what action has to be followed to get the requested resource. Below are some examples of HTTP Methods:
+
+GET: This is used for fetching details from the server and is basically a read-only operation.
+POST: This method is used for the creation of new resources on the server.
+PUT: This method is used to update the old/existing resource on the server or to replace the resource.
+DELETE: This method is used to delete the resource on the server.
+PATCH: This is used for modifying the resource on the server.
+OPTIONS: This fetches the list of supported options of resources present on the server.
+The POST, GET, PUT, DELETE corresponds to the create, read, update, delete operations which are most commonly called CRUD Operations.
+
+************** What are Idempotent methods? How is it relevant in RESTful web services domain? **************
+
+The meaning of idempotent is that even after calling a single request multiple times, the outcome of the request should be the same. While designing REST APIs, we need to keep in mind to develop idempotent APIs. This is because the consumers can write client-side code which can result in duplicate requests intentionally or not. Hence, fault-tolerant APIs need to be designed so that they do not result in erroneous responses.
+
+Idempotent methods ensure that the responses to a request if called once or ten times or more than that remain the same. This is equivalent to adding any number with 0.
+REST provides idempotent methods automatically. GET, PUT, DELETE, HEAD, OPTIONS, and TRACE are the idempotent HTTP methods. POST is not idempotent.
+
+POST is not idempotent because POST APIs are usually used for creating a new resource on the server. While calling POST methods N times, there will be N new resources. This does not result in the same outcome at a time.
+Methods like GET, OPTIONS, TRACE, and HEAD are idempotent because they do not change the state of resources on the server. They are meant for resource retrieval whenever called. They do not result in write operations on the server thereby making it idempotent.
+PUT methods are generally used for updating the state of resources. If you call PUT methods N times, the first request updates the resource and the subsequent requests will be overwriting the same resource again and again without changing anything. Hence, PUT methods are idempotent.
+DELETE methods are said to be idempotent because when calling them for N times, the first request results in successful deletion (Status Code 200), and the next subsequent requests result in nothing - Status Code 204. The response is different, but there is no change of resources on the server-side.
+However, if you are attempting to delete the resource present, at last, every time you hit the API, such as the request DELETE /user/last which deletes the last user record, then calling the request N times would delete N resources on the server. This does not make DELETE idempotent. In such cases, as part of good practices, it is advisable to use POST requests.
+
+
+************** How does HTTP Basic Authentication work? **************
+While implementing Basic Authentication as part of APIs, the user must provide the username and password which is then concatenated by the browser in the form of “username: password” and then perform base64 encoding on it. The encoded value is then sent as the value for the “Authorization” header on every HTTP request from the browser. Since the credentials are only encoded, it is advised to use this form when requests are sent over HTTPS as they are not secure and can be intercepted by anyone if secure protocols are not used
+
+******************************************
+200 - success/OK
+201 - CREATED - used in POST or PUT methods.
+304 - NOT MODIFIED - used in conditional GET requests to reduce the bandwidth use of the network. Here, the body of the response sent should be empty.
+400 - BAD REQUEST - This can be due to validation errors or missing input data.
+401- UNAUTHORIZED - This is returned when there is no valid authentication credentials sent along with the request.
+403 - FORBIDDEN - sent when the user does not have access (or is forbidden) to the resource.
+404 - NOT FOUND - Resource method is not available.
+500 - INTERNAL SERVER ERROR - server threw some exceptions while running the method.
+502 - BAD GATEWAY - Server was not able to get the response from another upstream server.
