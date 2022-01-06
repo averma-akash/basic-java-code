@@ -1,0 +1,96 @@
+********* What is difference between HashSet and LinkedHashSet? ***********
+
+A HashSet is unordered and unsorted Set. LinkedHashSet is the ordered version of HashSet. The only difference between HashSet and LinkedHashSet is that LinkedHashSet maintains the insertion order. When we iterate through a HashSet, the order is unpredictable while it is predictable in case of LinkedHashSet. The reason why LinkedHashSet maintains insertion order is because the underlying data structure is a doubly-linked list.
+
+
+*********What is difference between arrayList and linkedList  *********
+
+- ArrayList internally uses a dynamic array to store the elements.
+- Manipulation with ArrayList is slow because it internally uses an array. If any element is removed from the array, all the bits are shifted in memory.
+- An ArrayList class can act as a list only because it implements List only.
+- ArrayList is better for storing and accessing data.
+
+- LinkedList internally uses a doubly linked list to store the elements.
+- Manipulation with LinkedList is faster than ArrayList because it uses a doubly linked list, so no bit shifting is required in memory.
+- 	LinkedList class can act as a list and queue
+- LinkedList is better for manipulating data.
+
+
+*********  What is the difference between Set and Map? *********
+Sets:-
+
+Set does not allow duplicates. Set and all of the classes which implements Set interface should have unique elements.
+Set allows single null value at most.
+Set does not maintain any order; still few of its classes sort the elements in an order such as LinkedHashSet maintains the elements in insertion order.
+Classes used in sets are Set: HashSet, Linked HashSet, TreeSet, SortedSet etc.
+Maps:-
+
+Map stored the elements as key & value pair. Map doesn’t allow duplicate keys while it allows duplicate values.
+Map can have single null key at most and any number of null values.
+Set Map also doesn’t stores the elements in an order, however few of its classes does the same.
+Classes in Maps HashMap, TreeMap, WeakHashMap, LinkedHashMap, IdentityHashMap etc.
+
+
+*********  What is the difference between HashSet and HashMap?  *********
+HashSet:-
+
+HashSet class implements the Set interface
+In HashSet, we store objects(elements or values) e.g. If we have a HashSet of string elements then it could depict a set of HashSet elements: {“Hello”, “Hi”, “Bye”, “Run”}
+HashSet does not allow duplicate elements that mean you can not store duplicate values in HashSet.
+HashSet permits to have a single null value.
+HashSet is not synchronized which means they are not suitable for thread-safe operations until unless synchronized explicitly.
+HashMap:-
+
+HashMap class implements the Map interface
+HashMap is used for storing key & value pairs. In short, it maintains the mapping of key & value (The HashMap class is roughly equivalent to Hashtable, except that it is unsynchronized and permits nulls.) This is how you could represent HashMap elements if it has integer key and value of String type: e.g. {1->”Hello”, 2->”Hi”, 3->”Bye”, 4->”Run”}
+HashMap does not allow duplicate keys however it allows having duplicate values.
+HashMap permits single null key and any number of null values.
+HashMap is not synchronized which means they are not suitable for thread-safe operations until unless synchronized explicitly.
+
+
+********* What is the benefit of Generics in Collections Framework? *********
+
+Generics allow us to provide the type of Object that a collection can contain, so if we try to add any element of other type it throws compile time error. This avoids ClassCastException at Runtime because we will get the error at compilation. Also Generics make code clean since we don’t need to use casting and instanceof operator.
+
+
+********* How do WeakHashMap works? *********
+WeakHashMap is a Hash table-based implementation of the Map interface with weak keys. An entry in a WeakHashMap will automatically be removed when its key is no longer in ordinary use. Both null values and the null key are supported. This class has performance characteristics similar to those of the HashMap class and has the same efficiency parameters of initial capacity and load factor.
+
+// Java program to illustrate  
+// WeakHashmap  
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.WeakHashMap;
+public class WeakHashMapExample {
+
+    public static void main(final String[] args) {
+
+        final Map<Key, Project> map = new WeakHashMap<>();
+        Key key1 = new Key("ACTIVE");
+        final Key key2 = new Key("INACTIVE");
+        map.put(key1, new Project(100, "Customer Management System", "Customer Management System"));
+        map.put(key2, new Project(200, "Employee Management System", "Employee Management System"));
+        key1 = null;
+        System.gc();
+        for (final Entry<Key, Project> entry : map.entrySet()) {
+            System.out.println(entry.getKey().getKey() + "   " + entry.getValue());
+        }
+    }
+}
+class Key {
+    private String key;
+    public Key(final String key) {
+        super();
+        this.key = key;
+    }
+    public String getKey() {
+        return key;
+    }
+    public void setKey(final String key) {
+        this.key = key;
+    }
+}
+Output
+
+INACTIVE   [project id : 200, project name : Employee Management System, 
+           project desc : Employee Management System ]

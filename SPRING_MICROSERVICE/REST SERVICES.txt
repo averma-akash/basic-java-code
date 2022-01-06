@@ -1,0 +1,16 @@
+************** What is REST ? ************** 
+
+The term REST stands for REpresentational State Transfer. It is an architectural style that defines a set of rules in order to create Web Services. In a client-server communication, REST suggests to create an object of the data requested by the client and send the values of the object in response to the user. 
+
+**************  ************** 
+
+The key elements of the REST API paradigm are
+
+a client or software that runs on a user’s computer or smartphone and initiates communication;
+a server that offers an API as a means of access to its data or features; and
+a resource, which is any piece of content that the server can provide to the client (for example, a video or a text file).
+To get access to a resource, the client sends an HTTP request. In return, the server generates an HTTP response with encoded data on the resource. Both types of REST messages are self-descriptive, meaning they contain information on how to interpret and process them.
+
+************** What happens when we return a bean from a Request Mapping Method? **************
+
+It depends on how we have configured spring. If the controller is marked as RestController and it's method return a bean the bean is either serialized into json or xml based on our configuration.. If we try to pass a bean from controller method and the controller is annotated as @Controller we will get a server error. Because a controller marked as @Controller usually returns a string or ModelAndView which will resolve to a jsp. Still if you want to return a bean from a controller method which has @Controller you can add annotation to the controller method with @ResponseBody the bean will be serialized to either json or xml based on configuration . 
