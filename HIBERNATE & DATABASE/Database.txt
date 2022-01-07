@@ -1,0 +1,85 @@
+********* What is DBMS? ********
+
+A Database Management System (DBMS) is a program that controls creation, maintenance and use of a database. DBMS can be termed as File Manager that manages data in a database rather than saving it in file systems.
+
+******** What is RDBMS? ********
+
+RDBMS stands for Relational Database Management System. RDBMS store the data into the collection of tables, which is related by common fields between the columns of the table. It also provides relational operators to manipulate the data stored into the tables.
+
+******** What is SQL? ********
+
+SQL stands for Structured Query Language , and it is used to communicate with the Database. This is a standard language used to perform tasks such as retrieval, updation, insertion and deletion of data from a database.
+Standard SQL Commands are Select.
+
+******** What is a primary key? ********
+
+A primary key is a combination of fields which uniquely specify a row. This is a special kind of unique key, and it has implicit NOT NULL constraint. It means, Primary key values cannot be NULL.
+
+******** What is a unique key? ********
+A Unique key constraint uniquely identified each record in the database. This provides uniqueness for the column or set of columns.
+
+********  What is a foreign key? ********
+
+A foreign key is one table which can be related to the primary key of another table. Relationship needs to be created between two tables by referencing foreign key with the primary key of another table.
+
+********What is a join? ********
+
+This is a keyword used to query data from more tables based on the relationship between the fields of the tables. Keys play a major role when JOINs are used.
+
+******** What are the types of join and explain each? ********
+
+There are various types of join which can be used to retrieve data and it depends on the relationship between tables.
+
+******** Inner Join. ********
+Inner join return rows when there is at least one match of rows between the tables.
+
+******** Right Join. ********
+Right join return rows which are common between the tables and all rows of Right hand side table. Simply, it returns all the rows from the right hand side table even though there are no matches in the left hand side table.
+
+******** Left Join. ********
+Left join return rows which are common between the tables and all rows of Left hand side table. Simply, it returns all the rows from Left hand side table even though there are no matches in the Right hand side table.
+
+******** Full Join. ********
+Full join return rows when there are matching rows in any one of the tables. This means, it returns all the rows from the left hand side table and all the rows from the right hand side table.
+
+******** What is normalization? ********
+Normalization is the process of minimizing redundancy and dependency by organizing fields and table of a database. The main aim of Normalization is to add, delete or modify field that can be made in a single table.
+
+******** What is an Index? ********
+An index is performance tuning method of allowing faster retrieval of records from the table. An index creates an entry for each value and it will be faster to retrieve data.
+
+********What is the difference between DELETE and TRUNCATE commands? ********
+
+DELETE command is used to remove rows from the table, and WHERE clause can be used for conditional set of parameters. Commit and Rollback can be performed after delete statement.
+
+TRUNCATE removes all rows from the table. Truncate operation cannot be rolled back.
+
+*********** QUERIES ***************
+
+Q1. Write a query to fetch the EmpFname from the EmployeeInfo table in upper case and use the ALIAS name as EmpName.
+
+SELECT UPPER(EmpFname) AS EmpName FROM EmployeeInfo;
+
+Q2. Write a query to fetch the number of employees working in the department ‘HR’.
+
+SELECT COUNT(*) FROM EmployeeInfo WHERE Department = 'HR';
+
+Q3. Write a query to get the current date.
+SELECT SYSTDATE();
+
+Q4. Write a query to retrieve the first four characters of  EmpLname from the EmployeeInfo table.
+
+SELECT SUBSTRING(EmpLname, 1, 4) FROM EmployeeInfo;
+
+Q5. Write a query to fetch only the place name(string before brackets) from the Address column of EmployeeInfo table.
+Using the MID function in MySQL
+
+SELECT MID(Address, 0, LOCATE('(',Address)) FROM EmployeeInfo;
+Using SUBSTRING
+
+SELECT SUBSTRING(Address, 1, CHARINDEX('(',Address)) FROM EmployeeInfo;
+
+Q6. Write a query to create a new table which consists of data and structure copied from the other table.
+Using the SELECT INTO command:
+
+SELECT * INTO NewTable FROM EmployeeInfo WHERE 1 = 0;

@@ -1,0 +1,70 @@
+***********
+
+Hibernate is a java based persistance framework and an orm framework that basically allow a developer to map POJO to relational database table.
+
+****** Session ******
+
+A session is an object that maintains the connection between java object application and database.
+Session also has method for storing, retreiving, modifying, deleting data from database.
+
+******* Session Factory *******
+
+Session Factory provides an instance of Session. It is factory class that gives the session Object based on the configuration parameter in order to establish the connection to database.
+
+******** Hibernate Mapping file *******
+
+is an xml file that is used for defining the entity bean field and corresponding database column mapping. These files are used when the project use 3rd party class where JPA annotation provided by hibernate cannot be used.
+
+******** Commonly used annotation *******
+
+@Entity: used on model class and teslls that the class are entity bean.
+@Table: used on model class and teslls that the class map to the table name.
+@Id: for primary key
+@EmbeddedId: as composite key
+
+********* getCurrentSession() vs openSession() ********
+
+getCurrentSession method returns the session bound to context
+getCurrentSession object scope belongs to the hibernate context and to make this work hibernate configuration file has to be modified by adding property otherwise throw hibernate exception.
+getCurrentSession object get closed once the session factory is closed.
+
+
+openSession open a new session
+openSession new session object has to be created for each request in a multithreaded environment.
+openSession developer responsibilty to close this object.
+
+******** Criteria API ********
+help to build dynamic criteria queries on the persistance database.
+The Session interface of hibernate framework has create  creitera method that takes the persistance object class or its entity name as parameter
+Criteria criteria = Session.createCriteria(className.class);
+List<ClassName> result = criteria.list();
+
+******** Hibernate Caching ********
+
+Hibernate Caching is the strategy for improving the application performance by pooling object in cache so that the queries are executed faster.
+it is useful when fetching the same data that is excuted multiple times.
+
+******** First Level Cache vs second level Cache ********
+
+First level cache is local to session object and cannot be shared between multiple session.
+Second level cache is maintained at the session factory level and shared among all session in hibernate.
+
+First level cache is enable by default and there is no way to disable it.
+second level cache is disabled by default and we have to enable it through configuration.
+
+First level cache is available only until the session is open.
+Second level cache is open through out teh apllication.
+
+******* Get() vs Load() *******
+
+Get method get the data from database as sson as it is called.
+Load method return a proxy object and loads the data only when it is required.
+
+Get method hit database everytime.
+Load method hit database only when it s really requiured and this is lazy loading which maks the method better.
+
+Get method return null if object is not found.
+Load method thorw ObjectNotFound Exception.
+
+Get method is used if we are unsure about data existance in database.
+Load method is used when we know for sure that the data is present.  
