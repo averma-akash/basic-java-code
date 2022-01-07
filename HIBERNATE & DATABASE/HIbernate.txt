@@ -122,3 +122,22 @@ It is used for performance improvement. Lazy loading means when you load parent,
 ******* What is LazyInitializationException in Hibernate? Why do you get it? *******
 
 This exception generally occurs when you use lazy loading and child objects are accessed after closing session.
+
+*****************************************
+
+// Crate session object
+SessionFactory sf = HibernateUtil.getSessionFactory();
+Session session = sf.getCurrentSession();
+ 
+// Get list of employees with help of SQLQuery.
+Transaction tx = session.beginTransaction();
+SQLQuery sqlQuery = session.createSQLQuery("select id, name, age from Employee");
+List<Object[]> rows = sqlQuery.list();
+for(Object[] row : rows){
+    Employee employee = new Employee();
+    employee.setId(Long.parseLong(row[0].toString()));
+    employee.setName(row[1].toString());
+    employee.setAge(Integer.parseInt(row[2].toString()));
+    System.out.println(employee);
+}
+ 
