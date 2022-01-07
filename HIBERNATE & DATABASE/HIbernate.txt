@@ -76,8 +76,8 @@ Load method is used when we know for sure that the data is present.
 ******* What are states of object in hibernate? ********
 
 Transient : If object is in transient state, it means it was never associated with session and just created.
-Persistent :  If object is in persistent state, it means it is associated with session and you just saved or retrieved object from database.
-Detached : If object is in detached state, it means session is closed and object is no more part of session. If you call merge or update, object goes back to persistent state.
+Persistent :  If object is in persistent state, it means it is associated with session and we just saved or retrieved object from database.
+Detached : If object is in detached state, it means session is closed and object is no more part of session. If we call merge or update, object goes back to persistent state.
 
 ******* What are differences between save and saveOrUpdate method of session object? *******
 
@@ -85,7 +85,7 @@ save(): stores object in database. It generates identifier for tQhe object and r
 saveOrUpdate(): SaveOrUpdate method save the object if identifies does not exist. If it exists , it calls update method.
 
 
-******* Can you execute native sql in hibernate? *******
+******* Can we execute native sql in hibernate? *******
 
 // Crate session object
 SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -105,23 +105,25 @@ for(Object[] row : rows){
 
 ******* What is dialect in Hibernate? *******
 
-Dialect specifies type of database used in Hibernate, so that Hibernate can generate type of SQL statements.
+A hibernate dialect gives information to the framework of how to convert hibernate queries(HQL) into native SQL queries.
 
 For example:
 Dialect for mysql database: org.hibernate.dialect.MySQL5Dialect
 Dialect for sqlserver database: org.hibernate.dialect.SQLServer2005Dialect
 
-******* Can you declare Entity class as final in hibernate? *******
+If we do not specify Dialect class in configuration, for most of the databases Hibernate try to resolve dialect name from database connection. It’s best practice to provide dialect, so that Hibernate identifies appropriate Dialect class for specific database version.
 
-Yes, you can declare entity class as final but it is not considered as a good practice because hibernate uses proxy pattern for lazy initialisation, If you declare it as final then hibernate won’t be able to create sub class and won’t be able to use proxy pattern, so it will limit performance and improvement options.
+******* Can we declare Entity class as final in hibernate? *******
+
+Yes, we can declare entity class as final but it is not considered as a good practice because hibernate uses proxy pattern for lazy initialisation, If we declare it as final then hibernate won’t be able to create sub class and won’t be able to use proxy pattern, so it will limit performance and improvement options.
 
 ******* What is lazy loading in hibernate? *******
 
-It is used for performance improvement. Lazy loading means when you load parent, child objects won’t get loaded until requested. Infact hibernate loads child objects automatically when you access them. It improves performance as you are not loading whole object at once.
+It is used for performance improvement. Lazy loading means when we load parent, child objects won’t get loaded until requested. Infact hibernate loads child objects automatically when we access them. It improves performance as we are not loading whole object at once.
 
-******* What is LazyInitializationException in Hibernate? Why do you get it? *******
+******* What is LazyInitializationException in Hibernate? Why do we get it? *******
 
-This exception generally occurs when you use lazy loading and child objects are accessed after closing session.
+This exception generally occurs when we use lazy loading and child objects are accessed after closing session.
 
 *****************************************
 
