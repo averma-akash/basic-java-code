@@ -7,6 +7,10 @@ Hibernate is a java based persistance framework and an orm framework that basica
 A session is an object that maintains the connection between java object application and database.
 Session also has method for storing, retreiving, modifying, deleting data from database.
 
+****** Are session objects thread safe? ******
+
+Session objects are not thread safe and need to be used in single thread. Every thread should have their own session object and close it once it is done with the work.
+
 ******* Session Factory *******
 
 Session Factory provides an instance of Session. It is factory class that gives the session Object based on the configuration parameter in order to establish the connection to database.
@@ -68,3 +72,53 @@ Load method thorw ObjectNotFound Exception.
 
 Get method is used if we are unsure about data existance in database.
 Load method is used when we know for sure that the data is present.  
+
+******* What are states of object in hibernate? ********
+
+Transient : If object is in transient state, it means it was never associated with session and just created.
+Persistent :  If object is in persistent state, it means it is associated with session and you just saved or retrieved object from database.
+Detached : If object is in detached state, it means session is closed and object is no more part of session. If you call merge or update, object goes back to persistent state.
+
+******* What are differences between save and saveOrUpdate method of session object? *******
+
+save(): stores object in database. It generates identifier for tQhe object and returns it. If object already exists in database, it will throw an error.
+saveOrUpdate(): SaveOrUpdate method save the object if identifies does not exist. If it exists , it calls update method.
+
+
+******* Can you execute native sql in hibernate? *******
+
+// Crate session object
+SessionFactory sf = HibernateUtil.getSessionFactory();
+Session session = sf.getCurrentSession();
+ 
+// Get list of employees with help of SQLQuery.
+Transaction tx = session.beginTransaction();
+SQLQuery sqlQuery = session.createSQLQuery("select id, name, age from Employee");
+List<Object[]> rows = sqlQuery.list();
+for(Object[] row : rows){
+    Employee employee = new Employee();
+    employee.setId(Long.parseLong(row[0].toString()));
+    employee.setName(row[1].toString());
+    employee.setAge(Integer.parseInt(row[2].toString()));
+    System.out.println(employee);
+}
+
+******* What is dialect in Hibernate? *******
+
+Dialect specifies type of database used in Hibernate, so that Hibernate can generate type of SQL statements.
+
+For example:
+Dialect for mysql database: org.hibernate.dialect.MySQL5Dialect
+Dialect for sqlserver database: org.hibernate.dialect.SQLServer2005Dialect
+
+******* Can you declare Entity class as final in hibernate? *******
+
+Yes, you can declare entity class as final but it is not considered as a good practice because hibernate uses proxy pattern for lazy initialisation, If you declare it as final then hibernate won’t be able to create sub class and won’t be able to use proxy pattern, so it will limit performance and improvement options.
+
+******* What is lazy loading in hibernate? *******
+
+It is used for performance improvement. Lazy loading means when you load parent, child objects won’t get loaded until requested. Infact hibernate loads child objects automatically when you access them. It improves performance as you are not loading whole object at once.
+
+******* What is LazyInitializationException in Hibernate? Why do you get it? *******
+
+This exception generally occurs when you use lazy loading and child objects are accessed after closing session.
