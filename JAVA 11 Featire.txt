@@ -1,0 +1,98 @@
+Java 11 Features:
+
+Java String Methods
+*********
+isBlank() – This instance method returns a boolean value. Empty Strings and Strings with only white spaces are treated as blank.
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // Your code here!
+        
+        System.out.println(" ".isBlank()); //true
+        
+        String s = "Anupam";
+        System.out.println(s.isBlank()); //false
+        String s1 = "";
+        System.out.println(s1.isBlank()); //true
+    }
+}
+
+***********
+
+lines() This method returns a stream of strings, which is a collection of all substrings split by lines.
+
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        
+        String str = "JD\nJD\nJD"; 
+        System.out.println(str);
+        System.out.println(str.lines().collect(Collectors.toList()));
+    }
+}
+
+**********
+
+strip(), stripLeading(), stripTrailing()
+
+strip() – Removes the white space from both, beginning and the end of string.
+
+But we already have trim(). Then what’s the need of strip()?
+strip() is “Unicode-aware” evolution of trim().
+
+When trim() was introduced, Unicode wasn’t evolved. Now, the new strip() removes all kinds of whitespaces leading and trailing(check the method Character.isWhitespace(c) to know if a unicode is whitespace or not)
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // Your code here!
+        
+        String str = " JD "; 
+        System.out.print("Start");
+        System.out.print(str.strip());
+        System.out.println("End");
+        
+        System.out.print("Start");
+        System.out.print(str.stripLeading());
+        System.out.println("End");
+        
+        System.out.print("Start");
+        System.out.print(str.stripTrailing());
+        System.out.println("End");
+    }
+}
+
+**********
+repeat(int) The repeat method simply repeats the string that many numbers of times as mentioned in the method in the form of an int.
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // Your code here!
+        
+        String str = "=".repeat(2);
+        System.out.println(str); //prints ==
+    }
+}
+
+********
+
+HTTP Client
+Java 11 standardizes the Http CLient API.
+The new API supports both HTTP/1.1 and HTTP/2. It is designed to improve the overall performance of sending requests by a client and receiving responses from the server. It also natively supports WebSockets.
+
+****************
+
+Reading/Writing Strings to and from the Files
+Java 11 strives to make reading and writing of String convenient.
+It has introduced the following methods for reading and writing to/from the files:
+
+readString()
+writeString()
+Following code showcases an example of this
+
+Path path = Files.writeString(Files.createTempFile("test", ".txt"), "This was posted on JD");
+System.out.println(path);
+String s = Files.readString(path);
+System.out.println(s); //This was posted on JD
