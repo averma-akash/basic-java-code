@@ -1,0 +1,49 @@
+******** Difference between Java Heap Space and Stack Memory ********
+
+Heap memory is used by all the parts of the application whereas stack memory is used only by one thread of execution.
+
+Whenever an object is created, it’s always stored in the Heap space and stack memory contains the reference to it. Stack memory only contains local primitive variables and reference variables to objects in heap space.
+
+Objects stored in the heap are globally accessible whereas stack memory can’t be accessed by other threads.
+
+Memory management in stack is done in LIFO manner whereas it’s more complex in Heap memory because it’s used globally. Heap memory is divided into Young-Generation, Old-Generation etc, more details at Java Garbage Collection.
+
+Stack memory is short-lived whereas heap memory lives from the start till the end of application execution.
+
+We can use -Xms and -Xmx JVM option to define the startup size and maximum size of heap memory. We can use -Xss to define the stack memory size.
+
+When stack memory is full, Java runtime throws java.lang.StackOverFlowError whereas if heap memory is full, it throws java.lang.OutOfMemoryError: Java Heap Space error.
+
+Stack memory size is very less when compared to Heap memory. Because of simplicity in memory allocation (LIFO), stack memory is very fast when compared to heap memory.
+
+
+**********  Reflection in Java *********
+
+Reflection in Java is an API that is used at runtime to analyze or change classes, methods, and interfaces. It is a process of examining or modifying the run time behavior of a class at run time.
+
+The java.lang.Class is a class that provides many methods that we can use to get metadata of the class and to examine and change the runtime behavior of a class.
+
+Advantages of using Java Reflection
+
+1. Extensibility Features: Reflection allows an application to use user-defined and external classes by creating instances of extensible objects using their fully-qualified names.
+
+2. Debugging and testing tools: Debuggers make use of the property of reflection to detect the private members of a class.
+
+Disadvantages of using Java Reflection
+
+1. Performance Overhead: The performance of operations of Reflection is slower than the non-reflective operations. We should avoid the use of reflection in sections of code that we call frequently in performance-sensitive applications.
+
+2. Exposure of Internals: Reflective code violates the concept of abstraction and therefore there may be a change in the behavior with upgrades of the platform.
+
+
+********* PASS By Vaue or pass by reference **********
+
+Pass By Value: The pass by value method copies the value of actual parameters. The called function creates its own copy of argument values and then uses them. Since the work is done on a copy, the original parameter does not see the changes.
+
+Pass By Reference: The pass by reference method passes the parameters as a reference(address) of the original variable. The called function does not create its own copy, rather, it refers to the original values only. Hence, the changes made in the called function will be reflected in the original parameter as well.
+
+Java follows the following rules in storing variables:
+Local variables like primitives and object references are created on Stack memory.
+Objects are created on Heap memory.
+
+Java Always follows Pass by Value
