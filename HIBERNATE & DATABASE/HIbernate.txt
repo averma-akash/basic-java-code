@@ -13,7 +13,8 @@ Session objects are not thread safe and need to be used in single thread. Every 
 
 ******* Session Factory *******
 
-Session Factory provides an instance of Session. It is factory class that gives the session Object based on the configuration parameter in order to establish the connection to database.
+SessionFactory is the factory class used to get the Session objects. SessionFactory is responsible to read the hibernate configuration parameters and connect to the database and provide Session objects
+Internal state of SessionFactory is immutable, so it’s thread safe. Multiple threads can access it simultaneously to get Session instances.
 
 ******** Hibernate Mapping file *******
 
@@ -143,3 +144,85 @@ for(Object[] row : rows){
     System.out.println(employee);
 }
  
+ 
+******** What are the advantages of Hibernate over JDBC? ********
+
+Hibernate removes a lot of boiler-plate code that comes with JDBC API, the code looks more cleaner and readable.
+
+Hibernate supports inheritance, associations and collections. These features are not present with JDBC API
+
+Hibernate implicitly provides transaction management, in fact most of the queries can’t be executed outside transaction. In JDBC API, we need to write code for transaction management using commit and rollback.
+
+JDBC API throws SQLException that is a checked exception, so we need to write a lot of try-catch block code. 
+Hibernate wraps JDBC exceptions and throw JDBCException or HibernateException un-checked exception, so we don’t need to write code to handle it.
+
+Hibernate supports caching that is better for performance, JDBC queries are not cached hence performance is low.
+
+******** How to configure Hibernate Second Level Cache using EHCache? ***********
+
+EHCache is the best choice for utilizing hibernate second level cache. Following steps are required to enable EHCache in hibernate application.
+Add hibernate-ehcache dependency in your maven project, if it’s not maven then add corresponding jars.
+
+<dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-ehcache</artifactId>
+        <version>4.3.5.Final</version>
+</dependency>
+
+Add properties in hibernate configuration file.
+
+<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+         
+<!-- For singleton factory -->
+<!-- <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+-->
+          
+<!-- enable second level cache and query cache -->
+<property name="hibernate.cache.use_second_level_cache">true</property>
+<property name="hibernate.cache.use_query_cache">true</property>
+<property name="net.sf.ehcache.configurationResourceName">/myehcache.xml</property>
+
+Create EHCache configuration file, a sample file myehcache.xml would look like below.
+
+<ehcache xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+    monitoring="autodetect" dynamicConfig="true">
+ 
+    <diskStore path="java.io.tmpdir/ehcache" />
+ 
+    <defaultCache maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="30"
+        maxEntriesLocalDisk="10000000" diskExpiryThreadIntervalSeconds="120"
+        memoryStoreEvictionPolicy="LRU" statistics="true">
+        <persistence strategy="localTempSwap" />
+    </defaultCache>
+ 
+    <cache name="employee" maxEntriesLocalHeap="10000" eternal="false"
+        timeToIdleSeconds="5" timeToLiveSeconds="10">
+        <persistence strategy="localTempSwap" />
+    </cache>
+ 
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+        maxEntriesLocalHeap="5" eternal="false" timeToLiveSeconds="120">
+        <persistence strategy="localTempSwap" />
+    </cache>
+ 
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+        maxEntriesLocalHeap="5000" eternal="true">
+        <persistence strategy="localTempSwap" />
+    </cache>
+</ehcache>
+
+Annotate entity beans with @Cache annotation and caching strategy to use. For example,
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Table(name = "ADDRESS")
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="employee")
+public class Address {
+
+}
+
+https://www.journaldev.com/2980/hibernate-ehcache-hibernate-second-level-cache
