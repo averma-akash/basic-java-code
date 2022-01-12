@@ -85,3 +85,74 @@ In order to assemble beans, the container uses configuration metadata, which can
 3) Beanfactory Container will not create a bean object upto the request time.It means Beanfactory Container loads beans laziely. While ApplicationContext Container creates objects of Singleton bean at the time of loading only.It means there is early loading.
 
 4) Beanfactory Container support only two scopes (singleton & prototype) of the beans. But ApplicationContext Container supports all the beans scope.
+
+
+********* What is Circular Dependency in Spring? *********
+
+When class A requires an instance of class B through constructor/setter injection, and class B requires an instance of class A through constructor/setter injection and you configure beans for classes A and B to be injected into each other, the Spring IoC container detects this circular reference at runtime, and throws a BeanCurrentlyInCreationException.
+
+A circular dependency between bean A and bean B forces one of the beans to be injected into the other prior to being fully initialized itself.
+
+Possible Solutions:
+
+1. Refactor the design to remove circular dependency
+2. Use @Lazy autowiring
+	@Component
+public class Bean1 {
+
+    @Lazy
+    @Autowired
+    private Bean2 bean2;
+}
+3. Use Setter Injection instead of constructor injection
+4. Use PostConstruct to set one way dependency
+@Component("bean1")
+public class Bean1 {
+
+    @Autowired
+    private Bean2 bean2;
+
+    @PostConstruct          
+    public void init() {
+        bean2.setBean1(this);
+    }
+}
+
+
+@Component("bean2")
+public class Bean2 {
+
+    private Bean1 bean1;   
+
+    public void setBean1(Bean1 bean1) {
+        this.bean1 = bean1;
+    }
+}
+
+5. Get Spring beans programmatically : We can programmatically retrieve a Spring bean either by its name or by its class using ApplicationContext provided by Spring.
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ContextProvider {
+
+    @Autowired
+    private ApplicationContext appContext;
+
+    /**
+     * Get a Spring bean by type.
+     **/
+    public <T> T getBean(Class<T> beanClass) {
+        return appContext.getBean(beanClass);
+    }
+
+    /**
+     * Get a Spring bean by name.
+     **/
+    public Object getBean(String beanName) {
+        return appContext.getBean(beanName);
+    }
+
+}
