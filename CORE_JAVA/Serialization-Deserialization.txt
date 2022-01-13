@@ -1,0 +1,34 @@
+***** Serialization *******
+Serialization is a mechanism of converting the state of an object into a byte stream. 
+The byte stream created is platform independent. So, the object serialized on one platform can be deserialized on a different platform.
+
+To make a Java object serializable we implement the java.io.Serializable interface.
+The ObjectOutputStream class contains writeObject() method for serializing an Object.
+
+public final void writeObject(Object obj) throws IOException
+
+******* Deserialization *******
+Deserialization is the reverse process where the byte stream is used to recreate the actual Java object in memory. 
+
+The ObjectInputStream class contains readObject() method for deserializing an object.
+
+****************************
+
+Advantages of Serialization
+1. To save/persist state of an object.
+2. To travel an object across a network.
+
+Only the objects of those classes can be serialized which are implementing java.io.Serializable interface.
+Serializable is a marker interface (has no data member and method). It is used to “mark” java classes so that objects of these classes may get certain capability. Other examples of marker interfaces are:- Cloneable and Remote.
+
+
+******* SerialVersionUID *******
+The Serialization runtime associates a version number with each Serializable class called a SerialVersionUID, which is used during Deserialization to verify that sender and receiver of a serialized object have loaded classes for that object which are compatible with respect to serialization. If the receiver has loaded a class for the object that has different UID than that of corresponding sender’s class, the Deserialization will result in an InvalidClassException. A Serializable class can declare its own UID explicitly by declaring a field name.
+It must be static, final and of type long.
+i.e- ANY-ACCESS-MODIFIER static final long serialVersionUID=42L;
+
+******* In case of transient variables:- *******
+A variable defined with transient keyword is not serialized during serialization process.This variable will be initialized with default value during deserialization. (e.g: for objects it is null, for int it is 0).
+
+******* In case of static Variables:-  *******
+A variable defined with static keyword is not serialized during serialization process.This variable will be loaded with current value defined in the class during deserialization.
