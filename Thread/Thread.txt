@@ -10,17 +10,6 @@ WAITING — a thread enters this state if it waits for another thread to perform
 TIMED_WAITING — same as the above, but a thread enters this state after calling timed versions of Thread.sleep(), Object.wait(), Thread.join() and some other methods
 TERMINATED — a thread has completed the execution of its Runnable.run() method and terminated
 
-3. ***** CountDown latch and CyclicBarrier ******
-
-CountDownLatch − 
-A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.
-It maintains a count of tasks
-Only current thread will throw InterruptedException. It will not impact other threads
-
-CyclicBarrier − 
-A synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point.
-It maintains a count of threads
-If one thread is interrupted while waiting then all other waiting threads will throw BrokenBarrierException
 
 4. ***** Broken Barrier ******
 

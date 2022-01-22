@@ -1,3 +1,9 @@
+CyclicBarrier − 
+A synchronization technique that allows a set of threads to all wait for each other to reach a common barrier point.
+It maintains a count of threads
+If one thread is interrupted while waiting then all other waiting threads will throw BrokenBarrierException
+
+
 //JAVA program to demonstrate execution on Cyclic Barrier
   
 import java.util.concurrent.TimeUnit;
