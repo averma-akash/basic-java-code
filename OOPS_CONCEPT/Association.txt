@@ -1,1 +1,30 @@
-Association is a relationship between two objects. It is one of the OOP Concepts in Java which defines the diversity between objects. In this OOP concept, all objects have their separate lifecycle, and there is no owner. For example, many students can associate with one teacher while one student can also associate with multiple teachers.
+Association is a connection or relationship between two separate classes.It shows how objects of two classes are associated with each other.
+Association is a kind of relationship between classes whose objects have an independent lifecycle and there is no ownership between the objects. It can be one-to-one, one-to-many, many-to-one, many-to-many.
+
+Example : In our project we have diffrent module like disclosure and statements, these module object is not dependent.
+
+class Person {
+  String name;
+  long id;
+  Person(String name, long id) {
+    this.name = name;
+    this.id = id;
+  }
+}
+class Passport extends Person {
+  String personName;
+  Passport(String name, long id) {
+    super(name, id);
+    this.personName = name;
+  }
+}
+public class GovernmentAgency {
+  public static void main(String args[]) {
+    Passport obj = new Passport("Divya", 99884444);
+    System.out.println(obj.personName + " is a person with a passport number: " + obj.id);
+  }
+}
+
+Divya is a person with a passport number: 99884444
+
+In the above example, there is a one to one association between two classes: Person and Passport. Both the classes represent two separate entities.

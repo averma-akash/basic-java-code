@@ -1,1 +1,41 @@
-Composition is a specialized form of Aggregation. It is also called “death” relationship. Child objects do not have their lifecycle so when parent object deletes all child object will also delete automatically. For that, let’s take an example of House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted.
+Composition is a specialized form of Aggregation. Child objects do not have their lifecycle so when parent object deletes all child object will also delete automatically. For that, let’s take an example of House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted.
+
+import java.util. * ;
+class Room {
+  public String roomName;
+  public int roomNo;
+  Room(String name, int number) {
+    this.roomName = name;
+    this.roomNo = number;
+  }
+}
+class House {
+  private final List < Room > rooms;
+  House(List < Room > rooms) {
+    this.rooms = rooms;
+  }
+  public List < Room > getTotalRoomsInHouse() {
+    return rooms;
+  }
+}
+public class CompositionDemo {
+  public static void main(String[] args) {
+    Room room1 = new Room("Dining Room", 2);
+    Room room2 = new Room("Bed Room", 5);
+    Room room3 = new Room("Living Room", 3);
+    List < Room > books = new ArrayList < Room > ();
+    books.add(room1);
+    books.add(room2);
+    books.add(room3);
+    House house = new House(books);
+    List < Room > rooms = house.getTotalRoomsInHouse();
+    for (Room room: rooms) {
+      System.out.println("The Room Number of " + room.roomName + " is: " + room.roomNo);
+    }
+  }
+}
+
+Output:
+The Room Number of Dining Room is: 2
+The Room Number of Bed Room is: 5
+The Room Number of Living Room is: 3
