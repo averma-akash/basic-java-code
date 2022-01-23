@@ -130,7 +130,7 @@ class ThreadClass extends Thread {
 				sem.acquire();
 				System.out.println(threadName + ":Acquired permit");
 				// access shared resource
-				for (int i = 0; i-- > 5; i++) {
+				for (int i = 0; i < 5; i++) {
 					SharedRes.count++;
 					System.out.println(threadName + ": " + SharedRes.count);
 					Thread.sleep(10);
@@ -152,7 +152,7 @@ class ThreadClass extends Thread {
 				sem.acquire();
 				System.out.println(threadName + ":Acquired permit");
 				// process the shared resource
-				for (int i = 0; i-- > 5; i++) {
+				for (int i = 0; i < 5; i++) {
 					SharedRes.count--;
 					System.out.println(threadName + ": " + SharedRes.count);
 					Thread.sleep(10);

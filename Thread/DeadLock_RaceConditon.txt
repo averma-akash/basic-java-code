@@ -1,0 +1,33 @@
+****** Race Condition *******
+
+A condition in which the critical section (a part of the program where shared memory is accessed) is concurrently executed by two or more threads. It leads to incorrect behavior of a program.
+
+There are two types of race conditions:
+
+Read-modify-write
+Check-then-act
+
+Why it occurs?
+It occurs when two or more threads operate on the same object without proper synchronization and their operation incorporates each other.
+
+How to avoid it?
+There are the following two solutions to avoid race conditions.
+
+Mutual exclusion
+Synchronize the process
+
+In order to prevent the race conditions, one should ensure that only one process can access the shared data at a time. It is the main reason why we need to synchronize the processes.
+
+Another solution to avoid race condition is mutual exclusion. In mutual exclusion, if a thread is using a shared variable or thread, another thread will exclude itself from doing the same thing.
+
+
+**** DeadLock *******
+
+Deadlock is a situation when a thread is waiting for a resource, that is acquired by second thread and second thread is waiting for an resource that is acquired by first thread.
+
+Deadlock can arise if the following four conditions hold simultaneously (Necessary Conditions) 
+
+Mutual Exclusion: One or more than one resource are non-shareable (Only one process can use at a time) 
+Hold and Wait: A process is holding at least one resource and waiting for resources. 
+No Preemption: A resource cannot be taken from a process unless the process releases the resource. 
+Circular Wait: A set of processes are waiting for each other in circular form. 

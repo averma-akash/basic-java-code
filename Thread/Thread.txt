@@ -1,6 +1,9 @@
 1. ******* Thread *******
 a thread is a part of an application that shares a common memory with other threads of the same application.
 
+******* Daemon thread ******* 
+in Java is a low-priority thread that runs in the background to perform tasks such as garbage collection. Daemon thread in Java is also a service provider thread that provides services to the user thread. Its life depends on user threads i.e. when all the user threads die, JVM terminates this thread automatically.
+
 2. ******* Different state of Thread ? *******
 
 NEW — a new Thread instance that was not yet started via Thread.start()
