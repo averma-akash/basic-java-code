@@ -1,0 +1,71 @@
+Spring Security is  a bunch of servlet filters that enable Java applications to include authentication and authorization functionality.
+
+********* Feature of Spring Security *******
+
+Supports authentication and authorization in a flexible and comprehensive manner.
+Detection and prevention of attacks including session fixation, clickjacking, cross-site request forgery, etc.
+Integrate with Servlet API.
+Offers optional integration with Spring Web MVC (Model-View-Controller).
+Java Authentication and Authorization Service (JAAS) is used for authentication purposes.
+Allows Single Sign-On so that users can access multiple applications with just one account (username and password).
+
+********* Authentication *********
+
+Authentication refers to the process of verifying the identity of the user, using the credentials provided when accessing certain restricted resources. Two steps are involved in authenticating a user, namely identification and verification.
+
+********* Authorization *********
+
+Authorization is the ability to determine a user's authority to perform any action. This ensures that users can only access the parts of a resource that they are authorized to access.
+
+********* basic authentication? *********
+
+RESTful web services can be authenticated by basic authentication. For basic authentication, we send a username and password using the HTTP [Authorization] header to enable us to access the resource. Usernames and passwords are encoded using base64 encoding (not encryption) in Basic Authentication. The encoding is not secure since it can be easily decoded.
+
+********* digest authentication? *********
+
+RESTful web services can be authenticated in many ways, but advanced authentication methods include digest authentication. It applies a hash function to username, password, HTTP method, and URI in order to send credentials in encrypted form. It generates more complex cryptographic results by using the hashing technique which is not easy to decode. 
+
+********* SecurityContext **********
+The SecurityContext and SecurityContextHolder are two fundamental classes of Spring Security. The SecurityContext is used to store the details of the currently authenticated user, also known as a principle.
+
+Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+if (principal instanceof UserDetails) {
+  String logged_in_username = ((UserDetails)principal).getUsername();
+} else {
+  String logged_in_username = principal.toString();
+}
+
+********* PasswordEncoder ********
+Password encoding is provided by Spring Security using the PasswordEncoder interface. This interface defines two methods:  
+
+encode(): It converts a plain password into an encoded form.
+matches(): It compares an encoded password from the database with a plain password (input by the user) that's been encoded using the same salting and hashing algorithm as the encoded password.
+
+******* AbstractSecurityInterceptor ********
+
+the AbstractSecurityInterceptor handles the initial authorization of incoming requests. AbstractSecurityInterceptor has two concrete implementations:  
+
+FilterSecurityInterceptor: The Spring Security filter chain's default filter. All authenticated user requests will be authorised by the FilterSecurityInterceptor.
+
+MethodSecurityInterceptor: This is required for method level security to be implemented. It enables us to apply security to our programme at the method level.
+
+****** AuthenticationManager ********
+AuthenticationManager is the main interface for authentication.
+
+If the principal of the input authentication is valid and verified, AuthenticationManager#authenticate returns an Authentication instance with the authenticated flag set to true. Otherwise, if the principal is not valid, it will throw an AuthenticationException. 
+
+ProviderManager is the default implementation of AuthenticationManager. It delegates the authentication process to a list of AuthenticationProvider instances.
+
+******* DelegatingFilterProxy ********
+
+DelegatingFilterProxy is a servlet filter embedded in the spring context. It acts as a bridge between web.xml (web application) and the application context (Spring IoC Container). DelegatingFilterProxy is a proxy that delegates an incoming request to a group of filters (which are not managed as spring beans) provided by the Spring web framework. It provides full access to the Spring context's life cycle machinery and dependency injection.
+Whenever a request reaches the web application, the proxy ensures that the request is delegated to Spring Security, and, if everything goes smoothly, it will ensure that the request is directed to the right resource within the web application. 
+
+******* FilterChainProxy ********
+
+FilterChainProxy is another servlet filter designed to invoke the appropriate filters based on the path of the incoming request. It contains information about the security filters that make up the security filter chain. It is not directly executed, but it is started by the DelegatingFilterProxy. 
+
+******* What is JWT?*********
+
+JWT (JSON Web Tokens) are tokens that are generated by a server upon user authentication in a web application and are then sent to the client (normally a browser). As a result, these tokens are sent on every HTTP request, allowing the server to verify or authenticate the user's identity. This method is used for authorizing transactions or requests between client and server. The use of JWT does not intend to hide data, but rather ensure its authenticity. JWTs are signed and encoded, instead of encrypted. A cryptographic algorithm is used to digitally sign JWTs in order to ensure that they cannot be altered after they are issued. Information contained in the token is signed by the server's private key in order to ensure integrity.
