@@ -1,25 +1,8 @@
+the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans.
+
 ********* What Is Inversion of Control? *********
 
 Inversion of control is a pattern used to decouple the dependencies between layers and components in the system. The Dependency-Injection (DI) pattern is an example of an IoC pattern that helps in removing dependencies in the code.
-
-Let us understand this with the help of an example. Consider we have a class A that makes use of class B as shown below:
-
-public class A{
-   private B b;
-   
-   public A(){
-       this.b = new B();
-   }
-}
-Here, we have a dependency between classes A and B. If we had the IoC pattern implemented, we would not have used the new operator to assign value to the dependent variable. It would have been something as shown below:
-
-public class A {
-   private IocB b;
-   public A(IocB b) {
-       this.b = b;
-   }
-}
-We have inverted the control of handing the dependency of instantiating the object of class B to the IoC class IocB.
 
 The advantages of this architecture are:
 
@@ -41,9 +24,11 @@ In order to assemble beans, the container uses configuration metadata, which can
 
 ********* What Is Dependency Injection? *********
 
-Dependency injection, an aspect of Inversion of Control (IoC), is a general concept stating that we do not create our objects manually but instead describe how they should be created. Then an IoC container will instantiate required classes if needed.
+Dependency injection, an aspect of Inversion of Control (IoC), is a concept stating that we are able to pass (inject) the dependencies when required instead of initializing the dependencies inside of the recipient class.. 
+Then an IoC container will instantiate required classes if needed.
 
 In Java, the 2 major ways of achieving dependency injection are:
+
 Constructor injection: Here, the IoC container invokes the class constructor with a number of arguments where each argument represents a dependency on the other class.
 
 Setter injection: Here, the spring container calls the setter methods on the beans after invoking a no-argument static factory method or default constructor to instantiate the bean.
