@@ -2,7 +2,10 @@ What is the difference between fail-fast and fail-safe iterator?
 
 fail-fast Iterator
 
-Iterators in java are used to iterate over the Collection objects.Fail-Fast iterators immediately throw ConcurrentModificationException if there is structural modification of the collection. Structural modification means adding, removing or updating any element from collection while a thread is iterating over that collection. Iterator on ArrayList, HashMap classes are some examples of fail-fast Iterator.
+Iterators in java are used to iterate over the Collection objects.
+
+Fail-Fast iterators immediately throw ConcurrentModificationException if there is structural modification of the collection. 
+Structural modification means adding, removing or updating any element from collection while a thread is iterating over that collection. Iterator on ArrayList, HashMap classes are some examples of fail-fast Iterator.
 
 import java.util.ArrayList;
 import java.util.Iterator;
