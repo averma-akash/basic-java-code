@@ -1,10 +1,43 @@
-A lambda expression is an anonymous function. A function that doesn’t have a name and doesn’t belong to any class.
-To create a lambda expression, we specify input parameters (if there are any) on the left side of the lambda operator ->,
-and place the expression or block of statements on the right side of lambda operator. For example, the lambda expression (x, y) -> x + y 
-specifies that lambda expression takes two arguments x and y and returns the sum of these.
-To use lambda expression, you need to either create your own functional interface or use the pre defined functional interface provided by Java.
+A lambda expression is an anonymous function. 
+Using lambda expression, sequential and parallel execution can be achieved by passing behavior into methods.
+
+******** Why Lambdas in Java ? ******** 
+the most beneficial reason for lamda is that we can easily distribute processing of collection over multiple threads. 
+Prior to Java 8, if the processing of elements in a collection had to be done in parallel, the client code was supposed to perform the necessary steps and not the collection. In Java 8, using lambda expression and Stream API we can pass processing logic of elements into methods provided by collections and now collection is responsible for parallel processing of elements and not the client.
+
+******* Benefits of Lambda Expression ********
+
+1. Fewer Lines of Code
+2. Sequential and Parallel Execution Support by passing behavior in methods
+
+----> Prior to Java 8, processing the elements of any collection could be done by obtaining an iterator from the collection and then iterating over the elements and then processing each element. If the requirement is to process the elements in parallel, it would be done by the client code. With the introduction of Stream API in Java 8, functions can be passed to collection methods and now it is the responsibility of collection to process the elements either in a sequential or parallel manner.
+
+3. Higher Efficiency (Utilizing Multicore CPU’s)
+
+Using Stream API’s and lambda expression we can achieve higher efficiency (parallel execution) in case of bulk operations on collections. Also, the lambda expressions can help in achieving internal iteration of collections rather than external iteration as shown in the above example. As nowadays we have CPUs with multicores, we can take advantage of these multicore CPU’s by parallel processing of collections using lambda.
+
+***********
+public static void withoutLamda() {
+
+List<String> name = new ArrayList<String>();
+name.add("Akash");
+for(String n : name) {
+sysout("List Content : " +n);
+}
+}
+
+************
+public static void withLamda() {
+
+List<String> name = new ArrayList<String>();
+name.add("Akash");
+name.stream().forEach((String) ->  {
+sysout("List Content : " + name)
+});
+}
 
 
+***********
 public class ThreadSample {
  
  public static void main(String[] args) {

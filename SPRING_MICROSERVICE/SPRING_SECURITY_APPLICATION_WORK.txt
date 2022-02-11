@@ -1,0 +1,32 @@
+How Security works in application or how user authentication or authorization working in your application?
+
+In our application we are using spring security & JWT for authentication or authorization.
+we have one configuration class annoted with @enablewebSecurity which extends WebSecurityConfigurerAdapter to configure our FilterChain.
+
+we have created few beans like passwordEncoder
+We override the configure(HttpSecurity http) method from WebSecurityConfigurerAdapter interface.It tells Spring Security how we configure CORS and CSRF,
+
+*** Filter the incoming request *****
+a filter that executes once per request. So we create AuthTokenFilter class that extends OncePerRequestFilter and override doFilterInternal() method.
+
+What we do inside doFilterInternal():
+– get JWT from the Authorization header (by removing Bearer prefix)
+– if the request has JWT, validate it, parse username from it
+– from username, get UserDetails to create an Authentication object
+– set the current UserDetails in SecurityContext using setAuthentication(authentication) method.
+
+After this, everytime you want to get UserDetails, just use SecurityContext like this:
+UserDetails userDetails =
+	(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+Then we have JWT Utility Class:
+This class has 3 funtions:
+generate a JWT from username, date, expiration, secret
+get username from JWT
+validate a JWT
+
+we create AuthEntryPointJwt class that implements AuthenticationEntryPoint interface.
+ Then we override the commence() method. 
+This method will be triggerd anytime unauthenticated User requests a secured HTTP resource and an AuthenticationException is thrown.
+
+https://www.bezkoder.com/spring-boot-jwt-authentication/
