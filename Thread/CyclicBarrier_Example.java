@@ -1,7 +1,9 @@
+/*
 CyclicBarrier − 
 A synchronization technique that allows a set of threads to all wait for each other to reach a common barrier point.
 It maintains a count of threads
 If one thread is interrupted while waiting then all other waiting threads will throw BrokenBarrierException
+*/
 
 
 //JAVA program to demonstrate execution on Cyclic Barrier
@@ -106,7 +108,7 @@ public class Tester implements Runnable
         System.out.println("Barrier reset successful");
     }
 }
-Output:
+/*Output:
 
 <Number of parties required to trip the barrier = 3
 Sum of product and sum = 0
@@ -118,3 +120,4 @@ Barrier reset successful
 Explanation: 
 
 The value of (sum + product) = 0 is printed on the console because the child thread has’t yet ran to set the values of sum and product variable. Following this, (sum + product) = 36 is printed on the console because the child threads ran setting the values of sum and product. Furthermore, the number of waiting thread on the barrier reached 3, due to which the barrier then allowed all thread to pass and finally 36 was printed. The value of “Number of parties waiting at the barrier at this point” = 0 because all the three threads had already called await() method and hence, the barrier is no longer active. In the end, newBarrier is reset and can be used again.
+*/

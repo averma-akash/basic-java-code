@@ -1,13 +1,14 @@
-CountDownLatch − 
+/*CountDownLatch − 
 A synchronization technique that allows one or more threads to wait until a set of operations being performed in other threads completes.
 It maintains a count of tasks
 Only current thread will throw InterruptedException. It will not impact other threads
+*/
 
 
-// Java Program to demonstrate how 
-// to use CountDownLatch, Its used 
-// when a thread needs to wait for other 
-// threads before starting its work.
+/* Java Program to demonstrate how 
+ to use CountDownLatch, Its used 
+ when a thread needs to wait for other 
+ threads before starting its work.*/
 import java.util.concurrent.CountDownLatch;
   
 public class CountDownLatchDemo
@@ -15,20 +16,16 @@ public class CountDownLatchDemo
     public static void main(String args[]) 
                    throws InterruptedException
     {
-        // Let us create task that is going to 
-        // wait for four threads before it starts
+        /* Let us create task that is going to 
+         wait for four threads before it starts */
         CountDownLatch latch = new CountDownLatch(4);
   
         // Let us create four worker 
         // threads and start them.
-        Worker first = new Worker(1000, latch, 
-                                  "WORKER-1");
-        Worker second = new Worker(2000, latch, 
-                                  "WORKER-2");
-        Worker third = new Worker(3000, latch, 
-                                  "WORKER-3");
-        Worker fourth = new Worker(4000, latch, 
-                                  "WORKER-4");
+        Worker first = new Worker(1000, latch,"WORKER-1");
+        Worker second = new Worker(2000, latch,"WORKER-2");
+        Worker third = new Worker(3000, latch,"WORKER-3");
+        Worker fourth = new Worker(4000, latch, "WORKER-4");
         first.start();
         second.start();
         third.start();
