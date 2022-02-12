@@ -1,5 +1,5 @@
-Class Level Lock is a mechanism where every class in java has a unique lock . If a thread wants to execute a static synchronized method then the thread requires a class level lock once the thread gets a class level lock then it is allowed to execute any static synchronized method of that class. Once method execution completes automatically thread releases the lock. While a thread executing a static synchronized method the remaining thread is not allowed to execute any static synchronized method of that class simultaneously.
-
+/*Class Level Lock is a mechanism where every class in java has a unique lock . If a thread wants to execute a static synchronized method then the thread requires a class level lock once the thread gets a class level lock then it is allowed to execute any static synchronized method of that class. Once method execution completes automatically thread releases the lock. While a thread executing a static synchronized method the remaining thread is not allowed to execute any static synchronized method of that class simultaneously.
+*/
 / java program to illustrate Class Level Lock Concept
  
 // Importing required packages

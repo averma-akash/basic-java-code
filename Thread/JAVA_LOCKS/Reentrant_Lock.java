@@ -1,3 +1,4 @@
+/*
 The “Reentrant Locks” is this method in Java that provides synchronization with far greater flexibility.
 
 The class “ReentrantLock” implements Reentrant locks and is a part of the package “import java.util.concurrent.locks”. ReentrantLock class provides the method synchronization to access shared resources. The classes also have the lock and unlock methods for locking/unlocking resources when accessed by threads.
@@ -8,7 +9,7 @@ The thread can re-enter and access the resource before unlocking. Every time the
 
 When the hold count reaches 0, the shared resource is unlocked.
 
-The ReentrantLock class also provides a fairness parameter which is a boolean value that can be passed with the constructor of the lock. When the fairness parameter is set to true, then whenever one thread releases the lock, the lock is passed to the longest waiting thread. This prevents starvation.
+The ReentrantLock class also provides a fairness parameter which is a boolean value that can be passed with the constructor of the lock. When the fairness parameter is set to true, then whenever one thread releases the lock, the lock is passed to the longest waiting thread. This prevents starvation. */
 
 package ReentrntLockExample;
 

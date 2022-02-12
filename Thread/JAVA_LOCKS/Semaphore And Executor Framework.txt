@@ -28,7 +28,7 @@ Once the invoker is created, as shown above, we can use it to execute the task a
 
 public void execute () {
         Executor executor = new Invoker ();
-        executor.execute ( () -&amp;amp;gt; {
+        executor.execute ( () -> {
             //perform task
         });
     }

@@ -65,7 +65,7 @@ Lastly, postProcessAfterInitialization() methods will be called if there are any
 
 ********* Bean Factory vs ApplicationContext *********
 
-1) BeanFactory Container is basic container, it can only create objects and inject Dependencies.But we can not attach other services like security, transaction ,messaging etc. To provied all the services we have to use ApplicationContext Container.
+1) BeanFactory is basic container, it can only create objects and inject Dependencies.But we can not attach other services like security, transaction ,messaging etc. To provied all the services we have to use ApplicationContext Container.
 
 2) BeanFactory Container doesn't support the feature of AutoScanning , but ApplicationContext Container supports.
 
