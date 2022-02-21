@@ -34,6 +34,28 @@ FixedThreadPool
 CachedThreadPool
 ScheduledExecutor
 
+********* What happens when an Exception occurs in a thread? ***********
+If not caught thread will die, if an uncaught exception handler is registered then it will get a call back.
+
+Thread.UncaughtExceptionHandler is an interface,
+defined as nested interface for handlers invoked when a Thread abruptly terminates due to an uncaught exception.
+
+When a thread is about to terminate due to an
+uncaught exception the Java Virtual Machine will query the thread for
+its UncaughtExceptionHandler using Thread.getUncaughtExceptionHandler() and will invoke the handler's uncaughtException() method, passing the
+thread and the exception as arguments.
+Thread t = new Thread(new Runnable(){
+	public void run() {
+		throw new RuntimeException();
+	}
+ });
+ t.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+		public void uncaughtException(Thread t, Throwable e) {
+		System.out.println("exception " + e + " from thread " + t);
+	}
+ });
+ t.start(); 
+
 ********** Thread Pool **********
 
 A Thread pool in Java is a group of worker threads that can be reused many times and assigned jobs.

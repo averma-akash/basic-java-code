@@ -1,3 +1,11 @@
+/* Bubble sort works on the repeatedly swapping of adjacent elements until they are not in the intended order. 
+* Best Case	O(n)
+* Average Case	O(n2)
+* Worst Case	O(n2)
+* Space Complexity 	O(1)
+*
+*/
+
 package Sorting;
 
 public class BubbleSortMain {

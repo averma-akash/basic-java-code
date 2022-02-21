@@ -1,88 +1,100 @@
 package Sorting;
 
 /*
+Merge sort is similar to the quick sort algorithm as it uses the divide and conquer approach to sort the elements. It is one of the most popular and efficient sorting algorithm. It divides the given list into two equal halves, calls itself for the two halves and then merges the two sorted halves. We have to define the merge() function to perform the merging.
+
+Best Case	O(n*logn)
+Average Case	O(n*logn)
+Worst Case	O(n*logn)
+Space Complexity	O(n)
+
  * It works on below principle:
 
 Divide list into sublist of about half size in each iteration until each sublist has only one element.
 Merge each sublist repeatedly to create sorted list. It will run until we have only 1 sorted list. This will be the sorted list.
  */
-public class MergeSortMain {
-
-	static int arr[] = { 100, 20, 15, 30, 5, 75, 40 };
-
-	public static void main(String args[]) {
-		// Print array before merge sort
-		System.out.println("Array before sorting:");
-		printArray(arr, 0, arr.length - 1);
-		System.out.println("-----------------------------");
-
-		mergeSort(0, arr.length - 1);
-
-		System.out.println("-----------------------------");
-
-		// Print array after sorting
-		System.out.println("Array After sorting:");
-		printArray(arr, 0, arr.length - 1);
-
-	}
-
-	// Recursive algorithm for merge sort
-	public static void mergeSort(int start, int end) {
-		int mid = (start + end) / 2;
-		if (start < end) {
-			// Sort left half
-			mergeSort(start, mid);
-			// Sort right half
-			mergeSort(mid + 1, end);
-			// Merge left and right half
-			merge(start, mid, end);
-		}
-
-	}
-
-	private static void merge(int start, int mid, int end) {
-		// Initializing temp array and index
-		int[] tempArray = new int[arr.length];
-		int tempArrayIndex = start;
-
-		System.out.print("Before Merging:  ");
-		printArray(arr, start, end);
-
-		int startIndex = start;
-		int midIndex = mid + 1;
-
-		// It will iterate until smaller list reaches to the end
-		while (startIndex <= mid && midIndex <= end) {
-			if (arr[startIndex] < arr[midIndex]) {
-				tempArray[tempArrayIndex++] = arr[startIndex++];
-			} else {
-				tempArray[tempArrayIndex++] = arr[midIndex++];
-			}
-		}
-
-		// Copy remaining elements
-		while (startIndex <= mid) {
-			tempArray[tempArrayIndex++] = arr[startIndex++];
-		}
-		while (midIndex <= end) {
-			tempArray[tempArrayIndex++] = arr[midIndex++];
-		}
-
-		// Copy tempArray to actual array after sorting
-		for (int i = start; i <= end; i++) {
-			arr[i] = tempArray[i];
-		}
-
-		System.out.print("After merging:   ");
-		printArray(tempArray, start, end);
-		System.out.println();
-	}
-
-	public static void printArray(int arr[], int start, int end) {
-		for (int i = start; i <= end; i++) {
-			System.out.print(arr[i] + " ");
-		}
-		System.out.println();
-	}
-
-}
+class Merge {  
+  
+/* Function to merge the subarrays of a[] */  
+void merge(int a[], int beg, int mid, int end)    
+{    
+    int i, j, k;  
+    int n1 = mid - beg + 1;    
+    int n2 = end - mid;    
+      
+   /* temporary Arrays */  
+        int LeftArray[] = new int[n1];  
+        int RightArray[] = new int[n2];  
+      
+    /* copy data to temp arrays */  
+    for (i = 0; i < n1; i++)    
+    LeftArray[i] = a[beg + i];    
+    for (j = 0; j < n2; j++)    
+    RightArray[j] = a[mid + 1 + j];    
+      
+    i = 0; /* initial index of first sub-array */  
+    j = 0; /* initial index of second sub-array */   
+    k = beg;  /* initial index of merged sub-array */  
+      
+    while (i < n1 && j < n2)    
+    {    
+        if(LeftArray[i] <= RightArray[j])    
+        {    
+            a[k] = LeftArray[i];    
+            i++;    
+        }    
+        else    
+        {    
+            a[k] = RightArray[j];    
+            j++;    
+        }    
+        k++;    
+    }    
+    while (i<n1)    
+    {    
+        a[k] = LeftArray[i];    
+        i++;    
+        k++;    
+    }    
+      
+    while (j<n2)    
+    {    
+        a[k] = RightArray[j];    
+        j++;    
+        k++;    
+    }    
+}    
+  
+void mergeSort(int a[], int beg, int end)  
+{  
+    if (beg < end)   
+    {  
+        int mid = (beg + end) / 2;  
+        mergeSort(a, beg, mid);  
+        mergeSort(a, mid + 1, end);  
+        merge(a, beg, mid, end);  
+    }  
+}  
+  
+/* Function to print the array */  
+void printArray(int a[], int n)  
+{  
+    int i;  
+    for (i = 0; i < n; i++)  
+        System.out.print(a[i] + " ");  
+}  
+  
+public static void main(String args[])  
+{  
+    int a[] = { 11, 30, 24, 7, 31, 16, 39, 41 };  
+    int n = a.length;  
+    Merge m1 = new Merge();  
+    System.out.println("\nBefore sorting array elements are - ");  
+    m1.printArray(a, n);  
+    m1.mergeSort(a, 0, n - 1);  
+    System.out.println("\nAfter sorting array elements are - ");  
+    m1.printArray(a, n);  
+    System.out.println("");  
+}  
+  
+  }

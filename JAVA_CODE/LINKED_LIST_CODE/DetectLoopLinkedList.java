@@ -72,15 +72,15 @@ public class DetectLoopLinkedList {
 	}
 
 	private static String removeLoop(DetectNode h) {
-		// TODO Auto-generated method stub
+		
 
 		HashSet<DetectNode> s = new HashSet<DetectNode>();
 		DetectNode prev = null;
 		while (h != null) {
-			// If we have already has this node
-			// in hashmap it means their is a cycle and we
-			// need to remove this cycle so set the next of
-			// the previous pointer with null.
+			/* If we have already has this node
+			 in hashmap it means their is a cycle and we
+			 need to remove this cycle so set the next of
+			 the previous pointer with null. */
 
 			if (s.contains(h)) {
 				System.out.println("Loop Data  : " + prev.next.data);

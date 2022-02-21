@@ -30,7 +30,7 @@ Enums are the simplest means of creating a thread-safe singleton class in Java b
       }
    }
    // The Singleton class methods can be invoked as below
-   ThreadSafeSingleton.SINGLETON_INSTANCE.show();
+   ThreadSafeSingleton.SINGLETON_INSTANCE.display();
    
 ********* Using Static Field Initialization:  *********
 
@@ -60,12 +60,8 @@ The only problem is that since the whole method is synchronized, the performance
    {
     /* Creating private instance to make it accessible only by getInstance() method */
     private static ThreadSafeSingleton instance;
-    private ThreadSafeSingleton()
-    {
-      /* Making constructor private so that objects cant be initialized outside the class */
-    }
-	
-    //*/ synchronized getInstance method */
+    private ThreadSafeSingleton() {}
+    /* Making constructor private so that objects cant be initialized outside the class */
 	
     synchronized public static ThreadSafeSingleton getInstance(){
       if (this.instance == null)
