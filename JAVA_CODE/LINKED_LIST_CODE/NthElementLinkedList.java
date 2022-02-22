@@ -82,3 +82,10 @@ public class NthElementLinkedList {
     }
 
 }
+
+/*
+
+5 6 7 1 2 8 
+3th node from end is : 1
+
+*/

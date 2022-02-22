@@ -73,3 +73,8 @@ public class ReverseLinkedList {
     }
 
 }
+/*
+5 6 7 1 2 
+After reversing
+2 1 7 6 5
+*/

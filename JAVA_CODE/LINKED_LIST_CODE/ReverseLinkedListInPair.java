@@ -79,3 +79,9 @@ public class ReverseLinkedListInPair {
 	}
 
 }
+
+/*
+5 6 7 1 2 8 
+After reversing in pair
+6 5 1 7 8 2 
+*/

@@ -13,6 +13,10 @@ import java.util.HashSet;
 /*
  * Time Complexity: O(N), where N is the number of nodes of the linked list.
  * Space Complexity: O(1), as a map is used.
+ 
+ Loop found from 20 looped to 10
+Loop Data  : 10
+
  */
 
 public class DetectLoopLinkedList {

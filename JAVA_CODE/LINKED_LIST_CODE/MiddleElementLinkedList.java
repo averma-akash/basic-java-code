@@ -74,3 +74,7 @@ public class MiddleElementLinkedList {
     }
 
 }
+/*
+5 6 7 1 2 21 8 
+Middle node will be: 1
+*/
