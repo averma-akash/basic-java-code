@@ -1,4 +1,5 @@
 package practicebook.java;
+//Index of element 5 : 5
 
 public class SearchElementSortedAndRotatedArrayMain {
 
