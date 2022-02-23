@@ -12,6 +12,14 @@ It can return the result of the parallel processing of a task.
 It can throw a checked Exception.
 In order to use Callable, you need to override the call()
 
+https://www.geeksforgeeks.org/callable-future-java/
+********************
+For implementing Runnable, the run() method needs to be implemented which does not return anything, while for a Callable, the call() method needs to be implemented which returns a result on completion.
+
+A thread can’t be created with a Callable, it can only be created with a Runnable.
+Another difference is that the call() method can throw an exception whereas run() cannot.
+
+***--> Future is an object that holds the result – it may not hold it right now, but it will do so in the future (once the Callable returns).
 ************* Why Java Strings are immutable in nature? *************
 
 string objects are immutable in nature which simply means once the String object is created its state cannot be modified. Whenever we try to update the value of that object instead of updating the values of that particular object, Java creates a new string object. Java String objects are immutable as String objects are generally cached in the String pool.
