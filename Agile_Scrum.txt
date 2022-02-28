@@ -1,0 +1,112 @@
+1. ****** Agile or Agile Methodology or Agile Process *******
+
+It is an iterative approach and each iteration is specially designed to be small and manageable so that it can be delivered in a specific given period of time.
+
+****** Advantages *******
+
+-- Fast and continuous development 
+-- Enables collaboration and interaction between client and project team 
+-- Division of agile project into sprints or iterations
+-- Adapt well with changing requirements
+-- Face-to-face conversation with team members and customers 
+-- Focuses on technical excellence and good design 
+
+***** Disadvantages ******
+
+-- Lack of formal documentation and designing 
+-- Difficult to estimate resource requirement and effort  
+-- Not good for small development projects 
+-- Costly as compared to other development methodologies 
+-- Requires more time and energy from everyone 
+-- Risk of ever-lasting project 
+-- Difficult to scale large projects 
+-- Difficulty in testing and test construction.
+
+****** What do you mean by refactoring? ******
+
+Re-factoring is basically an activity that involves alteration or modification of the internal structure of software without any change in its external behaviors or functionality. In this, developers make some changes with code to enhance and improve the internal structure of software.
+
+****** sprint backlog *******
+
+ It is generally owned by the development team. It only contains those features and requirements that are related to the specific sprint only. It is considered a subset of the product backlog. It is compiled of everything that must be done to complete a particular sprint. It only includes items that can be completed during each agile sprint. It is specific to the sprint goal only in a particular sprint. 
+ 
+****** Product Backlog ******
+
+It is generally owned and maintained by the project owner. It usually contains each and every feature of the product as well as the requirements of the product. It is compiled to everything that must be done to complete the whole process. 
+
+*** Spike Sprint *****
+
+It generally refers to a too large and complex user story in software development that cannot be estimated until the development team do some investigation. These stories can be used for various activities like research, design, exploration, prototyping, etc. Spikes are usually created to resolve some technical issues and design problems in the project.
+
+****** Zero Sprint: ******
+
+It generally refers to the first step or pre-preparation step that comes just before the first sprint. It includes all activities such as setting a development environment, preparing backlog, etc. 
+
+****** velocity in Agile? *******
+A velocity is basically a measurement unit that measures or calculates how much work an agile development team can successfully complete in a single sprint and how much time will be required to finish a project. It is widely used as a calibration tool that helps development teams to create accurate and efficient timelines. It is also used to identify problems and measure the improvements that occur with time.
+
+****** Agile Manifesto ******
+
+The agile manifesto is basically a document consisting of values and principles that are expressed in Agile. 
+This manifesto helps the development team to work more efficiently and provides a clear and measurable structure that promotes team collaboration, iterative development, etc. It is specially designed to improve development methodologies.
+
+It simply consists of 4 values and 12 key principles. 
+
+$$$$$ The 4 Agile Values $$$$$
+
+***** Individuals and Interactions over Processes and Tools: ******
+
+It focuses on giving more attention and importance to communication with clients.
+
+******Working Software over Comprehensive Documentation: ******
+
+It focuses on the completion of the project and making sure that the project is completing the final deliverables.
+
+****** Customer Collaboration over Contract Negotiation: ****** 
+
+It focuses on involving customers in all phases of the project so that the final product doesn’t lack any requirement that the client needs. It is done to ensure 100% customer satisfaction.
+
+****** Responding to Change over Following a Plan: ******
+
+It focuses on changes and motivates the team to adopt the change quickly so that higher quality products can be delivered. Therefore, agile works in short sprints so that changes can be utilized for good.
+
+
+***** The 12 Agile Principles ******
+
+-- Customer Satisfaction
+-- Welcome Change
+-- Deliver Frequently
+-- Work Together
+-- Motivated Team
+-- Face-to-Face
+-- Working Software
+-- Constant Pace
+-- Good Design
+-- Simplicity
+-- Self-Organization
+-- Reflect and Adjust
+
+***** What are Burn-up and Burn-down charts in Agile? ******
+Burn-up Chart: It is a type of chart that is used to display or represent the amount of work that has been completed and the total amount of work for a sprint or iteration.   
+Burn-down Chart: It is a type of chart that is used to display or represent the amount of work that is remaining to be completed in the project. These charts are very simple and easy to understand.  
+
+***** Roles ******
+Scrum Master: Scrum Master is basically a team leader or supervisor of a team who is responsible for ensuring that the scrum team executes committed tasks properly. 
+Product Owner: The product owner is basically a stakeholder of the project who is responsible for managing the product backlog. He is also responsible for defining a vision of what to build for the team. 
+Development Team: It involves an individual person and each person is responsible for working collectively to complete a particular project. It is the team that is responsible for developing actual product increments and meeting sprint goals.
+
+****** Artifact of Scrum *****
+
+Product Backlog: It is a list of all requirements from clients or stakeholders that are needed in the product and should be accomplished before the end of the project. 
+Sprint Backlog: It is a list of all finalized user stories, bug fixes, work items, etc., that are completed and selected by scrum to be completed during the current sprint. 
+Product Increment: It is the version of the end product derived from the completion of each Sprint. 
+
+**********
+
+Epic: It is basically a large story that cannot be completed in a single sprint. Therefore, epics are sub-divided into multiple, smaller user stories before they can be worked on. 
+User story: These are the smallest units that can be fitted and completed in one sprint. User stories are further broken down into different tasks. 
+Tasks: These are detailed pieces of work that are necessary to turn user stories into workable components. 
+
+*******
+
+Story point is basically a unit to estimate total efforts that are required to complete or to do a particular task or user story. It gives more accurate measures, reduces planning time, predicts releases date more accurately
