@@ -13,6 +13,36 @@ WAITING — a thread enters this state if it waits for another thread to perform
 TIMED_WAITING — same as the above, but a thread enters this state after calling timed versions of Thread.sleep(), Object.wait(), Thread.join() and some other methods
 TERMINATED — a thread has completed the execution of its Runnable.run() method and terminated
 
+****** What is multithreading? ******
+
+Multithreading is a process of executing multiple threads simultaneously. Multithreading is used to obtain the multitasking. It consumes less memory and gives the fast and efficient performance.
+
+****** wait() ******
+
+The wait() method is provided by the Object class in Java. This method is used for inter-thread communication in Java. The java.lang.Object.wait() is used to pause the current thread, and wait until another thread does not call the notify() or notifyAll() method. public final void wait()
+
+****** join() ******
+
+The join() method waits for a thread to die. In other words, it causes the currently running threads to stop executing until the thread it joins with completes its task. 
+
+**** sleep() ****
+The sleep() method in java is used to block a thread for a particular time, which means it pause the execution of a thread for a specific time. 
+
+***** Is it possible to start a thread twice? ******
+
+No, we cannot restart the thread, as once a thread started and executed, it goes to the Dead state. Therefore, if we try to start a thread twice, it will give a runtimeException "java.lang.IllegalThreadStateException".
+
+***** Can we call the run() method instead of start()? ******
+
+Yes, calling run() method directly is valid, but it will not work as a thread instead it will work as a normal object. There will not be context-switching between the threads. When we call the start() method, it internally calls the run() method, which creates a new stack for a thread while directly calling the run() will not create a new stack.
+
+***** What is shutdown hook? *****
+
+The shutdown hook is a thread that is invoked implicitly before JVM shuts down. So we can use it to perform clean up the resource or save the state when JVM shuts down normally or abruptly. We can add shutdown hook by using the following method:
+
+public void addShutdownHook(Thread hook){}    
+Runtime r=Runtime.getRuntime();  
+r.addShutdownHook(new MyThread());  
 
 4. ***** Broken Barrier ******
 
@@ -22,17 +52,6 @@ newBarrier.await(1000, TimeUnit.MILLISECONDS);
 // thread calling this await() 
 // methods waits for only 1000 milliseconds.
 When the barrier breaks due to one of more participating threads, the await() methods of all the other threads throws a BrokenThreadException. Whereas, the threads that are already waiting in the barriers have their await() call terminated.
-
-5. ***** Executor Framework ******
-
-The Executor Framework contains a bunch of components that are used to efficiently manage multiple threads. It was released with the JDK 5 which is used to run the Runnable objects without creating new threads every time and also mostly re-using the already created threads.
-
-There are mainly 4 types of Executors available.
-
-SingleThreadExecutor
-FixedThreadPool
-CachedThreadPool
-ScheduledExecutor
 
 ********* What happens when an Exception occurs in a thread? ***********
 If not caught thread will die, if an uncaught exception handler is registered then it will get a call back.
