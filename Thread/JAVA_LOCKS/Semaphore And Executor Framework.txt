@@ -47,19 +47,15 @@ import java.util.concurrent.*;
  
 public class Main {  
       public static void main(String[] args) {
-        //create ExecutorService instance with 10 threads
-        ExecutorService executor_Service = Executors.newFixedThreadPool(10);  
-        //assign the service to Runnable instance
+        ExecutorService executor_Service = Executors.newFixedThreadPool(10);
         executor_Service.execute(new Runnable() {  
                
             @Override 
-            public void run() {  
-                //print the message
+            public void run() {
                 System.out.println("Simple Example of ExecutorService!!!");  
                    
             }  
-        });  
-        //shutdown executorService
+        });
         executor_Service.shutdown();  
     }  
 }
