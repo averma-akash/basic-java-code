@@ -10,6 +10,17 @@ public class ReverseString {
 		String str= sc.nextLine();
 		System.out.print("You have entered: "+str +"\n\n");   
 		System.out.println("Reversed String: "+reverse(str));
+		
+		////////////////////////////////////////////////////
+		String text = "I Love India";
+		String output[] = text.split(" ");
+        String output1 = "";
+        
+        for(int i = output.length-1; i>=0; i--) {
+            output1 += output[i]+ " ";
+        }
+         System.out.println(output1.substring(0,output1.length()-1));
+		 //India Love I
 	}
 
 	public static String reverse(String in) {
