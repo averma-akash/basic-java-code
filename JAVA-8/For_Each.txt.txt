@@ -37,6 +37,9 @@ public class ForEachExample {
         for (Map.Entry<String, Long> entry: frequencyMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+		System.out.println("------------JAVA 8 Without Null --------------");
+		Set<String> set = new HashSet<String>(gamesList);
+		set.stream().filter(Objects::nonNull).forEach(e -> System.out.println(e+" : "+Collections.frequency(gamesList, e)));
 	}  
 }
 

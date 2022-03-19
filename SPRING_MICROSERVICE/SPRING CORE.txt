@@ -73,6 +73,10 @@ Lastly, postProcessAfterInitialization() methods will be called if there are any
 
 4) Beanfactory Container support only two scopes (singleton & prototype) of the beans. But ApplicationContext Container supports all the beans scope.
 
+********* Difference between java singleton and Spring Singleton? *********
+
+The Java singleton is scoped by the Java class loader, the Spring singleton is scoped by the container context.
+
 
 ********* What is Circular Dependency in Spring? *********
 
