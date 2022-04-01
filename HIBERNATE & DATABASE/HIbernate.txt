@@ -226,3 +226,31 @@ public class Address {
 }
 
 https://www.journaldev.com/2980/hibernate-ehcache-hibernate-second-level-cache
+
+Lazy Loding fetch:
+
+Query query = session.createQuery("Select o from Employee join fetch o.id i where o.id=:id);
+query.setParameter("id",1);
+
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery q = cb.createQuery(Order.class);
+Root o = q.from(Order.class);
+o.fetch("items", JoinType.INNER);
+q.select(o);
+q.where(cb.equal(o.get("id"), orderId));
+ 
+Order order = (Order)this.em.createQuery(q).getSingleResult();
+
+
+@Entity
+@NamedEntityGraph(name = "graph.Order.items", 
+      attributeNodes = @NamedAttributeNode("items"))
+public class Order implements Serializable { ... }
+
+
+EntityGraph graph = this.em.getEntityGraph("graph.Order.items");
+   
+Map hints = new HashMap();
+hints.put("javax.persistence.fetchgraph", graph);
+   
+Order order = this.em.find(Order.class, orderId, hints);
