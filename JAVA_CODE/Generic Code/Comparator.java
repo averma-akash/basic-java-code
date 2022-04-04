@@ -1,113 +1,64 @@
-//A Java program to demonstrate Comparator interface
-import java.io.*;
-import java.util.*;
+public class Customer {
  
-// A class 'Movie' that implements Comparable
-class Movie implements Comparable<Movie>
-{
-    private double rating;
-    private String name;
-    private int year;
+    // member variables
+    int customerId;
+    String customerName;
  
-    // Used to sort movies by year
-    public int compareTo(Movie m)
-    {
-        return this.year - m.year;
+    // 2-arg parameterized constructor
+    public Customer(int customerId, String customerName) {
+        super();
+        this.customerId = customerId;
+        this.customerName = customerName;
     }
  
-    // Constructor
-    public Movie(String nm, double rt, int yr)
-    {
-        this.name = nm;
-        this.rating = rt;
-        this.year = yr;
-    }
- 
-    // Getter methods for accessing private data
-    public double getRating() { return rating; }
-    public String getName()   {  return name; }
-    public int getYear()      {  return year;  }
-}
- 
-// Class to compare Movies by ratings
-class RatingCompare implements Comparator<Movie>
-{
-    public int compare(Movie m1, Movie m2)
-    {
-        if (m1.getRating() < m2.getRating()) return -1;
-        if (m1.getRating() > m2.getRating()) return 1;
-        else return 0;
+    // override toString() method
+    @Override
+    public String toString() {
+        return "Customer ["
+                + "customerId=" + customerId 
+                + ", customerName=" + customerName
+                + "]";
     }
 }
+
+import java.util.Comparator;
  
-// Class to compare Movies by name
-class NameCompare implements Comparator<Movie>
-{
-    public int compare(Movie m1, Movie m2)
-    {
-        return m1.getName().compareTo(m2.getName());
+public class CustomerIdComparator implements Comparator<Customer> {
+ 
+    @Override
+    public int compare(Customer o1, Customer o2) {
+        return o2.customerId - o1.customerId;
     }
 }
+
+
+import java.util.TreeSet;
  
-// Driver class
-class Main
-{
-    public static void main(String[] args)
-    {
-        ArrayList<Movie> list = new ArrayList<Movie>();
-        list.add(new Movie("Force Awakens", 8.3, 2015));
-        list.add(new Movie("Star Wars", 8.7, 1977));
-        list.add(new Movie("Empire Strikes Back", 8.8, 1980));
-        list.add(new Movie("Return of the Jedi", 8.4, 1983));
+public class CustomerReverseOrder {
  
-        // Sort by rating : (1) Create an object of ratingCompare
-        //                  (2) Call Collections.sort
-        //                  (3) Print Sorted list
-        System.out.println("Sorted by rating");
-        RatingCompare ratingCompare = new RatingCompare();
-        Collections.sort(list, ratingCompare);
-        for (Movie movie: list)
-            System.out.println(movie.getRating() + " " +
-                               movie.getName() + " " +
-                               movie.getYear());
+    // main() method
+    public static void main(String[] args) {
  
+        // creating TreeSet object of type String
+        TreeSet<Customer> ts = 
+                new TreeSet<Customer>(new CustomerIdComparator());
  
-        // Call overloaded sort method with RatingCompare
-        // (Same three steps as above)
-        System.out.println("\nSorted by name");
-        NameCompare nameCompare = new NameCompare();
-        Collections.sort(list, nameCompare);
-        for (Movie movie: list)
-            System.out.println(movie.getName() + " " +
-                               movie.getRating() + " " +
-                               movie.getYear());
+        // adding elements to TreeSet object
+        ts.add(new Customer(101, "Sundar Pichai"));
+        ts.add(new Customer(107, "Satya Nadella"));
+        ts.add(new Customer(103, "Shiv Nadar"));
+        ts.add(new Customer(102, "Shantanu Narayen"));
+        ts.add(new Customer(104, "Francisco D’Souza"));
+        ts.add(new Customer(106, "Vishal Sikka"));
+        ts.add(new Customer(105, "Chanda Kochhar"));
  
-        // Uses Comparable to sort by year
-        System.out.println("\nSorted by year");
-        Collections.sort(list);
-        for (Movie movie: list)
-            System.out.println(movie.getYear() + " " +
-                               movie.getRating() + " " +
-                               movie.getName()+" ");
+        System.out.println("Customized sorting"
+                + " on basis of CustomerId\n");
+ 
+        // natural ordering of customer name
+        for(Customer cust : ts){
+            System.out.println(cust.customerId + "  "
+                    + cust.customerName);
+        }
     }
-} 
-
-Output : 
-
-Sorted by rating
-8.3 Force Awakens 2015
-8.4 Return of the Jedi 1983
-8.7 Star Wars 1977
-8.8 Empire Strikes Back 1980
-
-Sorted by name
-Empire Strikes Back 8.8 1980
-Force Awakens 8.3 2015
-Return of the Jedi 8.4 1983
-Star Wars 8.7 1977
-
-Sorted by year
-1977 8.7 Star Wars 
-1980 8.8 Empire Strikes Back 
-1983 8.4 Return of the Jedi 
-2015 8.3 Force Awakens
+}
