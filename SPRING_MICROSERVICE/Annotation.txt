@@ -1,3 +1,9 @@
+@Primary indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
+
+@Qualifier indicates specific bean should be autowired when there are multiple candidates.
+
+So you can find both @Qualifier and @Primary are telling Spring to use the specific bean when multiple candidates are qualified to autowire. But @Qualifier is more specific and has high priority. So when both @Qualifier and @Primary are found, @Primary will be ignored
+
 @ConfigurationProperties
 ConfigurationProperties allows to map the entire Properties and Yaml files into an object easily. 
 
