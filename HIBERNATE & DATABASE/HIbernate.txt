@@ -1,12 +1,15 @@
 ***********
 
 Hibernate is a java based persistance framework and an orm framework that basically allow a developer to map POJO to relational database table.
+****** What Is Cascading? ******
+When we perform some action on the target entity, the same action will be applied to the associated entity.
 
 ****** Session ******
 
 A session is an object that maintains the connection between java object application and database.
 Session also has method for storing, retreiving, modifying, deleting data from database.
 
+seesion.flush() just executes the statements in database (but not commits) and statements are NOT IN MEMORY anymore. It just forces the session to flush.
 ****** Are session objects thread safe? ******
 
 Session objects are not thread safe and need to be used in single thread. Every thread should have their own session object and close it once it is done with the work.

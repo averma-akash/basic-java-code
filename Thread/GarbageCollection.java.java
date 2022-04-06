@@ -7,7 +7,15 @@ When an object is created, its mark bit is set to 0(false). In the Mark phase, w
 Now to perform this operation we simply need to do a graph traversal, a depth-first search approach would work for us. Here we can consider every object as a node and then all the nodes (objects) that are reachable from this node (object) are visited and it goes on till we have visited all the reachable nodes.
 
 Phase 2: Sweep Phase 
-it clears the heap memory for all the unreachable objects. All those objects whose marked value is set to false are cleared from the heap memory, 
+it clears the heap memory for all the unreachable objects. All those objects whose marked value is set to false are cleared from the heap memory,
+
+Garbage collection algorithms
+	Mark and sweep
+	Concurrent mark sweep (CMS) garbage collection -- It scans heap memory using multiple threads. It was modified to take advantage of faster systems and had performance enhancements.It attempts to minimize the pauses due to garbage collection by doing most of the garbage collection work concurrently with the application threads. 
+	
+	Serial garbage collection
+	Parallel garbage collection
+	G1 garbage collection 
 */
 
 

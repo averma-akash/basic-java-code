@@ -32,3 +32,6 @@ A variable defined with transient keyword is not serialized during serialization
 
 ******* In case of static Variables:-  *******
 A variable defined with static keyword is not serialized during serialization process.This variable will be loaded with current value defined in the class during deserialization.
+
+******* What is Externalization in Java? *******
+Externalization in Java is used whenever you need to customize the serialization mechanism. If a class implements an Externalizable interface, then serialization of the object will be done using the method writeExternal(). When an Externalizable object is reconstructed at the receiver’s end, an instance will be created using no-argument constructor and this method is called readExternal().
