@@ -36,10 +36,20 @@ public class CharacterWithFrequency {
 			}
 		}
 	}
+	
+	public static void printCharacterJava8(String input) {
+		
+        IntStream intStream = input.chars();
+        Stream<Character> charsStream = intStream.mapToObj(ch -> (char) ch);
+        Map<Character, Long> output = charsStream.collect(Collectors.groupingBy(ch -> ch, Collectors.counting()));
+		System.out.println(output);
+		
+	}
 
 	// Driver code
 	public static void main(String[] args) {
 		String S = "jordanjae";
 		prCharWithFreq(S);
+		printCharacterJava8("Akash");
 	}
 }
