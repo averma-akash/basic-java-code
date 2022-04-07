@@ -4,6 +4,9 @@ Hibernate is a java based persistance framework and an orm framework that basica
 ****** What Is Cascading? ******
 When we perform some action on the target entity, the same action will be applied to the associated entity.
 
+****** What is dirty checking in Hibernate? ******
+Hibernate automatically detects object state changes in order to synchronize the updated state with the database, this is called dirty checking. An important note here is, Hibernate will compare objects by value, except for Collections, which are compared by identity. For this reason you should return exactly the same collection instance as Hibernate passed to the setter method to prevent unnecessary database updates.
+
 ****** Session ******
 
 A session is an object that maintains the connection between java object application and database.
