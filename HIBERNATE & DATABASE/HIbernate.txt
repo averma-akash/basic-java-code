@@ -164,6 +164,10 @@ Hibernate wraps JDBC exceptions and throw JDBCException or HibernateException un
 
 Hibernate supports caching that is better for performance, JDBC queries are not cached hence performance is low.
 
+******** N+1 query problem ********
+
+The N+1 query problem is said to occur when an ORM, like hibernate, executes 1 query to retrieve the parent entity and N queries to retrieve the child entities.
+
 ******** How to configure Hibernate Second Level Cache using EHCache? ***********
 
 EHCache is the best choice for utilizing hibernate second level cache. Following steps are required to enable EHCache in hibernate application.
