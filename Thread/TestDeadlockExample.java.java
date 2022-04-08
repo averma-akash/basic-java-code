@@ -1,46 +1,51 @@
 package practicebook.java;
 
-public class TestDeadlockExample {
-	public static void main(String[] args) {
-		final String resource1 = "RESOURCE 1";
-		final String resource2 = "RESOURCE 2";
-		// t1 tries to lock resource1 then resource2
-		Thread t1 = new Thread() {
-			public void run() {
-				synchronized (resource1) {
-					System.out.println("Thread 1: locked resource 1");
+public class DeadLockDemo {
+	/* * This method request two locks, first String and then Integer */
 
-					try {
-						Thread.sleep(100);
-					} catch (Exception e) {
-					}
+	public void method1() { 
+		synchronized (String.class) { 
+			System.out.println("Aquired lock on String.class object"); 
+			synchronized (Integer.class) {
+				System.out.println("Aquired lock on Integer.class object");
+			} 
+		}
+	}
+	
+	/* * This method also requests same two lock but in exactly * Opposite order i.e. first Integer and then String. * This creates potential deadlock, if one thread holds String lock * and other holds Integer lock and they wait for each other, forever. */
 
-					synchronized (resource2) {
-						System.out.println("Thread 1: locked resource 2");
-					}
-				}
+	public void method2() {
+		synchronized (Integer.class) {
+			System.out.println("Aquired lock on Integer.class object");
+			synchronized (String.class) {
+				System.out.println("Aquired lock on String.class object");
 			}
-		};
+		}
+	}
+}
+/*
+If method1() and method2() both will be called by two or many threads, there is a good chance of deadlock because if thread 1 acquires lock on Sting object while executing method1() and thread 2 acquires lock on Integer object while running method2() both will be waiting for each other to release the lock on Integer and String to proceed further which will never happen.*/
 
-		// t2 tries to lock resource2 then resource1
-		Thread t2 = new Thread() {
-			public void run() {
-				synchronized (resource2) {
-					System.out.println("Thread 2: locked resource 2");
 
-					try {
-						Thread.sleep(100);
-					} catch (Exception e) {
-					}
 
-					synchronized (resource1) {
-						System.out.println("Thread 2: locked resource 1");
-					}
-				}
-			}
-		};
-
-		t1.start();
-		t2.start();
+public class DeadLockFixed {
+	// Both method are now requesting lock in same order, * first Integer and then String. * You could have also done reverse e.g. first //String and then Integer, * both will solve the problem, as long as both method are requesting lock * in consistent order.
+	
+	
+	public void method1() {
+		synchronized (Integer.class) {
+			System.out.println("Aquired lock on Integer.class object");
+			synchronized (String.class) {
+				System.out.println("Aquired lock on String.class object");
+				} 
+			} 
+		}
+	public void method2() {
+		synchronized (Integer.class) {
+			System.out.println("Aquired lock on Integer.class object");
+			synchronized (String.class) {
+				System.out.println("Aquired lock on String.class object");
+			} 
+		} 
 	}
 }

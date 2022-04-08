@@ -1,0 +1,52 @@
+**** What are the two ways of implementing thread in Java? *****
+Extending the Thread class
+
+class MultithreadingDemo extends Thread 
+{   
+  public void run() 
+ {   
+     System.out.println("My thread is in running state.");    
+ } 
+  public static void main(String args[]) 
+ {   
+    MultithreadingDemoobj=new MultithreadingDemo();  
+        obj.start();  
+  }  
+}
+
+Implementing Runnable interface in Java
+
+class MultithreadingDemo implements Runnable 
+{  
+   public void run() 
+ {  
+      System.out.println("My thread is in running state.");  
+  }  
+    public static void main(String args[]) 
+ {  
+      MultithreadingDemo obj=new MultithreadingDemo();   
+      Threadtobj =new Thread(obj);       tobj.start();  
+ }   
+}
+
+**** difference between class lock and object lock? ********
+
+Class Lock: In java, each and every class has a unique lock usually referred to as a class level lock. These locks are achieved using the keyword ‘static synchronized’ and can be used to make static data thread-safe. It is generally used when one wants to prevent multiple threads from entering a synchronized block. 
+
+Object Lock: In java, each and every object has a unique lock usually referred to as an object-level lock. These locks are achieved using the keyword ‘synchronized’ and can be used to protect non-static data. It is generally used when one wants to synchronize a non-static method or block so that only the thread will be able to execute the code block on a given instance of the class.
+
+******** What is Thread Scheduler and Time Slicing? ********
+
+Thread Scheduler: It is a component of JVM that is used to decide which thread will execute next if multiple threads are waiting to get the chance of execution. By looking at the priority assigned to each thread that is READY, the thread scheduler selects the next run to execute. To schedule the threads, it mainly uses two mechanisms: Preemptive Scheduling and Time slicing scheduling.  
+
+Time Slicing: It is especially used to divide CPU time and allocate them to active threads. In this, each thread will get a predefined slice of time to execute. When the time expires, a particular thread has to wait till other threads get their chances to use their time in a round-robin fashion. Every running thread will get executed for a fixed time period.
+
+
+******** difference between the start and run method in Java Thread? ********
+
+the reason is that because start method creates a new thread and calls the code written inside the run method on a new thread while calling the run method executes that code on the same thread
+
+******** What is Busy Spinning? ********
+The busy waiting is a wait strategy, where one thread waits for a condition to become true, but instead of calling the wait or sleep method and releasing the CPU, it just spins. This is particularly useful if the condition is going to be true quite quickly i.e. in a millisecond or microsecond.
+
+The advantage of not releasing CPU is that all cached data and instruction remain unaffected, which may be lost, had this thread is suspended on one core and brought back to another thread.

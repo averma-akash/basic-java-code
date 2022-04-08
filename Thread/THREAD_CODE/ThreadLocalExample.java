@@ -1,40 +1,35 @@
 package interview;
 /*
-The Java ThreadLocal class enables you to create variables that can only be read and written by the same thread. if two threads are executing the same code, and the code has a reference to the same ThreadLocal variable, the two threads cannot see each other's ThreadLocal variables. It is another way to achieve thread-safety.
+ThreadLocal variables are special kinds of variables created and provided by the Java ThreadLocal class. These variables are only allowed to be read and written by the same thread. Two threads cannot be able to see each other’s ThreadLocal variable, so even if they will execute the same code, then there won't be any race condition and the code will be thread-safe.  
+
+10 
+33 
+10 33
 */
-public class ThreadLocalExample {
-	public static void main(String[] args) throws InterruptedException {
-		MyRunnable sharedRunnableInstance = new MyRunnable();
-
-		Thread thread1 = new Thread(sharedRunnableInstance);
-		Thread thread2 = new Thread(sharedRunnableInstance);
-
-		thread1.start();
-		thread2.start();
-
-		thread1.join(); // wait for thread 1 to terminate
-		thread2.join(); // wait for thread 2 to terminate
-	}
-}
-
-class MyRunnable implements Runnable {
-
-	//private ThreadLocal<Integer> threadLocal = new ThreadLocal<Integer>();
-	private ThreadLocal threadLocal = new ThreadLocal<String>() {
-	    @Override protected String initialValue() {
-	        return String.valueOf(System.currentTimeMillis());
-	    }
-	};
-
-	@Override
-	public void run() {
-		//threadLocal.set((int) (Math.random() * 10));
-
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-
-		System.out.println(threadLocal.get());
-	}
-}
+public class ThreadLocalExp   
+{   
+     public static class MyRunnable implements Runnable    
+   {   
+       private ThreadLocal<Integer> threadLocal =   
+              new ThreadLocal<Integer>();   
+      @Override   
+       public void run() {   
+           threadLocal.set( (int) (Math.random() * 50D) );   
+           try    
+           {   
+               Thread.sleep(1000);   
+           } catch (InterruptedException e) {   
+           }   
+           System.out.println(threadLocal.get());   
+       }   
+   }   
+   public static void main(String[] args)    
+   {   
+       MyRunnable runnableInstance = new MyRunnable();    
+       Thread t1 = new Thread(runnableInstance);   
+       Thread t2 = new Thread(runnableInstance);   
+      // this will call run() method    
+       t1.start();   
+       t2.start();   
+   }   
+} 

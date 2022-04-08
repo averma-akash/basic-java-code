@@ -1,5 +1,8 @@
 /*
 CyclicBarrier − 
+
+It is a tool to synchronize threads processing using some algorithm. It enables a set of threads to wait for each other till they reach a common execution point or common barrier points, and then let them further continue execution. One can reuse the same CyclicBarrier even if the barrier is broken by setting it. 
+
 A synchronization technique that allows a set of threads to all wait for each other to reach a common barrier point.
 It maintains a count of threads
 If one thread is interrupted while waiting then all other waiting threads will throw BrokenBarrierException

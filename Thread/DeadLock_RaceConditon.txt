@@ -31,3 +31,13 @@ Mutual Exclusion: One or more than one resource are non-shareable (Only one proc
 Hold and Wait: A process is holding at least one resource and waiting for resources. 
 No Preemption: A resource cannot be taken from a process unless the process releases the resource. 
 Circular Wait: A set of processes are waiting for each other in circular form. 
+
+***** How do you detect deadlock in Java?******
+
+I would look at the code if I see a nested synchronized block or calling one synchronized method from other, or trying to get a lock on a different object then there is a good chance of deadlock
+
+Another way is to find it when you actually get dead-locked while running the application, try to take a thread dump, this will print status of all threads in an application log file, and you can see which thread is locked on which object.
+
+You can analyze that thread dump with using tools like fastthread.io which allows you to upload your thread dump and analyze it.
+
+Another way is to use the jConsole/VisualVM, it will show you exactly which threads are getting locked and on which object.

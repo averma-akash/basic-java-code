@@ -62,7 +62,7 @@ public class Main {
 
 *********** Semaphore In Java ***********
 
-A semaphore can be defined as a variable that is used to manage concurrent processes by synchronizing these processes. Semaphores are also used to synchronize access to the shared resource and thereby avoid a race condition. The permission given to a thread for accessing the shared resource by semaphore is also called a permit.
+Semaphore is regarded as a thread synchronization construct that is usually required to control and manage the access to the shared resource using counters. It simply sets the limit of the thread. The semaphore class is defined within the package java.util.concurrent and can be used to send signals between threads to avoid missed signals or to guard critical sections. It can also be used to implement resource pools or bounded collection
 
 Depending on what functions they perform, semaphores can be divided into two types:
 
