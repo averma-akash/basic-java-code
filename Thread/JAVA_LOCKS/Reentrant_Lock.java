@@ -9,7 +9,11 @@ The thread can re-enter and access the resource before unlocking. Every time the
 
 When the hold count reaches 0, the shared resource is unlocked.
 
-The ReentrantLock class also provides a fairness parameter which is a boolean value that can be passed with the constructor of the lock. When the fairness parameter is set to true, then whenever one thread releases the lock, the lock is passed to the longest waiting thread. This prevents starvation. */
+The ReentrantLock class also provides a fairness parameter which is a boolean value that can be passed with the constructor of the lock. When the fairness parameter is set to true, then whenever one thread releases the lock, the lock is passed to the longest waiting thread. This prevents starvation.
+
+ReentrantLock=>Is locked after sleep(1500) : true
+Work done for task : ThreadJob
+ */
 
 package ReentrntLockExample;
 
