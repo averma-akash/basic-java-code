@@ -29,3 +29,9 @@ public class Test {
     System.out.println("The square of the number is: " + answer);
   }
 }
+****** Why do we need Functional interface in Java? ******
+Functional Interfaces are mainly used in Lambda expressions, Method reference and constructor references.
+
+In functional programming, code can be treated as data. For this purpose Lambda expressions are introduced. They can be used to pass a block of code to another method or object.
+
+Functional Interface serves as a data type for Lambda expressions. Since a Functional interface contains only one abstract method, the implementation of that method becomes the code that gets passed as an argument to another method.
