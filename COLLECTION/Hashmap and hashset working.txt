@@ -8,7 +8,7 @@ Hashmap uses linked list in case of collision and object will be stored in the n
 
 --> If 2 diffrent object have the same hashcode then bucket location would be same and collision occur in hashmap.
 
-if two keys have same hashcode then we wil call get method and then hashmap use key object hashcode to find out bucket location, after finding bucket location we will call key.equals method to identify a crrect node in linked list and return associated value object for that key in java hash map.
+if two keys have same hashcode then we wil call get method and then hashmap use key object hashcode to find out bucket location, after finding bucket location we will call key.equals method to identify a correct node in linked list and return associated value object for that key in java hash map.
 
 
 Java 8 has started using a balanced tree instead of linked list for storing collided entries. This also means that in the worst case we will get a performance boost from O(n) to O(log n).
@@ -19,7 +19,7 @@ The threshold of switching to the balanced tree is defined as TREEIFY_THRESHOLD 
 
 ***********   Hash Set Working:  *********************
 
-Hashset class internally use hashmap to store its element , from add method of hashset put method of hashmap is called where the value whu=ich ahs to be added in the set becomes key and a constant object "present" is used as value.
+Hashset class internally use hashmap to store its element , from add method of hashset, put method of hashmap is called where the value which has to be added in the set becomes key and a constant object "present" is used as value.
 
 it just the actual value becomes key and a dummy value present is added as value when storing it in the backing hashmap.
 
@@ -38,4 +38,7 @@ Hashtable provides concurrent access to the Map.Entries objects by locking the e
 
 Why use Concurrent Hashmap-
 
-We use ConcurrentHashMap when a high level of concurrency is required. But already SynchronizedMap is present so what advantages does ConcurrentHashMap have over synchronized map.Both are thread safe. The major advantage is in case of synchronizedMap every write operation acquires lock on entire SynchronizedMap while in case of ConcurrentHashMap the lock is only on one of the segments.
+We use ConcurrentHashMap when a high level of concurrency is required.
+But already SynchronizedMap is present so what advantages does ConcurrentHashMap have over synchronized map.Both are thread safe. 
+
+The major advantage is in case of synchronizedMap every write operation acquires lock on entire SynchronizedMap while in case of ConcurrentHashMap the lock is only on one of the segments.

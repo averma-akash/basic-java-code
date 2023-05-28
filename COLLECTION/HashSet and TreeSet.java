@@ -1,8 +1,20 @@
-What is the difference between HashSet and TreeSet?
+/**** HashSet vs TreeSet *****
 
-HashSet gives better performance (faster) than TreeSet for the operations like add, remove, contains, size etc. HashSet offers constant time cost while TreeSet offers log(n) time cost for such operations.
+*** HashSet***
 
-HashSet does not maintain any order of elements while TreeSet elements are sorted in ascending order by default.
+--> For operations like search, insert, and remove HashSet takes constant time on average. 
+--> The elements of a HashSet are not ordered. 
+--> Null objects are allowed in HashSet.
+--> HashSet compares two objects in a Set and detects duplicates using the equals() method.
+
+*** TreeSet ***
+
+--> For operations like search, insert, and remove TreeSet takes O(Log n) which is higher than HashSet.
+--> TreeSet class keeps objects in a Sorted order defined by the Comparable or Comparator methods. By default, TreeSet components are sorted in ascending order. It has a number of methods for dealing with ordered sets, including first(), last(), headSet(), tailSet(), and so on.
+--> TreeSet does not allow null objects and throws a NullPointerException. This is because TreeSet compares keys using the compareTo() method, which throws java.lang. NullPointerException.
+--> TreeSet compares two objects in a Set and detects duplicates using the compareTo() method.
+
+*/
 
 import java.util.HashSet;
 class HashSetExample { 
@@ -36,6 +48,8 @@ Singh
 Ram
 Kevin
 Abhijeet
+
+
 import java.util.TreeSet;
 class TreeSetExample { 
 

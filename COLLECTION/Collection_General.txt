@@ -1,37 +1,8 @@
-********* What is difference between HashSet and LinkedHashSet? ***********
+*** HashSet and LinkedHashSet ****
 
 A HashSet is unordered and unsorted Set. LinkedHashSet is the ordered version of HashSet. The only difference between HashSet and LinkedHashSet is that LinkedHashSet maintains the insertion order. When we iterate through a HashSet, the order is unpredictable while it is predictable in case of LinkedHashSet. The reason why LinkedHashSet maintains insertion order is because the underlying data structure is a doubly-linked list.
 
-
-*********What is difference between arrayList and linkedList  *********
-
-- ArrayList internally uses a dynamic array to store the elements.
-- Manipulation with ArrayList is slow because it internally uses an array. If any element is removed from the array, all the bits are shifted in memory.
-- An ArrayList class can act as a list only because it implements List only.
-- ArrayList is better for storing and accessing data.
-
-- LinkedList internally uses a doubly linked list to store the elements.
-- Manipulation with LinkedList is faster than ArrayList because it uses a doubly linked list, so no bit shifting is required in memory.
-- 	LinkedList class can act as a list and queue
-- LinkedList is better for manipulating data.
-
-
-*********  What is the difference between Set and Map? *********
-Sets:-
-
-Set does not allow duplicates. Set and all of the classes which implements Set interface should have unique elements.
-Set allows single null value at most.
-Set does not maintain any order; still few of its classes sort the elements in an order such as LinkedHashSet maintains the elements in insertion order.
-Classes used in sets are Set: HashSet, Linked HashSet, TreeSet, SortedSet etc.
-Maps:-
-
-Map stored the elements as key & value pair. Map doesn’t allow duplicate keys while it allows duplicate values.
-Map can have single null key at most and any number of null values.
-Set Map also doesn’t stores the elements in an order, however few of its classes does the same.
-Classes in Maps HashMap, TreeMap, WeakHashMap, LinkedHashMap, IdentityHashMap etc.
-
-
-*********  What is the difference between HashSet and HashMap?  *********
+** HashSet and HashMap  ****
 HashSet:-
 
 HashSet class implements the Set interface
@@ -39,6 +10,7 @@ In HashSet, we store objects(elements or values) e.g. If we have a HashSet of st
 HashSet does not allow duplicate elements that mean you can not store duplicate values in HashSet.
 HashSet permits to have a single null value.
 HashSet is not synchronized which means they are not suitable for thread-safe operations until unless synchronized explicitly.
+
 HashMap:-
 
 HashMap class implements the Map interface
@@ -48,12 +20,17 @@ HashMap permits single null key and any number of null values.
 HashMap is not synchronized which means they are not suitable for thread-safe operations until unless synchronized explicitly.
 
 
-********* What is the benefit of Generics in Collections Framework? *********
+*** What is the benefit of Generics in Collections Framework? ***
 
 Generics allow us to provide the type of Object that a collection can contain, so if we try to add any element of other type it throws compile time error. This avoids ClassCastException at Runtime because we will get the error at compilation. Also Generics make code clean since we don’t need to use casting and instanceof operator.
 
+***** How can you make an ArrayList read-only in Java? *****
 
-********* How do WeakHashMap works? *********
+With the help of Collections.unmodifiableList() method, we can easily make an ArrayList read-only.  This function takes a changeable ArrayList as an input and returns the ArrayList's read-only, unmodified view. java.lang.UnsupportedOperationException
+
+
+***** How do WeakHashMap works? ***
+
 WeakHashMap is a Hash table-based implementation of the Map interface with weak keys. An entry in a WeakHashMap will automatically be removed when its key is no longer in ordinary use. Both null values and the null key are supported. This class has performance characteristics similar to those of the HashMap class and has the same efficiency parameters of initial capacity and load factor.
 
 // Java program to illustrate  

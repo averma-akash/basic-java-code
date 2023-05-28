@@ -1,4 +1,4 @@
-How to Avoid ConcurrentModificationException?
+/*How to Avoid ConcurrentModificationException?
 
 ConcurrentModificationException is the child class of RuntimeException. This exception rises when an object is tried to be modified concurrently when it is not permissible i.e when one thread is iterating over some collection class object and if some other thread tried to modify or try to make some changes on that collection object then we will get ConcurrentModificationException.
 
@@ -8,34 +8,25 @@ n multi-threaded program we can avoid ConcurrentModificaionException by using  C
 
 / Java Program to illustrate
 // ConcurrentModificationException
- 
-// Importing the required packages
+
+*/
 import java.io.*;
 import java.util.*;
 import java.util.Iterator;
  
-// Main Class
 class GFG {
  
-    // Main driver method
     public static void main(String[] args)
     {
  
-        // Creating an collection class object
-        // Declaring object of integer type
         ArrayList<Integer> list = new ArrayList<>();
  
-        // Adding element to ArrayList
-        // using add() method
- 
-        // Custom integer input entries
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
  
-        // Display the value of ArrayList
         System.out.println("List Value Before Iteration:"
                            + list);
  

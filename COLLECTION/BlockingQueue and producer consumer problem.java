@@ -1,6 +1,7 @@
+/*
 What is BlockingQueue? How to implement producer-consumer problem by using BlockingQueue?
 
-BlockingQueue: When a thread try to dequeue from an empty queue is blocked until some other thread inserts an item into the queue. Also, when a thread try to enqueue an item in a full queue is blocked until some other thread makes space in the queue, either by dequeuing one or more items or clearing the queue completely.
+BlockingQueue is an interface that has been included along with a number of other concurrent Utility classes such as ConcurrentHashMap, Counting Semaphore, CopyOnWriteArrayList, and so on. When a thread try to dequeue from an empty queue is blocked until some other thread inserts an item into the queue. Also, when a thread try to enqueue an item in a full queue is blocked until some other thread makes space in the queue, either by dequeuing one or more items or clearing the queue completely.
 
 Producter-Consumer Problem
 
@@ -11,6 +12,8 @@ The problem can be approached using various techniques
 Using wait() and notifyAll()
 Using BlockingQueue
 Using sempahores
+*/
+
 public class ProducerConsumerBlockingQueue {
 
   static int MAX_SIZE = 5;
@@ -50,6 +53,7 @@ public class ProducerConsumerBlockingQueue {
     }
   }
 }
+/*
 Output
 
 Producer 2
@@ -60,3 +64,4 @@ Producer 0
 Producer 4
 Consumed 0
 Here, The Producer start producing objects and pushing it to the Queue. Once the queue is full, the producer will wait until consumer consumes it and it will start producing again. Similar behavior is displayed by consumer. where the consumer waits until there is a single element in queue. It will resume consumer once the queue has element.
+*/

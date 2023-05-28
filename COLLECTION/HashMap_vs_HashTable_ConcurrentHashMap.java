@@ -1,4 +1,4 @@
-************* What is the difference between HashTable and HashMap and concurrentHashMap? *****************
+/************* What is the difference between HashTable and HashMap and concurrentHashMap? *****************
 
 ******* HashMap *******
 
@@ -29,10 +29,9 @@ concurrentHashMap is Thread-safe
 It is fail-safe and performs iteration by multiple threads
 It does not allow to store null key/values.
 
-/**
-* A sample Java program to demonstrate HashMap and HashTable 
-*
-**/
+
+A sample Java program to demonstrate HashMap and HashTable 
+*/
 import java.util.*; 
 import java.lang.*; 
 import java.io.*; 
@@ -63,7 +62,7 @@ class Example
 } 
 
 
-Output:
+/*Output:
 
 Hash Table Values
 102 Three
@@ -73,3 +72,4 @@ Hash Map Values
 100 Four
 101 Five
 104 Four
+*/
