@@ -106,3 +106,6 @@ public class DetectLoopLinkedList {
 	}
 
 }
+
+//Loop found from 20 looped to 10
+//Loop Data  : 10

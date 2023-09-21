@@ -22,3 +22,4 @@ public class MinimumElementSortedAndRotatedArrayMain {
 		return arr[low];
 	}
 }
+//Minimum element in the array : 3

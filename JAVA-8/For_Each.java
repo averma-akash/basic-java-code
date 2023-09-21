@@ -5,10 +5,8 @@ Example 1:
 import java.util.ArrayList;  
 import java.util.List;  
 public class ForEachExample {  
-    public static void main(String[] args) {  
-        
-		
-		List<String> gamesList = new ArrayList<String>();  
+    public static void main(String[] args) {
+         List<String> gamesList = new ArrayList<String>();  
         gamesList.add("Football");  
         gamesList.add("Cricket");  
         gamesList.add("Chess");  
@@ -25,22 +23,11 @@ public class ForEachExample {
         for(String s : distinctFrequency) {
         	System.out.println(s + " : " + Collections.frequency(gamesList, s));
         }
-        System.out.println("------------Each Element Frequency withot null --------------");
-        List<String> listWithoutNulls = gamesList.stream()
-        	      .filter(Objects::nonNull)
-        	      .collect(Collectors.toList());
+        System.out.println("------------Each Element Frequency withot null JAVA 8 --------------");
         
-        Map<String, Long> frequencyMap = listWithoutNulls.stream()
-                .collect(Collectors.groupingBy(Function.identity(),
-                        Collectors.counting()));
- 
-        for (Map.Entry<String, Long> entry: frequencyMap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-		System.out.println("------------JAVA 8 Without Null --------------");
 		Set<String> set = new HashSet<String>(gamesList);
 		set.stream().filter(Objects::nonNull).forEach(e -> System.out.println(e+" : "+Collections.frequency(gamesList, e)));
-	}  
+    }  
 }
 
 Example 2: 
@@ -51,15 +38,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
  
 public class MaximumUsingStreamMain {
-    public static void main(String args[])
-    {
-        List<Employee> employeeList = createEmployeeList();
+	public static void main(String[] args) {
+         List<Employee> employeeList = createEmployeeList();
         Map<String, List<Employee>> map = employeeList.stream()
                                               .collect(Collectors.groupingBy(Employee::getName));
-        map.forEach((name,employeeListTemp)->System.out.println("Name: "+name+" ==>"+employeeListTemp));
+        map.forEach((name,employeeListTemp)->System.out.println("Name: "+name+" ==>"+employeeListTemp+"\n"));
     }
- 
-    public static List<Employee> createEmployeeList()
+    
+     public static List<Employee> createEmployeeList()
     {
         List<Employee> employeeList=new ArrayList<>();
  
@@ -78,3 +64,37 @@ public class MaximumUsingStreamMain {
         return employeeList;
     }
 }
+
+class Employee {
+    private String name;
+    private Integer age;
+    
+    public String getName() {  
+    return name;  
+    }  
+    public void setName(String name) {  
+    this.name = name;  
+    } 
+    public Integer getAge() {  
+        return age;  
+    }  
+    public void setAge(Integer age) {  
+        this.age = age;  
+    }  
+    Employee(String name, Integer age){
+        this.name = name;
+        this.age = age;
+    }
+    
+   
+    public String toString(){
+        return this.name+" "+this.age;  
+ }  
+}
+
+/*
+Name: John ==>[John 21, John 26]
+Name: Martin ==>[Martin 19]
+
+Name: Mary ==>[Mary 31, Mary 18]
+*/

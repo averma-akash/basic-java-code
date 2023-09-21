@@ -1,25 +1,3 @@
-1. Callable Vs Runnable ?
-
-Runnable interface
-It is a part of java.lang package since Java 1.0
-It cannot return the return of computation.
-It cannot throw a checked Exception.
-In a runnable interface, one needs to override the run() method in Java.		
-
-Callable Interface
-It is a part of the java.util.concurrent package since Java 1.5.
-It can return the result of the parallel processing of a task.
-It can throw a checked Exception.
-In order to use Callable, you need to override the call()
-
-https://www.geeksforgeeks.org/callable-future-java/
-********************
-For implementing Runnable, the run() method needs to be implemented which does not return anything, while for a Callable, the call() method needs to be implemented which returns a result on completion.
-
-A thread can’t be created with a Callable, it can only be created with a Runnable.
-Another difference is that the call() method can throw an exception whereas run() cannot.
-
-***--> Future is an object that holds the result – it may not hold it right now, but it will do so in the future (once the Callable returns).
 ************* Why Java Strings are immutable in nature? *************
 
 string objects are immutable in nature which simply means once the String object is created its state cannot be modified. Whenever we try to update the value of that object instead of updating the values of that particular object, Java creates a new string object. Java String objects are immutable as String objects are generally cached in the String pool.
@@ -38,13 +16,13 @@ When we create a string literal, the JVM first check that literal in the String 
 		
 ************* 1. How would you differentiate between a String, StringBuffer, and a StringBuilder? *************
 
-     -  Storage area: In string, the String pool serves as the storage area. For StringBuilder and StringBuffer, heap memory is the storage area.
+--> Storage area: In string, the String pool serves as the storage area. For StringBuilder and StringBuffer, heap memory is the storage area.
 
-    -  Mutability: A String is immutable, whereas both the StringBuilder and StringBuffer are mutable.
+--> Mutability: A String is immutable, whereas both the StringBuilder and StringBuffer are mutable.
 
-  -  Efficiency: It is quite slow to work with a String. However, StringBuilder is the fastest in performing operations. The speed of a StringBuffer is more   than a String and less than a StringBuilder. (For example appending a character is fastest in StringBuilder and very slow in String because a new memory is required for the new String with appended character.)
+--> Efficiency: It is quite slow to work with a String. However, StringBuilder is the fastest in performing operations. The speed of a StringBuffer is more   than a String and less than a StringBuilder. (For example appending a character is fastest in StringBuilder and very slow in String because a new memory is required for the new String with appended character.)
 
- -  Thread-safe: In the case of a threaded environment, StringBuilder and StringBuffer are used whereas a String is not used. However, StringBuilder is suitable for an environment with a single thread, and a StringBuffer is suitable for multiple threads.
+--> Thread-safe: In the case of a threaded environment, StringBuilder and StringBuffer are used whereas a String is not used. However, StringBuilder is suitable for an environment with a single thread, and a StringBuffer is suitable for multiple threads.
 - Syntax:
 
 // String
@@ -62,7 +40,7 @@ StringBuffer third = new StringBuffer("InterviewBit");
 StringBuilder fourth = new StringBuilder("InterviewBit");
 
 
-************* Using relevant properties highlight the differences between interfaces and abstract classes. *************
+*** interfaces and abstract classes ***
 
 Availability of methods: Only abstract methods are available in interfaces, whereas non-abstract methods can be present along with abstract methods in abstract classes.
 
@@ -79,7 +57,7 @@ Trasient keyword is used to avoid serialization of a variable.
 
 private transient String xyz; 
 
-  ************* What do you understand by Object Cloning and how do you achieve it in Java? *************
+***** What do you understand by Object Cloning and how do you achieve it in Java? ****
 
 It is the process of creating an exact copy of any object. In order to support this, a java class has to implement the Cloneable interface of java.lang package and override the clone() method provided by the Object class the syntax of which is:
 
@@ -90,7 +68,7 @@ return (Object)super.clone();
 In case the Cloneable interface is not implemented and just the method is overridden, it results in CloneNotSupportedException in Java.
 
 
-*************  What is JIT compiler in Java? *************
+*** What is JIT compiler in Java?***
 
 JIT stands for Just-In-Time compiler in Java. It is a program that helps in converting the Java bytecode into instructions that are sent directly to the processor. By default, the JIT compiler is enabled in Java and is activated whenever a Java method is invoked. The JIT compiler then compiles the bytecode of the invoked method into native machine code, compiling it “just in time” to execute. Once the method has been compiled, the JVM summons the compiled code of that method directly rather than interpreting it.
 

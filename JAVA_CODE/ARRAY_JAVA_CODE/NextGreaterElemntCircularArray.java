@@ -41,3 +41,11 @@ public class NextGreaterElemntCircularArray {
 	}
 
 }
+/*
+-1, 7, 8
+
+In a circular array, the indices will wrap around as if it were connected end-to-end. 
+In other words, the end of the array wraps around to the start of the array. Therefore,
+ we can search circularly to find the next greater number. 
+ If the next greater element doesn’t exist, consider it to be -1.
+*/

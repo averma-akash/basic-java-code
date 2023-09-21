@@ -53,3 +53,5 @@ public class CharacterWithFrequency {
 		printCharacterJava8("Akash");
 	}
 }
+//J= 1 o= 1 r= 1 d= 1 a= 2 n= 1 j= 1 e= 1 
+//{a=1, A=1, s=1, h=1, k=1}
