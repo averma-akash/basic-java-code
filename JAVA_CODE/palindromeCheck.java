@@ -1,88 +1,34 @@
 package interview;
 
-import java.util.*;
+import java.util.stream.IntStream;
 
-public class palindromeCheck {
-	// To check sentence is palindrome or not
-	static boolean canFormPalindrome(String str) {
+public class PalindromeCheck {
 
-		// Create a list
-		List<Character> list = new ArrayList<Character>();
-
-		// For each character in input strings,
-		// remove character if list contains
-		// else add character to list
-		for (int i = 0; i < str.length(); i++) {
-			if (list.contains(str.charAt(i)))
-				list.remove((Character) str.charAt(i));
-			else
-				list.add(str.charAt(i));
-		}
-
-		// if character length is even
-		// list is expected to be empty or
-		// if character length is odd list size
-		// is expected to be 1
-
-		// if string length is even
-		if (str.length() % 2 == 0 && list.isEmpty() || (str.length() % 2 == 1 && list.size() == 1))
-			return true;
-
-		// if string length is odd
-		else
-			return false;
+	public static void main(String[] args) {
+		System.out.println(" Is Palindrome : " + isPalindrome("9934399"));
+		System.out.println(" Is Palindrome : " + isPalindrome2ndWay("akaaka"));
+		System.out.println(" Is Palindrome : " + isPalindromeSentance("aka kaa"));
 	}
 
-	// Driver code
-	public static void main(String args[]) {
-		if (sentencePalindrome("Too hot to hoot"))
-			System.out.println("Yes");
-		else
-			System.out.println("No");
-
-		if (canFormPalindrome("geeksogeeks"))
-			System.out.println("Yes");
-		else
-			System.out.println("No");
-
+	private static boolean isPalindrome(String n) {
+		String value = String.valueOf(n);
+		int len = value.length();
+		boolean isPalindromeNumber = IntStream.range(0, len / 2)
+				.anyMatch(index -> value.charAt(index) == value.charAt(len - index - 1));
+		return isPalindromeNumber;
 	}
-
-	static boolean sentencePalindrome(String str) {
-		int l = 0;
-		int h = str.length() - 1;
-
-		// Lowercase string
-		str = str.toLowerCase();
-
-		// Compares character until they are equal
-		while (l <= h) {
-
-			char getAtl = str.charAt(l);
-			char getAth = str.charAt(h);
-
-			// If there is another symbol in left
-			// of sentence
-			if (!(getAtl >= 'a' && getAtl <= 'z'))
-				l++;
-
-			// If there is another symbol in right
-			// of sentence
-			else if (!(getAth >= 'a' && getAth <= 'z'))
-				h--;
-
-			// If characters are equal
-			else if (getAtl == getAth) {
-				l++;
-				h--;
-			}
-
-			// If characters are not equal then
-			// sentence is not palindrome
-			else
-				return false;
-		}
-
-		// Returns true if sentence is palindrome
-		return true;
-	}
+	public static boolean isPalindrome2ndWay(String originalString) {
+        String reversedString = new StringBuilder(originalString).reverse().toString();
+        return originalString.equals(reversedString);
+    }
+	
+	//Palindrome sentance
+	public static boolean isPalindromeSentance(String originalString) {
+		 
+        String tempString = originalString.replaceAll("\\s+", "").toLowerCase();
+ 
+        return IntStream.range(0, tempString.length() / 2)
+            .noneMatch(i -> tempString.charAt(i) != tempString.charAt(tempString.length() - i - 1));
+ 
+    }
 }

@@ -33,3 +33,5 @@ public class TrainPlatformMain {
 		return maxPlatforms;
 	}
 }
+
+//Minimum platforms needed:3
