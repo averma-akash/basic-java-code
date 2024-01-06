@@ -10,8 +10,25 @@ public class ReverseLinkedListInPair {
 
 		Node(int value) {
 			this.value = value;
-
 		}
+	}
+
+	public static void main(String[] args) {
+		ReverseLinkedListInPair list = new ReverseLinkedListInPair();
+		// Creating a linked list
+		Node head = new Node(5);
+		list.addToTheLast(head);
+		list.addToTheLast(new Node(6));
+		list.addToTheLast(new Node(7));
+		list.addToTheLast(new Node(1));
+		list.addToTheLast(new Node(2));
+		list.addToTheLast(new Node(8));
+
+		list.printList(head);
+		// Reversing LinkedList in pairs
+		Node result = reverseLinkedListInPairs(head);
+		System.out.println("After reversing in pair");
+		list.printList(result);
 	}
 
 	public void addToTheLast(Node node) {
@@ -58,24 +75,6 @@ public class ReverseLinkedListInPair {
 
 		}
 		return newHead;
-	}
-
-	public static void main(String[] args) {
-		ReverseLinkedListInPair list = new ReverseLinkedListInPair();
-		// Creating a linked list
-		Node head = new Node(5);
-		list.addToTheLast(head);
-		list.addToTheLast(new Node(6));
-		list.addToTheLast(new Node(7));
-		list.addToTheLast(new Node(1));
-		list.addToTheLast(new Node(2));
-		list.addToTheLast(new Node(8));
-
-		list.printList(head);
-		// Reversing LinkedList in pairs
-		Node result = reverseLinkedListInPairs(head);
-		System.out.println("After reversing in pair");
-		list.printList(result);
 	}
 
 }

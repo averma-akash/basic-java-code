@@ -1,4 +1,4 @@
-package interview;
+package interview.nagarro;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +16,25 @@ class Node {
 }
 
 public class RemoveDuplicateLinkedList {
+
+	public static void main(String[] args) {
+		// input keys
+		int[] keys = { 5, 1, 1, 2, 2, 2, 4, 3, 3 };
+
+		// points to the head node of the linked list
+		Node head = null;
+
+		// construct a linked list
+		for (int i = keys.length - 1; i >= 0; i--) {
+			head = new Node(keys[i], head);
+		}
+		printList(head);
+		removeDuplicates(head);
+
+		// print linked list
+		printList(head);
+	}
+
 	// Helper function to print a given linked list
 	public static void printList(Node head) {
 		Node ptr = head;
@@ -41,7 +60,7 @@ public class RemoveDuplicateLinkedList {
 			if (set.contains(current.data)) {
 				previous.next = current.next;
 				duplicateElements.add(current.data);
-				
+
 			} else {
 				// insert the current node into the set and proceed to the next node
 				set.add(current.data);
@@ -49,27 +68,10 @@ public class RemoveDuplicateLinkedList {
 			}
 			current = previous.next;
 		}
-		System.out.println("Duplicate Elements : " +duplicateElements);
+		System.out.println("Duplicate Elements : " + duplicateElements);
 		return head;
 	}
 
-	public static void main(String[] args) {
-		// input keys
-		int[] keys = { 5,1,1, 2, 2, 2, 4, 3,3 };
-
-		// points to the head node of the linked list
-		Node head = null;
-
-		// construct a linked list
-		for (int i = keys.length - 1; i >= 0; i--) {
-			head = new Node(keys[i], head);
-		}
-		printList(head);
-		removeDuplicates(head);
-
-		// print linked list
-		printList(head);
-	}
 }
 
 /*
