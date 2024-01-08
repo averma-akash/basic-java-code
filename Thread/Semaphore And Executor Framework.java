@@ -1,4 +1,4 @@
-********** Executor Framework In Java ************
+/********** Executor Framework In Java ************
 
 The Executor Framework in Java was released with the JDK 5 release. The Executor Framework (java.util.concurrent.Executor) is a framework that consists of components that help us to efficiently handle multiple threads.
 
@@ -15,7 +15,7 @@ So using Executor, we can de-couple the tasks from the actual task and then run 
 However, the execution of the task using Executor need not be asynchronous. Executors can also invoke the task instantly using invoking thread.
 
 *********** 
-Given below is an example piece of code to create Executor instance:
+Given below is an example piece of code to create Executor instance:*/
 
 public class Invoker implements Executor {
         @Override
@@ -23,8 +23,8 @@ public class Invoker implements Executor {
             r_interface.run();
         }   
     }
-***********
-Once the invoker is created, as shown above, we can use it to execute the task as follows.
+/***********
+Once the invoker is created, as shown above, we can use it to execute the task as follows.*/
 
 public void execute () {
         Executor executor = new Invoker ();
@@ -33,7 +33,7 @@ public void execute () {
         });
     }
 
-Note that if the task is not accepted by the Executor, then it throws RejectedExecutionException.
+/*Note that if the task is not accepted by the Executor, then it throws RejectedExecutionException.
 
 *********** ExecutorService ***********
 An ExecutorService (java.util.concurrent.ExecutorService) schedules the submitted tasks as per the availability of threads and also maintains a memory queue. The ExecutorService acts as a complete solution for the Asynchronous processing of tasks.
@@ -41,7 +41,7 @@ An ExecutorService (java.util.concurrent.ExecutorService) schedules the submitte
 To use ExecutorService in code, we create a Runnable class. The ExecutorService maintains a thread pool and also assigns the tasks to the threads. Tasks can also queue up in case the thread is not available.
 
 *********************************
-Given below is a simple example of ExecutorService.
+Given below is a simple example of ExecutorService.*/
 
 import java.util.concurrent.*;
  
@@ -60,7 +60,7 @@ public class Main {
     }  
 }
 
-*********** Semaphore In Java ***********
+/*********** Semaphore In Java ***********
 
 Semaphore is regarded as a thread synchronization construct that is usually required to control and manage the access to the shared resource using counters. It simply sets the limit of the thread. The semaphore class is defined within the package java.util.concurrent and can be used to send signals between threads to avoid missed signals or to guard critical sections. It can also be used to implement resource pools or bounded collection
 
@@ -76,7 +76,7 @@ If semaphore count > 0, it means that the thread has a permit to access critical
 
 Otherwise, the thread is blocked until the permit is acquired.
 
-When the thread is done with accessing the shared resource, the permit is released and semaphore count is incremented so that another thread can repeat the above steps and acquire the permit.
+When the thread is done with accessing the shared resource, the permit is released and semaphore count is incremented so that another thread can repeat the above steps and acquire the permit.*/
 
 package Seamaphore_Executor_Framework;
 

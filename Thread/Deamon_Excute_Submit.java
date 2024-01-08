@@ -61,9 +61,9 @@ public class DaemonThread extends Thread
    } 
 } 
 
-Execute Method: *****
+/*Execute Method: *****
 
-This function executes the given command at some time in the future. The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the Executor implementation. This method is a void method meaning it doesn’t return any function. Once the task is assigned in the execute() method, we won’t get any response and we can forget about the task. The following is an implementation of the execute method. 
+This function executes the given command at some time in the future. The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the Executor implementation. This method is a void method meaning it doesn’t return any function. Once the task is assigned in the execute() method, we won’t get any response and we can forget about the task. The following is an implementation of the execute method. */
 
 
 // Java program to demonstrate
@@ -105,10 +105,10 @@ public class GFG {
         executorService.shutdown();
     }
 }
-*************************
+/*************************
 
 Submit Method: This function executes the given command at some time in the future. The command may execute in a new thread, in a pooled thread, or in the calling thread, at the discretion of the Executor implementation. Unlike the execute method, this method returns a future. In Java, the future represents the result of an asynchronous computation. The future object is used to handle the task after the execution has started. Therefore, when we need the result of the execution, then we can use the submit() method of the future object. In order to get the result, we can use the get() methods on the Future. The get() method returns an object if we call the get() method before the task has completed, it will block until the result is ready and may throw checked exception or if the task is completed, then the future object holds a result which is returned which can then be used later. The following is an implementation of the submit method:
-
+*/
 import java.util.concurrent.*;
 public class GFG {
     public static void main(String[] args)

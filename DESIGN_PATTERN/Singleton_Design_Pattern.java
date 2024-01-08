@@ -1,4 +1,4 @@
-Definition: 
+/*Definition: 
 The singleton pattern is a design pattern that restricts the instantiation of a class to one object. 
 
 Sometimes we need to have only one instance of our class for example a single DB connection shared by multiple objects as creating a separate DB connection for every object may be costly. Similarly, there can be a single configuration manager or error manager in an application that handles all problems instead of creating multiple managers.
@@ -21,7 +21,7 @@ A thread-safe singleton class is created which helps in object initialization in
 
 ********* Using Enums:  *********
 
-Enums are the simplest means of creating a thread-safe singleton class in Java because the synchronization support is inherently done by Java itself. Enums are by default final and this also helps in preventing multiple initializations at the time of serialization.
+Enums are the simplest means of creating a thread-safe singleton class in Java because the synchronization support is inherently done by Java itself. Enums are by default final and this also helps in preventing multiple initializations at the time of serialization.*/
 
    public enum ThreadSafeSingleton{
       SINGLETON_INSTANCE;
@@ -32,9 +32,9 @@ Enums are the simplest means of creating a thread-safe singleton class in Java b
    // The Singleton class methods can be invoked as below
    ThreadSafeSingleton.SINGLETON_INSTANCE.display();
    
-********* Using Static Field Initialization:  *********
+*/******** Using Static Field Initialization:  *********
 
-Thread-safe singleton can also be created by creating the instance at the time of class loading. This is achieved by making use of static fields as the Classloader guarantees that the instances are initialized during class loading and the instance is not visible until that has been fully created.
+Thread-safe singleton can also be created by creating the instance at the time of class loading. This is achieved by making use of static fields as the Classloader guarantees that the instances are initialized during class loading and the instance is not visible until that has been fully created.*/
 
 public class ThreadSafeSingleton{
       private static final ThreadSafeSingleton INSTANCE = new ThreadSafeSingleton();
@@ -48,13 +48,13 @@ public class ThreadSafeSingleton{
    }
    ThreadSafeSingleton.getInstance().display();
    
-But the disadvantage of this way is that the initialization cannot be done lazily and the getInstance() method is called even before any client can call.
+/*But the disadvantage of this way is that the initialization cannot be done lazily and the getInstance() method is called even before any client can call.
 
 ********* Using synchronized keyword: *********
 
 We can make use of the synchronized keyword upon the getInstance method as shown below.
 In this method, we can achieve lazy initialization, and also since we use synchronized keywords, the object initialization is thread-safe.
-The only problem is that since the whole method is synchronized, the performance is impacted in the presence of multiple threads.
+The only problem is that since the whole method is synchronized, the performance is impacted in the presence of multiple threads.*/
 
    public class ThreadSafeSingleton
    {
@@ -72,9 +72,9 @@ The only problem is that since the whole method is synchronized, the performance
       return this.instance;
     }
    }
-********* Double-check locking: *********
+/********* Double-check locking: *********
 
-Here, we will be using a synchronized block of code within the getInstance method instead of making the whole method synchronized. This ensures that only a handful of threads have to wait only for the first time thereby not impacting the performance.
+Here, we will be using a synchronized block of code within the getInstance method instead of making the whole method synchronized. This ensures that only a handful of threads have to wait only for the first time thereby not impacting the performance.*/
 
    public class ThreadSafeSingleton {
     // Creating private instance to make it accessible only by getInstance() method

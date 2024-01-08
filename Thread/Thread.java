@@ -1,4 +1,4 @@
-1. ******* Thread *******
+/*1. ******* Thread *******
 a thread is a part of an application that shares a common memory with other threads of the same application.
 
 ******* Daemon thread ******* 
@@ -38,20 +38,20 @@ Yes, calling run() method directly is valid, but it will not work as a thread in
 
 ***** What is shutdown hook? *****
 
-The shutdown hook is a thread that is invoked implicitly before JVM shuts down. So we can use it to perform clean up the resource or save the state when JVM shuts down normally or abruptly. We can add shutdown hook by using the following method:
+The shutdown hook is a thread that is invoked implicitly before JVM shuts down. So we can use it to perform clean up the resource or save the state when JVM shuts down normally or abruptly. We can add shutdown hook by using the following method:*/
 
 public void addShutdownHook(Thread hook){}    
 Runtime r=Runtime.getRuntime();  
 r.addShutdownHook(new MyThread());  
 
-4. ***** Broken Barrier ******
+/*4. ***** Broken Barrier ******
 
-A barrier breaks when any of the waiting thread leaves the barrier. This happens when one or more waiting thread is interrupted or when the waiting time is completed because the thread called the await() methods with a timeout as follows:
+A barrier breaks when any of the waiting thread leaves the barrier. This happens when one or more waiting thread is interrupted or when the waiting time is completed because the thread called the await() methods with a timeout as follows:*/
 
 newBarrier.await(1000, TimeUnit.MILLISECONDS);
 // thread calling this await() 
 // methods waits for only 1000 milliseconds.
-When the barrier breaks due to one of more participating threads, the await() methods of all the other threads throws a BrokenThreadException. Whereas, the threads that are already waiting in the barriers have their await() call terminated.
+/*When the barrier breaks due to one of more participating threads, the await() methods of all the other threads throws a BrokenThreadException. Whereas, the threads that are already waiting in the barriers have their await() call terminated.
 
 ********* What happens when an Exception occurs in a thread? ***********
 If not caught thread will die, if an uncaught exception handler is registered then it will get a call back.
@@ -62,7 +62,7 @@ defined as nested interface for handlers invoked when a Thread abruptly terminat
 When a thread is about to terminate due to an
 uncaught exception the Java Virtual Machine will query the thread for
 its UncaughtExceptionHandler using Thread.getUncaughtExceptionHandler() and will invoke the handler's uncaughtException() method, passing the
-thread and the exception as arguments.
+thread and the exception as arguments.*/
 Thread t = new Thread(new Runnable(){
 	public void run() {
 		throw new RuntimeException();
@@ -75,7 +75,7 @@ Thread t = new Thread(new Runnable(){
  });
  t.start(); 
 
-********** Thread Pool **********
+/********** Thread Pool **********
 
 A Thread pool in Java is a group of worker threads that can be reused many times and assigned jobs.
 
@@ -83,7 +83,7 @@ A Thread pool contains a group of fixed size threads. Each thread is pulled out 
 
 Thread pool is advantageous as we do not have to create a new thread every time the task is available, thereby the performance is enhanced. It is used in real-time applications that use Servlet and JSP where thread pools are used to process requests.
 
-In multi-threaded applications, the Thread Pool saves resources and helps to contain the parallelism within predefined limits.
+In multi-threaded applications, the Thread Pool saves resources and helps to contain the parallelism within predefined limits.*/
 
 import java.util.concurrent.ExecutorService;  
 import java.util.concurrent.Executors;  
