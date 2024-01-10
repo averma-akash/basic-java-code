@@ -1,24 +1,29 @@
-@Primary indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
+***@Primary***
+indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
 
-@Qualifier indicates specific bean should be autowired when there are multiple candidates.
+*** @Qualifier *** 
+indicates specific bean should be autowired when there are multiple candidates.
 
 So you can find both @Qualifier and @Primary are telling Spring to use the specific bean when multiple candidates are qualified to autowire. But @Qualifier is more specific and has high priority. So when both @Qualifier and @Primary are found, @Primary will be ignored
 
-@ConfigurationProperties
+*** @ConfigurationProperties ***
 ConfigurationProperties allows to map the entire Properties and Yaml files into an object easily. 
 
-@SpringBootApplication
+*** @SpringBootApplication ***
 @SpringBootApplication marks the main class of a Spring Boot application. This is used usually on a configuration class that declares one or more @Bean methods and also triggers auto-configuration and component scanning.
 The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration, and @ComponentScan with their default attributes.
 
-@EnableAutoConfiguration
+*** @EnableAutoConfiguration ***
 @EnableAutoConfiguration tells Spring Boot to look for auto-configuration beans on its classpath and automatically applies them. It tells Spring Boot to “guess” how you want to configure Spring based on the jar dependencies that you have added.
 Since spring-boot-starter-web dependency added to classpath leads to configure Tomcat and Spring MVC, the auto-configuration assumes that you are developing a web application and sets up Spring accordingly. This annotation is used with @Configuration.
 
-@RestController
+*** @RestController ***
 @RestController combines @Controller and @ResponseBody. By annotating the controller class with @RestController annotation, we no longer need to add @ResponseBody to all the request mapping methods.
 
-@ComponentScan
+*** @Controller ***
+The @Controller annotation is used to indicate the class is a Spring controller. This annotation is simply a specialization of the @Component class and allows implementation classes to be auto-detected through the class path scanning.
+
+*** @ComponentScan *** 
 @ComponentScan is used with the @Configuration annotation to allow Spring to know the packages to scan for annotated components. @ComponentScan is also used to specify base packages using basePackageClasses or basePackage attributes to scan.
 
 @Configuration
@@ -32,9 +37,6 @@ Since spring-boot-starter-web dependency added to classpath leads to configure T
 
 @Qualifier
 @Qualifier helps fine-tune annotation-based autowiring. There may be scenarios when we create more than one bean of the same type and want to wire only one of them with a property. This can be controlled using @Qualifier annotation along with the @Autowired annotation.
-
-@Controller
-The @Controller annotation is used to indicate the class is a Spring controller. This annotation is simply a specialization of the @Component class and allows implementation classes to be auto-detected through the class path scanning.
 
 @Service
 @Service marks a Java class that performs some service, such as executing business logic, performing calculations, and calling external APIs. This annotation is a specialized form of the @Component annotation intended to be used in the service layer.
