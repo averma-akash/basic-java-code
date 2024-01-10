@@ -1,10 +1,64 @@
-package interview;
+package interview.nagarro;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class Java8Example {
+public class Java8Example1 {
+
+	public static void query(Department account, Department hr, Department ops, Department tech,
+			List<Employees> employeeList) {
+		System.out.println("**\n");
+		employeeList.stream().filter(e -> e.getCity().equalsIgnoreCase("Matara"))
+				.sorted(Comparator.comparing(Employees::getName)).forEach(e -> System.out.println(e.getName()));
+		System.out.println("**");
+		employeeList.stream().map(e -> e.getDepartment().getDepartmentName()).distinct().forEach(System.out::println);
+
+		System.out.println("**\n");
+		employeeList.stream().map(Employees::getDepartment).filter(d -> d.getNoOfEmployees() > 50).distinct()
+				.forEach(d -> System.out.println(d.getDepartmentName()));
+
+		System.out.println("**\n");
+		String s = employeeList.stream().map(e -> e.getDepartment().getDepartmentName()).distinct().sorted().reduce("",
+				(a, b) -> (a + "," + b));
+		System.out.println(s);
+
+		System.out.println("\n**");
+		if (employeeList.stream().anyMatch(e -> e.getDepartment().getDepartmentName().equalsIgnoreCase("HR"))) {
+			System.out.println("Found employees frm HR department");
+		}
+		System.out.println("\n**");
+		employeeList.stream().filter(e -> e.getDepartment().getDepartmentName().equalsIgnoreCase("Account"))
+				.map(Employees::getName).forEach(System.out::println);
+
+		System.out.println("\n**");
+		employeeList.stream().map(e -> e.getDepartment().getNoOfEmployees()).reduce(Integer::max)
+				.ifPresent(System.out::print);
+
+		System.out.println("\n**");
+		employeeList.stream().map(e -> e.getDepartment().getNoOfEmployees()).distinct().reduce(Integer::sum)
+				.ifPresent(System.out::println);
+
+		System.out.println("\nname start with letter");
+		employeeList.stream().filter(e -> e.getName().startsWith("A")).forEach(e -> System.out.println(e.getName()));
+		// Filter names that do not start with 'A'
+		System.out.println("\nname not start with letter");
+		employeeList.stream().filter(name -> !name.getName().startsWith("A")).collect(Collectors.toList())
+				.forEach(e -> System.out.println(e.getName()));
+
+		// Convert list to map
+		System.out.println("\nlist to map");
+		Map<String, Object> collect = employeeList.stream()
+				.collect(Collectors.toMap(Employees::getName, Employees::getAge));
+		System.out.println(collect);
+		System.out.println("\nlist to map handling duplicate");
+		System.out.println(employeeList.stream()
+				.collect(Collectors.toMap(e -> e.getName(), e -> e.getAge(), (oldValue, newValue) -> newValue)));
+	}
+
 	public static void main(String[] args) {
 		Department account = new Department("Account", 75);
 		Department hr = new Department("HR", 50);
@@ -16,41 +70,10 @@ public class Java8Example {
 				new Employees("Jake", 65, "Galle", hr), new Employees("Brent", 55, "Matara", hr),
 				new Employees("Allice", 23, "Matara", ops), new Employees("Austin", 30, "Negombo", tech),
 				new Employees("Gerry", 29, "Matara", tech), new Employees("Scote", 20, "Negombo", ops),
-				new Employees("Branden", 32, "Matara", account), new Employees("Iflias", 31, "Galle", hr));
-				
-		System.out.println("------------ -------------");
-		employeeList.stream().filter(e -> e.getCity().equalsIgnoreCase("Matara"))
-				.sorted(Comparator.comparing(Employees::getName)).forEach(e -> System.out.println(e.getName()));
-		System.out.println("------------ -------------");
-		employeeList.stream().map(e -> e.getDepartment().getDepartmentName()).distinct().forEach(System.out::println);
+				new Employees("Branden", 32, "Matara", account), new Employees("Iflias", 31, "Galle", hr),
+				new Employees("Brayan", 99, "Galle", hr));
 
-		System.out.println("------------ -------------");
-		employeeList.stream().map(Employees::getDepartment).filter(d -> d.getNoOfEmployees() > 50).distinct()
-				.forEach(d -> System.out.println(d.getDepartmentName()));
-
-		System.out.println("------------ -------------");
-		String s = employeeList.stream().map(e -> e.getDepartment().getDepartmentName()).distinct().sorted().reduce("",
-				(a, b) -> (a + "," + b));
-		System.out.println(s);
-
-		System.out.println("------------ -------------");
-		if (employeeList.stream().anyMatch(e -> e.getDepartment().getDepartmentName().equalsIgnoreCase("HR"))) {
-			System.out.println("Found employees frm HR department");
-		}
-		System.out.println("------------ -------------");
-		employeeList.stream().filter(e -> e.getDepartment().getDepartmentName().equalsIgnoreCase("Account"))
-				.map(Employees::getName).forEach(System.out::println);
-
-		System.out.println("------------ -------------");
-		employeeList.stream().map(e -> e.getDepartment().getNoOfEmployees()).reduce(Integer::max)
-				.ifPresent(System.out::print);
-
-		System.out.println("------------ -------------");
-		employeeList.stream().map(e -> e.getDepartment().getNoOfEmployees()).distinct().reduce(Integer::sum)
-				.ifPresent(System.out::println);
-				
-		System.out.println("------------ -------------");
-		employeeList.stream().filter(e -> e.getName().startsWith("A")).forEach(e -> System.out.println(e.getName()));
+		query(account, hr, ops, tech, employeeList);
 	}
 }
 
