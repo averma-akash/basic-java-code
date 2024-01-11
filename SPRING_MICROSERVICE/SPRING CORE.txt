@@ -1,4 +1,4 @@
-the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans.
+Any normal java class that is initialised by spring IOC container is called bean. Spring ioc container manages the life cycle of bean, beanscope and injecting any required dependency in the bean.
 
 ********* What Is Inversion of Control? *********
 

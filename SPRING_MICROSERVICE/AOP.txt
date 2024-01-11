@@ -7,11 +7,11 @@ The core of AOP is an aspect. It encapsulates behaviors that can affect multiple
 
 ************ What do you mean by Aspect? ************
 
- Aspect is a modularization of concern which cuts across multiple objects. Transaction management is a good example of a crosscutting concern in J2EE applications. Aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation in Spring Framework.
+ Aspect is a class that implement cross cutting concern. Transaction management is a good example of a crosscutting concern in J2EE applications. Aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation in Spring Framework.
 
 ************ Explain JoinPoint. ************
 
-A point during the execution of a program is called JoinPoint, such as the execution of a method or the handling of an exception. In Spring AOP, a joinpoint always represents a method execution.
+A join point is a specific point in the application such as the execution of a method or the handling of an exception. In Spring AOP, a joinpoint always represents a method execution.
 
 
 ************ What is an Advice?  ************
