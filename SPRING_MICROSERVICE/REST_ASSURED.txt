@@ -1,0 +1,58 @@
+ *** Rest Assured ***
+ 
+ Rest Assured is a Java-based library for automating and testing RESTful APIs. It simplifies the process of sending HTTP requests, validating responses, and performing assertions on API endpoints. 
+ 
+*** send a GET request using Rest Assured ***
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+Response response = RestAssured.get("https://api.example.com/resource");
+// To validate the response status code (e.g., 200 OK):
+response.then().statusCode(200);
+// To validate response body (e.g., JSON):
+response.then().body("key", equalTo("expectedValue"));
+
+*** purpose of Rest Assured’s given-when-then structure ***
+
+Given: This is where you set up the initial conditions for the test, such as headers, request parameters, or authentication.
+
+When: This is where you perform the actual HTTP request (e.g., GET, POST, PUT).
+
+Then: In this section, you define assertions and validations on the response to ensure it meets the expected criteria.	
+
+*** pass query parameters in a Rest Assured GET request? ***
+
+Response response = RestAssured.given().param("paramName", "paramValue").when().get("https://api.example.com/resource");
+
+*** send a POST request with a JSON payload ***
+
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;                                                                                      
+String requestBody = "{\"key\": \"value\"}";                                                                        
+Response response = RestAssured.given().contentType(ContentType.JSON) // Set content type to JSON
+.body(requestBody) // Set the request body
+.when()
+.post("https://api.example.com/resource");// Validate the response as needed
+
+*** handle authentication in Rest Assured ***
+
+import io.restassured.RestAssured;
+import io.restassured.authentication.BasicAuthScheme;                                                                                                      BasicAuthScheme authScheme = new BasicAuthScheme();
+authScheme.setUserName("username");
+authScheme.setPassword("password");                                                                                                                              Response response = RestAssured
+.given()
+.auth().basic("username", "password")
+.when()
+.get("https://api.example.com/resource");// Validate the response
+
+*** request specification in Rest Assured ***
+
+A request specification in Rest Assured is a reusable configuration that allows you to define common settings and headers for API requests. It simplifies API testing by eliminating the need to repeatedly specify the same settings for multiple requests. You can create a request specification once and reuse it across multiple tests
+
+*** extract data from a JSON response ***
+
+You can extract data from a JSON response in Rest Assured using the ‘jsonPath‘ method
+
+import io.restassured.RestAssured;
+String responseBody = RestAssured.get("https://api.example.com/resource").then().extract().response().asString();
+String extractedValue = RestAssured.given().param("paramName", "paramValue").when().get("https://api.example.com/resource").then().extract().path("key");
