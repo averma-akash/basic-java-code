@@ -1,3 +1,16 @@
+*** queryParam ***
+queryparam annotation is used to bind a query parameter to a method parameter. these are added to the end of the url after a question mark ? character and multiple query parameter is separated by & character.
+https://example.com/search?q=java&page=1
+q and page are query parameters.
+public string search(@queryparam("q") string q, @queryparam("page") int page){}
+
+*** path param ***
+
+path param annotation is used to bind a path parameter to method parameter. it is used to find specific resource in url.
+
+https://example.com/user/123
+public string getuser(@pathparam(id) int id)
+
 ***@Primary***
 indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
 
