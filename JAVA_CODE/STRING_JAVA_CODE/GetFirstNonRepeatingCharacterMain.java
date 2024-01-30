@@ -63,3 +63,24 @@ public class GetFirstNonRepeatingCharacterMain
   return null;
  }
 }
+
+// Java 8
+
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class FindFirstNonRepeatedCharacter {
+
+    public static void main(String[] args) {
+
+        String input = "gainjavaknowledge";
+
+        String output = Arrays.stream(input.split(""))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream().filter(e -> e.getValue() == 1)
+                .map(e -> e.getKey()).findFirst().get();
+        System.out.println("First Non Repeated Character : " + output);
+    }
+}
