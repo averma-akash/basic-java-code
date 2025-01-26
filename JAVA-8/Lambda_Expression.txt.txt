@@ -17,6 +17,12 @@ Prior to Java 8, if the processing of elements in a collection had to be done in
 Using Stream API’s and lambda expression we can achieve higher efficiency (parallel execution) in case of bulk operations on collections. Also, the lambda expressions can help in achieving internal iteration of collections rather than external iteration as shown in the above example. As nowadays we have CPUs with multicores, we can take advantage of these multicore CPU’s by parallel processing of collections using lambda.
 
 ***********
+
+Retun type of lambda expression *****
+
+There is no specific return type of lambda. it depends on the functional interface abstract method. whatever the return type of abstract method it will return .
+
+
 public static void withoutLamda() {
 
 List<String> name = new ArrayList<String>();
