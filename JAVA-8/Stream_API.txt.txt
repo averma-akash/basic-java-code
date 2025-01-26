@@ -76,6 +76,9 @@ long totalMatched = memberNames.stream()
  
 System.out.println(totalMatched);     //2
 
+********** stream is interface or class*****
+interface
+
 ****************************************
 List<String> memberNames = new ArrayList<>();
 memberNames.add("Amitabh");
