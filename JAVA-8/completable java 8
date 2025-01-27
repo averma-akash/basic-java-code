@@ -1,0 +1,189 @@
+Here’s a Comprehensive Q&A Guide on CompletableFuture designed to help you prepare for interviews, including detailed explanations, coding examples, and comments.
+
+Basics of CompletableFuture
+
+1. What is CompletableFuture in Java 8?
+	•	Answer:
+CompletableFuture is a part of the java.util.concurrent package introduced in Java 8. It represents a future result of an asynchronous computation and provides methods to explicitly complete it, compose dependent tasks, and handle exceptions.
+
+2. What are the main advantages of CompletableFuture?
+	•	Answer:
+	•	Asynchronous and non-blocking programming.
+	•	Simplifies writing complex workflows by chaining and combining tasks.
+	•	Provides built-in exception handling for asynchronous operations.
+	•	Supports both reactive and functional programming paradigms.
+
+3. How is CompletableFuture different from Future?
+	•	Answer:
+
+Feature	Future	CompletableFuture
+Blocking Methods	get() is blocking	Non-blocking methods like thenApply
+Task Chaining	Not supported	Supported (thenApply, thenCompose)
+Combining Futures	Not supported	Supported (thenCombine, allOf)
+Manual Completion	Not supported	Supported (complete())
+
+Creating a CompletableFuture
+
+4. How can you create a CompletableFuture?
+	•	Answer:
+	•	Manually completed:
+
+CompletableFuture<String> future = new CompletableFuture<>();
+future.complete("Hello, World!");
+System.out.println(future.get()); // Outputs: Hello, World!
+
+
+	•	Asynchronously executed task:
+
+CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+    System.out.println("Running in: " + Thread.currentThread().getName());
+});
+future.join(); // Waits for task completion
+
+
+	•	Returning a result asynchronously:
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "Async Result");
+System.out.println(future.join()); // Outputs: Async Result
+
+Chaining and Transforming Futures
+
+5. How do you chain tasks with CompletableFuture?
+	•	Answer:
+Use methods like thenApply, thenAccept, or thenRun.
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "Hello")
+    .thenApply(result -> result + ", World!")
+    .thenApply(String::toUpperCase);
+System.out.println(future.join()); // Outputs: HELLO, WORLD!
+
+
+
+6. What is the difference between thenApply, thenAccept, and thenRun?
+	•	Answer:
+
+Method	Purpose	Returns	Example
+thenApply	Transforms the result	CompletableFuture	Transform the result to uppercase.
+thenAccept	Consumes the result without returning	CompletableFuture<Void>	Print the result.
+thenRun	Runs a task after completion (no result)	CompletableFuture<Void>	Log a message.
+
+Example:
+
+CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> "Hello")
+    .thenApply(String::toUpperCase) // Transform to uppercase
+    .thenAccept(result -> System.out.println("Result: " + result)) // Consume result
+    .thenRun(() -> System.out.println("Task finished!")); // Just run a task
+future.join();
+
+Combining Multiple Futures
+
+7. How do you combine results of two CompletableFutures?
+	•	Answer:
+Use thenCombine.
+
+CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> "Hello");
+CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> "World");
+
+CompletableFuture<String> combined = future1.thenCombine(future2, (res1, res2) -> res1 + " " + res2);
+System.out.println(combined.join()); // Outputs: Hello World
+
+
+
+8. How do you wait for all tasks to complete?
+	•	Answer:
+Use allOf.
+
+CompletableFuture<Void> allOf = CompletableFuture.allOf(
+    CompletableFuture.runAsync(() -> System.out.println("Task 1")),
+    CompletableFuture.runAsync(() -> System.out.println("Task 2"))
+);
+allOf.join(); // Waits for all tasks to finish
+
+
+
+9. How do you handle the first task that completes among multiple tasks?
+	•	Answer:
+Use anyOf.
+
+CompletableFuture<Object> anyOf = CompletableFuture.anyOf(
+    CompletableFuture.supplyAsync(() -> "Task 1"),
+    CompletableFuture.supplyAsync(() -> "Task 2")
+);
+System.out.println(anyOf.join()); // Outputs: Task 1 or Task 2, whichever completes first
+
+Exception Handling
+
+10. How do you handle exceptions in CompletableFuture?
+	•	Answer:
+Use exceptionally or handle.
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+    if (true) throw new RuntimeException("Error!");
+    return "Success";
+}).exceptionally(ex -> "Recovered from error: " + ex.getMessage());
+
+System.out.println(future.join()); // Outputs: Recovered from error: Error!
+
+
+
+11. How is handle different from exceptionally?
+	•	Answer:
+	•	handle allows handling both success and failure.
+	•	exceptionally only handles exceptions.
+
+Example:
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+    if (true) throw new RuntimeException("Error!");
+    return "Success";
+}).handle((result, ex) -> {
+    if (ex != null) return "Error handled: " + ex.getMessage();
+    return result;
+});
+System.out.println(future.join()); // Outputs: Error handled: Error!
+
+Thread Pool Management
+
+12. How do you specify a custom thread pool in CompletableFuture?
+	•	Answer:
+Pass a Executor to runAsync or supplyAsync.
+
+Executor executor = Executors.newFixedThreadPool(2);
+CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+    System.out.println("Running in custom thread pool");
+}, executor);
+future.join();
+
+Timeouts and Cancellation
+
+13. How do you apply a timeout to a CompletableFuture?
+	•	Answer:
+Use orTimeout or completeOnTimeout (Java 9+).
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+    try { Thread.sleep(3000); } catch (InterruptedException e) {}
+    return "Result";
+}).orTimeout(2, TimeUnit.SECONDS) // Fails after 2 seconds
+  .exceptionally(ex -> "Timeout occurred");
+System.out.println(future.join()); // Outputs: Timeout occurred
+
+
+
+14. How do you cancel a CompletableFuture?
+	•	Answer:
+Call cancel on the CompletableFuture.
+
+CompletableFuture<String> future = new CompletableFuture<>();
+future.cancel(true); // Cancels the future
+System.out.println(future.isCancelled()); // Outputs: true
+
+Miscellaneous
+
+15. What is the difference between join and get?
+	•	Answer:
+	•	join: Doesn’t throw checked exceptions.
+	•	get: Throws ExecutionException or InterruptedException.
+
+16. Can CompletableFuture be used for synchronous tasks?
+	•	Answer:
+Yes, though it’s designed for asynchronous programming, you can use it for synchronous workflows.
