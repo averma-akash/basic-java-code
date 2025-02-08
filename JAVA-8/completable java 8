@@ -4,7 +4,7 @@ Basics of CompletableFuture
 
 1. What is CompletableFuture in Java 8?
 	•	Answer:
-CompletableFuture is a part of the java.util.concurrent package introduced in Java 8. It represents a future result of an asynchronous computation and provides methods to explicitly complete it, compose dependent tasks, and handle exceptions.
+CompletableFuture is a part of the java.util.concurrent package. It represents a future result of an asynchronous computation and provides methods to explicitly complete it, compose dependent tasks, and handle exceptions.
 
 2. What are the main advantages of CompletableFuture?
 	•	Answer:

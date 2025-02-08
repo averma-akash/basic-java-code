@@ -1,60 +1,89 @@
-package interview;
+package interview.nagarro;
 
-public class PrintThreadsSequentiallyMain {
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+
+public class Test {
+
+	private static final int counter = 10;
+
+	private static Semaphore s1 = new Semaphore(1);
+	private static Semaphore s2 = new Semaphore(0);
+	private static Semaphore s3 = new Semaphore(0);
 
 	public static void main(String[] args) {
 
-		PrintSequenceRunnable runnable1 = new PrintSequenceRunnable(1);
-		PrintSequenceRunnable runnable2 = new PrintSequenceRunnable(2);
-		PrintSequenceRunnable runnable3 = new PrintSequenceRunnable(0);
+		Thread t1 = new Thread(() -> {
+			for (int i = 0; i < counter; i++) {
+				try {
+					s1.acquire();
+					System.out.println("Thread 1 ");
+					s2.release();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
-		Thread t1 = new Thread(runnable1, "Thread 1");
-		Thread t2 = new Thread(runnable2, "Thread 2");
-		Thread t3 = new Thread(runnable3, "Thread 3");
+		Thread t2 = new Thread(() -> {
+			for (int i = 0; i < counter; i++) {
+				try {
+					s2.acquire();
+					System.out.println("Thread 2 ");
+					s3.release();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
+		Thread t3 = new Thread(() -> {
+			for (int i = 0; i < counter; i++) {
+				try {
+					s3.acquire();
+					System.out.println("Thread 3 ");
+					s1.release();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		t1.start();
 		t2.start();
 		t3.start();
+		
+		/*
+		 * Completable future example 2nd way
+		 */
+		
+		CompletableFutureSequentialExecution();
+
 	}
 
-}
-
-class PrintSequenceRunnable implements Runnable {
-
-	public int PRINT_NUMBERS_UPTO = 5;
-	static Object lock = new Object();
-	static int number = 1;
-	int remainder;
-
-	PrintSequenceRunnable(int remainder) {
-		this.remainder = remainder;
-	}
-
-	@Override
-	public void run() {
-		while (number < PRINT_NUMBERS_UPTO - 1) {
-			synchronized (lock) {
-				while (number % 3 != remainder) {
-					try {
-						lock.wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				System.out.println(Thread.currentThread().getName() + " " + number);
-				number++;
-				lock.notifyAll();
-			}
+	private static void CompletableFutureSequentialExecution() {
+		
+		ExecutorService executor = Executors.newFixedThreadPool(3);
+		
+		CompletableFuture<Void> future = CompletableFuture.completedFuture(null);
+		
+		for (int i = 1; i <= counter; i++) {
+            final int iteration = i;
+            
+            future = future.thenRunAsync(() -> System.out.println("Thread 1 - " + iteration), executor)
+            .thenRunAsync(() -> System.out.println("Thread 2 - " + iteration), executor)
+            .thenRunAsync(() -> System.out.println("Thread 3 - " + iteration), executor);
+           
 		}
-
+		future.join();
+		executor.shutdown();
+		
 	}
 
 }
-
-/*
-Thread 1 1
-Thread 2 2
-Thread 3 3
-Thread 1 4
-Thread 2 5
-*/

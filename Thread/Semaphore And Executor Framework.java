@@ -62,7 +62,16 @@ public class Main {
 
 /*********** Semaphore In Java ***********
 
-Semaphore is regarded as a thread synchronization construct that is usually required to control and manage the access to the shared resource using counters. It simply sets the limit of the thread. The semaphore class is defined within the package java.util.concurrent and can be used to send signals between threads to avoid missed signals or to guard critical sections. It can also be used to implement resource pools or bounded collection
+A Semaphore is a synchronization mechanism that controls access to a shared resource by using a fixed number of counters.
+It is part of java.util.concurrent.
+
+How Does a Semaphore Work?
+
+A semaphore maintains a fixed count (number of permits).
+A Threads have to acquire a permit before doinng anything.
+and When task completes, threads release the permit for other thread.
+If no permits are available, a thread blocks until a permit is released.
+
 
 Depending on what functions they perform, semaphores can be divided into two types:
 
@@ -70,99 +79,4 @@ Depending on what functions they perform, semaphores can be divided into two typ
 
 #2) Counting Semaphore: The counting semaphore has a value that indicates the number of processes that can enter the critical section. At any point, the value indicates the maximum number of processes that enter the critical section.
 
-The working of a Semaphore can be summarized in the following steps:
-
-If semaphore count > 0, it means that the thread has a permit to access critical section, and then the count is decremented.
-
-Otherwise, the thread is blocked until the permit is acquired.
-
-When the thread is done with accessing the shared resource, the permit is released and semaphore count is incremented so that another thread can repeat the above steps and acquire the permit.*/
-
-package Seamaphore_Executor_Framework;
-
-import java.util.concurrent.Semaphore;
-
-public class Main  { 
-    public static void main(String args[]) throws InterruptedException    { 
-        //create Semaphore= #permits = 1
-        Semaphore sem = new Semaphore(1); 
-         // Create thread instances T1 &amp;amp;amp; T2
-        //T1 Increments the count; T2 Decrements the count
-        ThreadClass thread1 = new ThreadClass(sem, "T1"); 
-        ThreadClass thread2 = new ThreadClass(sem, "T2"); 
-           
-        
-        thread1.start(); 
-        thread2.start(); 
-        
-        thread1.join(); 
-        thread2.join(); 
-        System.out.println("count: " + SharedRes.count);    // display final count.
-    } 
-}
-
-package Seamaphore_Executor_Framework;
-
-import java.util.concurrent.Semaphore;
-
-class ThreadClass extends Thread {
-	Semaphore sem;
-	String threadName;
-
-	public ThreadClass(Semaphore sem, String threadName) {
-		super(threadName);
-		this.sem = sem;
-		this.threadName = threadName;
-	}
-
-	@Override
-	public void run() {
-		// Thread T1 processing
-		if (this.getName().equals("T1")) {
-			System.out.println("Start: " + threadName);
-			try {
-				System.out.println(threadName + " :waiting for a permit.");
-				// acquire the permit
-				sem.acquire();
-				System.out.println(threadName + ":Acquired permit");
-				// access shared resource
-				for (int i = 0; i < 5; i++) {
-					SharedRes.count++;
-					System.out.println(threadName + ": " + SharedRes.count);
-					Thread.sleep(10);
-				}
-
-			} catch (InterruptedException exc) {
-				System.out.println(exc);
-			}
-			// Release the permit.
-			System.out.println(threadName + ":Released the permit");
-			sem.release();
-		}
-		// Thread T2 processing
-		else {
-			System.out.println("Start: " + threadName);
-			try {
-				System.out.println(threadName + ":waiting for a permit.");
-				// acquire the lock
-				sem.acquire();
-				System.out.println(threadName + ":Acquired permit");
-				// process the shared resource
-				for (int i = 0; i < 5; i++) {
-					SharedRes.count--;
-					System.out.println(threadName + ": " + SharedRes.count);
-					Thread.sleep(10);
-				}
-			} catch (InterruptedException exc) {
-				System.out.println(exc);
-			}
-			// Release the permit.
-			System.out.println(threadName + ":Released the permit.");
-			sem.release();
-		}
-	}
-}
-
-class SharedRes {
-	static int count = 0;
-}
+*/
