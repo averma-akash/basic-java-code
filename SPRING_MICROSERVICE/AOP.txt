@@ -1,24 +1,30 @@
-************ AOP ************
++----------------+
+| AOP DEFINATION |
++----------------+
 
 Aspect-oriented programming or AOP is a programming technique which allows programmers to modularize crosscutting concerns or behavior that cuts across the typical divisions of responsibility. Examples of cross-cutting concerns can be logging and transaction management.
 
 The core of AOP is an aspect. It encapsulates behaviors that can affect multiple classes into reusable modules.
 
-
-************ What do you mean by Aspect? ************
-
+╔════════╗
+║ ASPECT ║
+╚════════╝
  Aspect is a class that implement cross cutting concern. Transaction management is a good example of a crosscutting concern in J2EE applications. Aspects are implemented using regular classes or regular classes annotated with the @Aspect annotation in Spring Framework.
 
-************ Explain JoinPoint. ************
+╔═══════════╗
+║ JOINPOINT ║
+╚═══════════╝
 
 A join point is a specific point in the application such as the execution of a method or the handling of an exception. In Spring AOP, a joinpoint always represents a method execution.
 
-
-************ What is an Advice?  ************
+╔════════╗
+║ ADVICE ║
+╚════════╝
 
 An Action taken by an aspect at a particular joinpoint is known as an Advice. Spring AOP uses an advice as an interceptor, maintaining a chain of interceptors “around” the join point.
-
-************  What are the different types of Advices? ************
+╔══════════════╗
+║ ADVICE TYPES ║
+╚══════════════╝
 
 Different types of Advices in Spring AOP are:
 
