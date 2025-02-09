@@ -2,6 +2,14 @@
 
 observer design pattern is useful when you are interested in the state of an Object and want to get notified whenever there is any change. In the observer pattern, the Object that watches the state of another Object is called observer, and the Object that is being watched is called subject.
 
+Where It’s Used in Real Projects?
+
+GUI Listeners (e.g., ActionListener in Swing, Android LiveData)
+Event-driven systems (e.g., Observer pattern in RxJava, Kafka consumers)
+Stock Market Applications
+Publish-Subscribe Messaging Systems (e.g., AWS SNS, Apache Kafka, MQTT)
+
+
 Java provides an built-in platform for implementing the observer pattern through the java.util.Observable class and java.util.Observer interface. 
 
 **** Strategy ****

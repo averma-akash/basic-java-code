@@ -14,35 +14,38 @@ public class NextGreaterElemntCircularArray {
 
 	}
 
-	private static void printNGE(int[] arr) {
-		// TODO Auto-generated method stub
+	public static int[] nextGreaterElements(int[] arr) {
+        int n = arr.length;
+        int[] result = new int[n]; 
+        Arrays.fill(result, -1); // Default value for elements with no greater value
+        Stack<Integer> stack = new Stack<>(); // Stores indices, not values
 
-		Stack<Integer> stack = new Stack<>();
-		int n = arr.length;
-		int[] result = new int[n];
+        // Traverse the array **twice** to handle the circular condition
+        for (int i = 0; i < 2 * n; i++) {
+            int num = arr[i % n]; // Circular index
+            
+            // Process elements in stack: Pop smaller elements
+            while (!stack.isEmpty() && arr[stack.peek()] < num) {
+                result[stack.pop()] = num;
+            }
 
-		for (int i = 2 * n - 1; i >= 0; i--) {
-
-			// Remove all the elements in Stack that are less than arr[i%n]
-			while (!stack.isEmpty() && arr[i % n] >= stack.peek()) {
-				stack.pop();
-			}
-			if (i < n) {
-				if (!stack.isEmpty())
-					result[i] = stack.peek();
-				else
-					result[i] = -1; // When none of elements in Stack are greater than arr[i%n]
-			}
-			stack.push(arr[i % n]);
-		}
-		for (int i : result) {
-			System.out.print(i + " ");
-		}
-	}
+            // Push index in the first pass only (not in second pass)
+            if (i < n) {
+                stack.push(i);
+            }
+        }
+        
+        return result;
+    }
 
 }
 /*
 -1, 7, 8
+
+Time Complexity: 𝑂(𝑛)
+Each element is pushed once and popped once → 𝑂(𝑛)
+Traversing twice still keeps it	O(n).
+Space Complexity:  O(n) (Stack for indices + result array)
 
 In a circular array, the indices will wrap around as if it were connected end-to-end. 
 In other words, the end of the array wraps around to the start of the array. Therefore,

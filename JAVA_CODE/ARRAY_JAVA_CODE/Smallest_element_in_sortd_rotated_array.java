@@ -1,6 +1,6 @@
 package practicebook.java;
 
-public class MinimumElementSortedAndRotatedArrayMain {
+public class Smallest_element_in_sortd_rotatd_array {
 
 	public static void main(String[] args) {
 		int arr[] = { 16, 19, 21, 25, 3, 5, 8, 10 };

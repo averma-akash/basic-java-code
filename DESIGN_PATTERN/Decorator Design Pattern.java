@@ -1,88 +1,71 @@
-/*The decorator design pattern is used to modify the functionality of an object at runtime. At the same time, other instances of the same class will not be affected by this, so the individual object gets the modified behavior. The decorator design pattern is one of the structural design patterns (such as adapter pattern, bridge pattern, or composite pattern) and uses abstract classes or interface with the composition to implement. We use inheritance or composition to extend the behavior of an object, but this is done at compile-time, and it’s applicable to all the instances of the class. We can’t add any new functionality to remove any existing behavior at runtime – this is when the decorator pattern is useful.*/
+/*The decorator design pattern is used to modify the functionality of an object at runtime. 
+other instances of the same class will not be affected by this, so the individual object gets the modified behavior.
 
-// Component interface
-interface Text {
-    String format();
+Where It’s Used in Real Projects?
+1.	Java I/O Streams (BufferedInputStream, DataInputStream)
+2.	Spring Security (HttpServletRequestWrapper)
+3.	Spring’s HandlerInterceptor for logging requests/responses
+4.	Java’s java.util.Collections.synchronizedList(List<T>) for thread safety
+5.	Spring Security (UsernamePasswordAuthenticationToken) to wrap authentication details
+
+This pattern is useful when you need to add features dynamically (like logging, security, or validation) without modifying the core class.
+
+
+you have a service class that processes user requests, but you want to add logging functionality dynamically without modifying the existing service class. The Decorator Pattern allows you to wrap the original service with a logging decorator.
+
+ */
+
+// Step 1: Define the base interface
+interface UserService {
+    void createUser(String username);
 }
 
-// ConcreteComponent class
-class SimpleText implements Text {
-    private String content;
+// Step 2: Concrete implementation of the service
+class BasicUserService implements UserService {
+    @Override
+    public void createUser(String username) {
+        System.out.println("User " + username + " created successfully.");
+    }
+}
 
-    public SimpleText(String content) {
-        this.content = content;
+// Step 3: Abstract Decorator class
+abstract class UserServiceDecorator implements UserService {
+    protected UserService userService;
+
+    public UserServiceDecorator(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    public String format() {
-        return content; // Base content of simple text
+    public void createUser(String username) {
+        userService.createUser(username);
     }
 }
 
-// Decorator abstract class
-abstract class TextDecorator implements Text {
-    protected Text decoratedText;
-
-    public TextDecorator(Text decoratedText) {
-        this.decoratedText = decoratedText;
+// Step 4: Concrete Decorator adding logging functionality
+class LoggingUserService extends UserServiceDecorator {
+    public LoggingUserService(UserService userService) {
+        super(userService);
     }
 
     @Override
-    public String format() {
-        return decoratedText.format();
+    public void createUser(String username) {
+        System.out.println("LOG: Creating user " + username);
+        super.createUser(username);
+        System.out.println("LOG: User " + username + " created.");
     }
 }
 
-// ConcreteDecorator classes
-class BoldTextDecorator extends TextDecorator {
-    public BoldTextDecorator(Text decoratedText) {
-        super(decoratedText);
-    }
-
-    @Override
-    public String format() {
-        return "<b>" + super.format() + "</b>"; // Add bold formatting
-    }
-}
-
-class ItalicTextDecorator extends TextDecorator {
-    public ItalicTextDecorator(Text decoratedText) {
-        super(decoratedText);
-    }
-
-    @Override
-    public String format() {
-        return "<i>" + super.format() + "</i>"; // Add italic formatting
-    }
-}
-
-// Client code
+// Step 5: Client Code using Decorators
 public class DecoratorPatternExample {
     public static void main(String[] args) {
-        // Creating a simple text
-        Text simpleText = new SimpleText("Decorator Pattern Example");
-
-        // Adding bold formatting to the text using a decorator
-        Text boldText = new BoldTextDecorator(simpleText);
-        System.out.println("Formatted Text: " + boldText.format());
-
-        // Adding italic formatting to the text using a decorator
-        Text italicText = new ItalicTextDecorator(simpleText);
-        System.out.println("Formatted Text: " + italicText.format());
-
-        // Combining bold and italic formatting using multiple decorators
-        Text boldItalicText = new BoldTextDecorator(new ItalicTextDecorator(simpleText));
-        System.out.println("Formatted Text: " + boldItalicText.format());
+        UserService userService = new BasicUserService();
+        
+        System.out.println("Without Logging:");
+        userService.createUser("Alice");
+        
+        System.out.println("\nWith Logging:");
+        UserService loggedUserService = new LoggingUserService(userService);
+        loggedUserService.createUser("Bob");
     }
 }
-
-
-/*
-In this example:
-
-Text is the interface representing the component.
-SimpleText is the concrete component class that represents simple text.
-TextDecorator is the abstract decorator class that extends Text. It has a reference to the decorated text.
-BoldTextDecorator and ItalicTextDecorator are concrete decorator classes that add specific formatting (bold and italic) to the text.
-When you run the client code, you'll see how decorators can be used to dynamically add formatting to the base component (SimpleText). The output will display the formatted text with different combinations of decorators.
-*/
