@@ -1,5 +1,6 @@
-╔═══╦
-
+╔════════╗
+║ THREAD ║
+╚════════╝
 a thread is a part of an application that shares a common memory with other threads of the same application.
 
 ******* Daemon thread ******* 
