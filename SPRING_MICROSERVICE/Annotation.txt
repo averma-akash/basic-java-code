@@ -1,73 +1,101 @@
-*** queryParam ***
+╔════════════╗
+║ queryParam ║
+╚════════════╝
 queryparam annotation is used to bind a query parameter to a method parameter. these are added to the end of the url after a question mark ? character and multiple query parameter is separated by & character.
 https://example.com/search?q=java&page=1
 q and page are query parameters.
 public string search(@queryparam("q") string q, @queryparam("page") int page){}
-
-*** path param ***
-
+╔════════════╗
+║ Path param ║
+╚════════════╝
 path param annotation is used to bind a path parameter to method parameter. it is used to find specific resource in url.
 
 https://example.com/user/123
 public string getuser(@pathparam(id) int id)
 
-***@Primary***
+╔═════════╗
+║ PRIMARY ║
+╚═════════╝
 indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
 
-*** @Qualifier *** 
+╔═══════════╗
+║ Qualifier ║
+╚═══════════╝ 
 indicates specific bean should be autowired when there are multiple candidates.
 
 So you can find both @Qualifier and @Primary are telling Spring to use the specific bean when multiple candidates are qualified to autowire. But @Qualifier is more specific and has high priority. So when both @Qualifier and @Primary are found, @Primary will be ignored
 
-*** @ConfigurationProperties ***
+╔═════════════════════════╗
+║ ConfigurationProperties ║
+╚═════════════════════════╝
 ConfigurationProperties allows to map the entire Properties and Yaml files into an object easily. 
 
-*** @SpringBootApplication ***
+╔═══════════════════════╗
+║ SpringBootApplication ║
+╚═══════════════════════╝
 @SpringBootApplication marks the main class of a Spring Boot application. This is used usually on a configuration class that declares one or more @Bean methods and also triggers auto-configuration and component scanning.
 The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration, and @ComponentScan with their default attributes.
 
-*** @EnableAutoConfiguration ***
+╔═════════════════════════╗
+║ EnableAutoConfiguration ║
+╚═════════════════════════╝
 @EnableAutoConfiguration tells Spring Boot to look for auto-configuration beans on its classpath and automatically applies them. It tells Spring Boot to “guess” how you want to configure Spring based on the jar dependencies that you have added.
 Since spring-boot-starter-web dependency added to classpath leads to configure Tomcat and Spring MVC, the auto-configuration assumes that you are developing a web application and sets up Spring accordingly. This annotation is used with @Configuration.
 
-*** @RestController ***
+╔════════════════╗
+║ RestController ║
+╚════════════════╝
 @RestController combines @Controller and @ResponseBody. By annotating the controller class with @RestController annotation, we no longer need to add @ResponseBody to all the request mapping methods.
 
-*** @Controller ***
+╔════════════╗
+║ Controller ║
+╚════════════╝
 The @Controller annotation is used to indicate the class is a Spring controller. This annotation is simply a specialization of the @Component class and allows implementation classes to be auto-detected through the class path scanning.
 
-*** @ComponentScan *** 
+╔═══════════════╗
+║ ComponentScan ║
+╚═══════════════╝ 
 @ComponentScan is used with the @Configuration annotation to allow Spring to know the packages to scan for annotated components. @ComponentScan is also used to specify base packages using basePackageClasses or basePackage attributes to scan.
 
-@Configuration
+╔═══════════════╗
+║ Configuration ║
+╚═══════════════╝
 @Configuration is used on classes that define beans.
-
-@Autowired
+╔═══════════╗
+║ Autowired ║
+╚═══════════╝
 @Autowired is used to mark a dependency which Spring is going to resolve and inject automatically. We can use this annotation with a constructor, setter, or field injection.
-
-@Component
+╔═══════════╗
+║ Component ║
+╚═══════════╝
 @Component is used on classes to indicate a Spring component. The @Component annotation marks the Java class as a bean or component so that the component-scanning mechanism of Spring can add it into the application context.
-
-@Qualifier
+╔═══════════╗
+║ Qualifier ║
+╚═══════════╝
 @Qualifier helps fine-tune annotation-based autowiring. There may be scenarios when we create more than one bean of the same type and want to wire only one of them with a property. This can be controlled using @Qualifier annotation along with the @Autowired annotation.
-
-@Service
+╔═════════╗
+║ Service ║
+╚═════════╝
 @Service marks a Java class that performs some service, such as executing business logic, performing calculations, and calling external APIs. This annotation is a specialized form of the @Component annotation intended to be used in the service layer.
 
 @Repository
 This annotation is used on Java classes that directly access the database. The @Repository annotation works as a marker for any class that fulfills the role of repository or Data Access Object. This annotation has an automatic translation feature. For example, when an exception occurs in the @Repository, there is a handler for that exception and there is no need to add a try-catch block.
-
-@RequestMapping
+╔════════════════╗
+║ RequestMapping ║
+╚════════════════╝
 @RequestMapping marks request handler methods inside @Controller classes.
-
-@RequestBody
+╔═════════════╗
+║ RequestBody ║
+╚═════════════╝
 @RequestBody indicates a method parameter should be bound to the body of the web request. It maps the body of the HTTP request to an object. The body of the request is passed through an HttpMessageConverter to resolve the method argument depending on the content type of the request. The deserialization is automatic and depends on the content type of the request.
-
-@GetMapping
+╔════════════╗
+║ GetMapping ║
+╚════════════╝
 @GetMapping is used for mapping HTTP GET requests onto specific handler methods.
 Specifically, @GetMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.GET).
-
-@PostMapping
+╔═════════════╗
+║ PostMapping ║
+╚═════════════╝
 @PostMapping is used for mapping HTTP POST requests onto specific handler methods.
 Specifically, @PostMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.POST).
 
@@ -83,7 +111,9 @@ Specifically, @DeleteMapping is a composed annotation that acts as a shortcut fo
 @PatchMapping is used for mapping HTTP PATCH requests onto specific handler methods.
 Specifically, @PatchMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.PATCH).
 
-@ConditionalOnClass and @ConditionalOnMissingClass
+╔═══════════════════════════════════════
+║ ConditionalOnClass and ConditionalOnMissingClass ║
+╚═══════════════════════════════════════
 The @ConditionalOnClass and @ConditionalOnMissingClass annotations let configuration be included based on the presence or absence of specific classes. With these annotations, Spring will only use the marked auto-configuration bean if the class in the annotation’s argument is present/absent.
 
 @ConditionalOnBean and @ConditionalOnMissingBean
