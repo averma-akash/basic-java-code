@@ -1,4 +1,6 @@
-/********** Executor Framework In Java ************
+╔════════════════════╗
+║ Executor Framework ║
+╚════════════════════╝
 
 The Executor Framework in Java was released with the JDK 5 release. The Executor Framework (java.util.concurrent.Executor) is a framework that consists of components that help us to efficiently handle multiple threads.
 
@@ -6,7 +8,9 @@ Using the Executor Framework, we can run objects that are Runnable by reusing th
 
 The Executor API separates or de-couples the execution of a task from the actual task using an Executor.
 
-*********** Executor ************
+╔══════════╗
+║ Executor ║
+╚══════════╝
 
 The executor can be defined as an interface used to represent an object that executes the tasks provided to it. Whether the task is to be run on current or new thread depends on the point from where the invocation was initiated which further depends on the implementation.
 
@@ -35,7 +39,10 @@ public void execute () {
 
 /*Note that if the task is not accepted by the Executor, then it throws RejectedExecutionException.
 
-*********** ExecutorService ***********
+╔══════════════════╗
+║ Executor Service ║
+╚══════════════════╝
+
 An ExecutorService (java.util.concurrent.ExecutorService) schedules the submitted tasks as per the availability of threads and also maintains a memory queue. The ExecutorService acts as a complete solution for the Asynchronous processing of tasks.
 
 To use ExecutorService in code, we create a Runnable class. The ExecutorService maintains a thread pool and also assigns the tasks to the threads. Tasks can also queue up in case the thread is not available.
@@ -60,12 +67,16 @@ public class Main {
     }  
 }
 
-/*********** Semaphore In Java ***********
+╔════════════╗
+║ Semaphore  ║
+╚════════════╝
 
 A Semaphore is a synchronization mechanism that controls access to a shared resource by using a fixed number of counters.
 It is part of java.util.concurrent.
 
-How Does a Semaphore Work?
++----------------------------+
+| How Does a Semaphore Work? |
++----------------------------+
 
 A semaphore maintains a fixed count (number of permits).
 A Threads have to acquire a permit before doinng anything.
