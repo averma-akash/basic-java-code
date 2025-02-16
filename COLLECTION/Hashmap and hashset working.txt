@@ -29,9 +29,9 @@ ConcurrentHashMap is introduced as an alternative of Hashtable and provided all 
 This is achieved by partitioning Map into different parts based on concurrency level and locking only a portion of Map during updates. The default concurrency level is 16, and accordingly, Map is divided into 16 part and each part is governed with a different lock. 
 
 This means, 16 threads can operate on Map simultaneously until they are operating on a different part of Map. This makes ConcurrentHashMap high performance despite keeping thread-safety intact. 
-----------------
-Why we need ConcurrentHashMap when we already had Hashtable ?
-
+╔═══════════════════╗
+║Why we need ConcurrentHashMap when we already had Hashtable ?
+╚═══════════════════╝
 Hashtable Uses Synchronized Methods
 ----------------------
 Hashtable synchronizes every method, means only one thread can operate on it at a time.

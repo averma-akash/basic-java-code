@@ -1,7 +1,7 @@
-/************* What is the difference between HashTable and HashMap and concurrentHashMap? *****************
-
-******* HashMap *******
-
+/*
+╔═════════╗
+║ HashMap ║
+╚═════════╝
 - HashMap is non synchronized. It is not-thread safe and can't be shared between many threads without proper synchronization code.
 - HashMap allows one null key and multiple null values.
 - HashMap is a new class introduced in JDK 1.2.
@@ -11,9 +11,9 @@
 - HashMap is traversed by Iterator.
 - Iterator in HashMap is fail-fast.
 - HashMap inherits AbstractMap class.
-
-******* Hashtable *******
-
+╔═══════════╗
+║ HashTable ║
+╚═══════════╝
 -Hashtable is synchronized. It is thread-safe and can be shared with many threads.
 - Hashtable doesn't allow any null key or value.
 - Hashtable is a legacy class.
@@ -23,7 +23,9 @@
 - Enumerator in Hashtable is not fail-fast.
 - Hashtable inherits Dictionary class.
 
-******* concurrentHashMap *******
+╔═══════════════════╗
+║ concurrentHashMap ║
+╚═══════════════════╝
 concurrentHashMap is synchronized
 concurrentHashMap is Thread-safe
 It is fail-safe and performs iteration by multiple threads
