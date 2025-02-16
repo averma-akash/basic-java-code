@@ -1,17 +1,22 @@
-Whenever hashcode is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application.
+╔═══════════════════╗
+║ HashCode & Equals ║
+╚═══════════════════╝
+1. 	If two objects are considered equal, they must have the same hashCode().
+2. 	If hashCode() of two object is the same, THEN equals() might still return false.
+3.	During the lifetime of an object, hashCode() will return the same value unless object properties got change.
+equals() must also remain consistent (i.e., multiple calls should return the same result unless object properties change).
 
-If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result
-
-It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hashtables.
-
-
-****** What will be the problem if you do not override hashcode() method? **********
-
-Some collections, like HashSet, HashMap or HashTable use the hashcode value of an object to find out how the object would be stored in the collection, and subsequently hashcode is used to help locate the object in the collection. Hashing retrieval involves:
-
-First, find out the right bucket using hashCode().
-Secondly, search the bucket for the right element using equals()
-If hashcode() in not overridden then the default implementation in Object class will be used by collections. This implementation gives different values for different objects, even if they are equal according to the equals() method.
+╔══════════╗
+║ HashCode ║
+╚══════════╝
+hashCode() is a method that returns an integer hash value representing the object.
+It is used for efficient storage and retrieval in hash-based collections like HashMap, HashSet, and Hashtable.
+The default implementation in Object is based on the memory address, but you should override it to generate a meaningful hash.
+---------------------------------
+When hashCode() is Not Overridden?
+----------------------------------
+If we do not override then default implementation of hashcode will be used which uses the memory address, it means each instance gets a different hash code.
+This leads to performance issues in HashMap because even they are equal according to the equals() method will be placed in different buckets.
 
 Example:
 

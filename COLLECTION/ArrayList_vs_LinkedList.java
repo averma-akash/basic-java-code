@@ -1,20 +1,22 @@
-/************ What are the differences between ArrayList and LinkedList? *****************
+╔═══════════╗
+║ ArrayList ║
+╚═══════════╝
 
-╔═══╦════════════════════════════════════════════════╦════════════════════════════════════════════════╗
-║   ║ ArrayList                                      ║ Linked List                                    ║
-╠═══╬════════════════════════════════════════════════╬════════════════════════════════════════════════╣
-║ 1 ║ Elements of arraylist are stored in a dynamic  ║ Elements of LinkedList are stored in a dynamic ║
-║   ║ array an because of generics it store all      ║  array an because of generics it store all     ║
-║   ║ types of objects.                              ║  types of objects.                             ║
-╠═══╬════════════════════════════════════════════════╬════════════════════════════════════════════════╣
-║ 2 ║ Manipulating an arraylist take longer time     ║ Manipulating an LinkedList take less time.     ║
-║   ║ because of there internal implementation.      ║                                                ║
-║   ║ the array is scanned and the memory bits       ║                                                ║
-║   ║ are shifted whenever we remove an element.     ║                                                ║
-╠═══╬════════════════════════════════════════════════╬════════════════════════════════════════════════╣
-║ 3 ║ ArrayList is more useful when the application  ║ LinkedList is more useful when the application ║
-║   ║  requires data storage and access.             ║  requires data manipulation.                   ║
-╚═══╩════════════════════════════════════════════════╩════════════════════════════════════════════════╝
+Elements of arraylist are stored in a dynamic array an because of generics it store all
+types of objects.
+  
+Manipulating an arraylist take longer time because of there internal implementation. the array is scanned and the memory bits are shifted whenever we remove an element.
+
+ArrayList is more useful when the application requires data storage and access.
+
+╔═════════════╗
+║ Linked List ║
+╚═════════════╝ 
+Elements of LinkedList are stored in a dynamic array an because of generics it store all types of objects.
+
+Manipulating an LinkedList take less time.
+
+LinkedList is more useful when the application requires data manipulation.
 
 
 /**

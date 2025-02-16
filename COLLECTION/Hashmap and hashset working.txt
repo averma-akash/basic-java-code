@@ -1,40 +1,51 @@
-*********** HashMap Working: ***********
+╔═════════╗
+║ HashMap ║
+╚═════════╝
+1. HashMap internally uses an array of buckets and Each bucket contains a linked list (before Java 8) or a balanced tree (after Java 8).
+2. When we add elements it Compute hash code using key.hashCode() and uses hash function to find the bucket index.***index = (n - 1) & hash;
+3. If bucket is empty it will store the new entry else it will check if the key already exists 
+4. If it found the key present then it will replace it else it will new entry.
+4. when we Retrieving an Element by get method get(K key) it Compute hash code using key.hashCode().
+Use hash function to find the bucket index.
+If single entry, return value. If multiple entries (collision case), iterate using equals() to find the correct key.
+╔════════════════╗
+║ Hash Collision ║
+╚════════════════╝
+A hash collision occurs when two different keys in a hash-based data structure (like HashMap) produce the same hash code and are assigned to the same bucket.
 
-Hashmap works on the principle of Hashing, we have put() and get() method for storig and retreiving object from hashmap. when we pass both key and value to put method to store on hashmap it uses key obejct hashcode() method to calculate hashcode and them by aplying hashing on that hashcode it identifies bucket location for storing value object.
-
-while retreiving it use the key object equals method to find out the correct key value pair and return the value object associated with that key
-
-Hashmap uses linked list in case of collision and object will be stored in the next node of the linked list. also hashmap stores bot key and value in every node of the linked list in form of map.entry object.
-
---> If 2 diffrent object have the same hashcode then bucket location would be same and collision occur in hashmap.
-
-if two keys have same hashcode then we wil call get method and then hashmap use key object hashcode to find out bucket location, after finding bucket location we will call key.equals method to identify a correct node in linked list and return associated value object for that key in java hash map.
-
-
-Java 8 has started using a balanced tree instead of linked list for storing collided entries. This also means that in the worst case we will get a performance boost from O(n) to O(log n).
-
-The threshold of switching to the balanced tree is defined as TREEIFY_THRESHOLD constant in java.util.HashMap JDK 8 code. Currently, it's value is 8, which means if there are more than 8 elements in the same bucket than HashMap will use a tree instead of linked list to hold them in the same bucket.
-
-
-
-***********   Hash Set Working:  *********************
-
+Before Java 8: Uses Linked List to store multiple values in the same bucket.
+After Java 8: Converts to Balanced Tree (Red-Black Tree) if collisions exceed 8 elements in a bucket (Improves performance from O(n) to O(log n)).
+╔════════════════╗
+║ HashSet Workin ║
+╚════════════════╝
 Hashset class internally use hashmap to store its element , from add method of hashset, put method of hashmap is called where the value which has to be added in the set becomes key and a constant object "present" is used as value.
 
 it just the actual value becomes key and a dummy value present is added as value when storing it in the backing hashmap.
-
-
-*********** ConcurrentHashMap ***********
-
+╔═══════════════════╗
+║ ConcurrentHashMap ║
+╚═══════════════════╝
 ConcurrentHashMap is introduced as an alternative of Hashtable and provided all functions supported by Hashtable with an additional feature called "concurrency level", which allows ConcurrentHashMap to partition Map. ConcurrentHashMap allows multiple readers to read concurrently without any blocking. 
 
 This is achieved by partitioning Map into different parts based on concurrency level and locking only a portion of Map during updates. The default concurrency level is 16, and accordingly, Map is divided into 16 part and each part is governed with a different lock. 
 
 This means, 16 threads can operate on Map simultaneously until they are operating on a different part of Map. This makes ConcurrentHashMap high performance despite keeping thread-safety intact. 
-
+----------------
 Why we need ConcurrentHashMap when we already had Hashtable ?
 
-Hashtable provides concurrent access to the Map.Entries objects by locking the entire map to perform any sort of operation (update,delete,read,create). Suppose we have a web application , the overhead created by Hashtable  (locking the entire map) can be ignored under normal load. But under heavy load , the overhead of locking the entire map may prove fatal and may lead to delay response time.
+Hashtable Uses Synchronized Methods
+----------------------
+Hashtable synchronizes every method, means only one thread can operate on it at a time.
+Even read operations (get()) are synchronized, which is unnecessary and slows down performance in multi-threaded environments
+
+ConcurrentHashMap Uses Segment-Based Locking 
+----------------
+ConcurrentHashMap divides the map into multiple segments (buckets) and locks only the specific segment being modified
+Read operations (get()) are non-blocking, improving performance.
+
+ConcurrentHashMap Uses CAS (Compare-And-Swap) for Atomic Operations
+------------------
+Unlike Hashtable, which uses synchronized blocks, ConcurrentHashMap optimizes performance using CAS (Compare-And-Swap) for atomic updates.
+This reduces contention and makes operations like putIfAbsent(), compute(), and merge() much faster.
 
 Why use Concurrent Hashmap-
 
