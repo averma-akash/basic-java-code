@@ -37,17 +37,23 @@ In order to implement API Gateway, we can use Zuul Proxy Server that handles all
 ╔════════════════════════╗
 ║ logging and monitoring ║
 ╚════════════════════════╝
-╔═══════════════════════╦═══════════════════════════════════════════════════════╗
-║ Centralized   Logging ║ ELK Stack (Elasticsearch,   Logstash, Kibana) or Loki ║
-╠═══════════════════════╬═══════════════════════════════════════════════════════╣
-║ Distributed   Tracing ║ Zipkin or Jaeger                                      ║
-╠═══════════════════════╬═══════════════════════════════════════════════════════╣
-║ Metrics   Collection  ║ Prometheus (with Micrometer)                          ║
-╠═══════════════════════╬═══════════════════════════════════════════════════════╣
-║ Visualization         ║ Grafana                                               ║
-╠═══════════════════════╬═══════════════════════════════════════════════════════╣
-║ Alerting              ║ Prometheus Alert Manager                              ║
-╚═══════════════════════╩═══════════════════════════════════════════════════════╝
+╔═══════════════╦════════════════╗
+║               ║ ELK Stack      ║
+║ Centralized   ║ (Elasticsearch ║
+║ Logging       ║ Logstash,      ║
+║               ║ Kibana)or Loki ║
+╠═══════════════╬════════════════╣
+║ Distributed   ║ Zipkin/Jaeger  ║
+║ Tracing       ║                ║
+╠═══════════════╬════════════════╣
+║ Metrics       ║ Prometheus     ║
+║ Collection    ║ (Micrometer)   ║
+╠═══════════════╬════════════════╣
+║ Visualization ║ Grafana        ║
+╠═══════════════╬════════════════╣
+║ Alerting      ║ Prometheus     ║
+║               ║ Alert Manager  ║
+╚═══════════════╩════════════════╝
 ╔═══════════════════════════╗
 ║ Synchronous & Asynchrnous ║
 ╚═══════════════════════════╝
