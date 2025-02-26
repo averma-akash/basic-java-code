@@ -7,6 +7,74 @@ Loosely coupled
 Independently deployable
 Designed or organized around business capabilities
 Managed by a small team
+_______________
+Bounded Context
+A Bounded Context is a design principle that defines the boundaries of a microservice in terms of business logic, data, and responsibilities. 
+╔══════════════════════════╗
+║ Distributed Transactions ║
+╚══════════════════════════╝
+In microservice architecture service has its own buisiness logic to perform and database, so ACID transactions will not work across multiple microservices. Instead, we use distributed transaction management strategies like 
+Saga Pattern (Best Approach)
+2-Phase Commit (2PC) (Rarely Used)
+
+1. Orchestration-Based Saga (Centralized Control)
+In orchestration a central component orchestrator(such as Camunda, Apache Camel, or Temporal) takes on the responsibility of coordinating the flow of the entire business process. It defines the sequence of service invocations, handles communication between services, and manages the overall execution of the workflow.
+
+2.  Choreography-Based Saga (Decentralized, Event-Driven)
+
+In this approach, each microservice manages its own local transaction and publishes events. There is no central orchestrator
+
+How It Works
+Each microservice listens for events (e.g., Kafka, RabbitMQ).
+When an event is received, the microservice performs a local transaction.
+If a step fails, the service publishes a rollback event.
+╔═════════════╗
+║ API Gateway ║
+╚═════════════╝
+API Gateway is the single entry & exit point of all the microservices in the application. As every microservice has its own IP & port, and we can’t provide multiple IP & port details to the end user, there must be a single entry and exit point. It is also a type of microservice, that calls all other microservices using Eureka and it should also be registered with the Eureka Server like other microservices. It generates a proxy based on the service Id provided with the path(URL) using a load balancer client. Then it selects one Service Instance from Eureka and makes the HTTP call.
+
+In order to implement API Gateway, we can use Zuul Proxy Server that handles all the requests and does the dynamic routing of microservices. Dynamic routing is nothing but choosing one microservice instance and make HTTP call based on the load.
+╔════════════════════════╗
+║ logging and monitoring ║
+╚════════════════════════╝
+╔═══════════════════════╦═══════════════════════════════════════════════════════╗
+║ Centralized   Logging ║ ELK Stack (Elasticsearch,   Logstash, Kibana) or Loki ║
+╠═══════════════════════╬═══════════════════════════════════════════════════════╣
+║ Distributed   Tracing ║ Zipkin or Jaeger                                      ║
+╠═══════════════════════╬═══════════════════════════════════════════════════════╣
+║ Metrics   Collection  ║ Prometheus (with Micrometer)                          ║
+╠═══════════════════════╬═══════════════════════════════════════════════════════╣
+║ Visualization         ║ Grafana                                               ║
+╠═══════════════════════╬═══════════════════════════════════════════════════════╣
+║ Alerting              ║ Prometheus Alert Manager                              ║
+╚═══════════════════════╩═══════════════════════════════════════════════════════╝
+╔═══════════════════════════╗
+║ Synchronous & Asynchrnous ║
+╚═══════════════════════════╝
+In synchronous communication, a service sends a request and waits (blocks) for a response before proceeding. This is typically implemented using REST APIs (HTTP) or gRPC.
+
+In asynchronous communication, a service sends a request and does not wait for a response. Instead, responses are handled later, usually via message queues (Kafka, RabbitMQ, SNS/SQS, etc.) or WebSockets.
+
+*** Strategies for Ensuring Data Consistency in Microservices ***
+╔══════════════════════════════╦════════════════════════════════════════════════════╦════════════════════════════════════════╗
+║ 1. Saga   Pattern            ║ Uses a sequence of local transactions with         ║ When multiple microservices must       ║
+║                              ║  compensating actions in case of failure           ║ coordinate a business transaction      ║
+╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
+║ 2. Two-Phase Commit (2PC)    ║ Coordinator manages distributed transactions,      ║ When strong   consistency is required, ║
+║                              ║  ensuring all services commit or rollback together ║ but can slow performance               ║
+╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
+║ 3. Outbox Pattern            ║ Stores events in a database before                 ║ When ensuring event                    ║
+║                              ║  publishing them asynchronously                    ║ delivery is critical                   ║
+╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
+║ 4. Change Data Capture (CDC) ║ Detects database changes and                       ║ When services need to react to         ║
+║                              ║ propagates them as events                          ║ real-time database updates             ║
+╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
+║ 5. Event Sourcing            ║ Stores state changes as an                         ║ When an audit   trail is needed        ║
+║                              ║ immutable sequence of events                       ║                                        ║
+╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
+║ 6. Idempotency               ║ Ensures repeated operations do                     ║ When retries might occur               ║
+║                              ║ not cause duplicate actions                        ║  (e.g., network failures)              ║
+╚══════════════════════════════╩════════════════════════════════════════════════════╩════════════════════════════════════════╝
 
 **** Service Registration & Service Discovery ****
 
@@ -17,14 +85,7 @@ When we have multiple serives running together within an application, they need 
 we use Netflix Eureka to make a kind of server which can register the microservices & discover them when required by the other microservice. Every Microservice will register into the Eureka server with a service Id and Eureka server will have information(port, IP addresses etc.) of all the microservices running as client applications.
 in order to implement it, we create a microservice and include the dependency. A service annotated with @EnableEurekaServer will work as Eureka server.
 <groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-eureka-server</artifactId>
-
-**** API Gateway? ****
-
-API Gateway is the single entry & exit point of all the microservices in the application. As every microservice has its own IP & port, and we can’t provide multiple IP & port details to the end user, there must be a single entry and exit point. It is also a type of microservice, that calls all other microservices using Eureka and it should also be registered with the Eureka Server like other microservices. It generates a proxy based on the service Id provided with the path(URL) using a load balancer client. Then it selects one Service Instance from Eureka and makes the HTTP call.
-
-In order to implement API Gateway, we can use Zuul Proxy Server that handles all the requests and does the dynamic routing of microservices. Dynamic routing is nothing but choosing one microservice instance and make HTTP call based on the load. 
-
+<artifactId>spring-cloud-starter-eureka-server</artifactId> 
 **** Circuit Breaker? ****
 
 If the actual method of a microservice is continuously throwing exception, then stop executing actual method and redirect each request to a fallback method, such concept is called Circuit Breaker. In this situation, we configure a dummy method that will execute and give a response back to the client such as ‘Service Not Working’, ‘Unable to Process request at this time’, ‘try after some time’…etc.
@@ -48,32 +109,6 @@ Hystrix is a fault-tolerance and latency library designed for isolating points o
 
 When we work on a microservices architecture based application, there are multiple small microservices, and they all communicate with each other. Suppose that a microservice goes down at any point of time, all the other microservices that are directly or indirectly dependent on it, will go down as well. Hence, we should have a solution in case a microservice fails. This aspect of a microservice is called fault tolerance.
 In order to implement complete Fault Tolerance, even including circuit breaker, we use Resilience4j API. It has multiple separate modules such as Rate Limiter, Time Limiter, Bulkhead, Circuit Breaker, Retry etc. We have separate annotations for each functionality as @RateLimiter, @TimeLimiter, @Bulkhead, @CircuitBreaker, @Retry respectively. However, we can also implement these functionalities programmatically by using Decorator pattern.
-
-**** Microservice Orchestration ***
-
-Service orchestrationis a approache for coordinating interactions between microservices in a distributed system.
-In service orchestration a central component like a workflow engine or orchestrator takes on the responsibility of coordinating the flow of the entire business process. It defines the sequence of service invocations, handles communication between services, and manages the overall execution of the workflow.
-
-The orchestrator decides which services to invoke and in what order. Each microservice is responsible for executing its part of the workflow as instructed by the orchestrator. The orchestrator maintains control over the entire process and has full visibility into the interactions between services.
-
-Advantages of service orchestration:
-Central control: The orchestrator provides centralized control and visibility, making it easier to monitor and manage the workflow.
-Complexity handling: Complex business processes can be managed and adapted in a single place, simplifying the individual services' logic.
-Business-driven:  Orchestration allows the business logic to be explicitly defined in the workflow, promoting a business-driven approach.
-
-
-*** Microservice Choreography ***
-
-In microservice choreography, each microservice knows how to interact with other services. There is no central orchestrator; instead, services collaborate directly with each other to achieve the desired outcome. Each service plays an active role and initiates communication-based on events or triggers.
-
-The choreography approach is more decentralized, and the interactions between services are based on predefined contracts or protocols. Services are loosely coupled, and each service has a clear understanding of its responsibilities in the overall system.
-
-Advantages of service choreography:
-
-Decentralization: Service choreography reduces the centralization of control and can lead to more autonomous and agile services.
-Scalability: Services can communicate directly without the need for a central orchestrator, potentially improving scalability.
-Flexibility: Services can evolve independently without affecting other services as long as they adhere to the defined communication protocols.
-
 
 ***** Microservice working ***
 Clients: Different users send requests from various devices. 
