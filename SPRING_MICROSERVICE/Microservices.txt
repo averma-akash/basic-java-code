@@ -7,8 +7,9 @@ Loosely coupled
 Independently deployable
 Designed or organized around business capabilities
 Managed by a small team
-_______________
-Bounded Context
+╔═════════════════╗
+║ Bounded Context ║
+╚═════════════════╝
 A Bounded Context is a design principle that defines the boundaries of a microservice in terms of business logic, data, and responsibilities. 
 ╔══════════════════════════╗
 ║ Distributed Transactions ║
@@ -60,6 +61,49 @@ In order to implement API Gateway, we can use Zuul Proxy Server that handles all
 In synchronous communication, a service sends a request and waits (blocks) for a response before proceeding. This is typically implemented using REST APIs (HTTP) or gRPC.
 
 In asynchronous communication, a service sends a request and does not wait for a response. Instead, responses are handled later, usually via message queues (Kafka, RabbitMQ, SNS/SQS, etc.) or WebSockets.
+╔════════════════╗
+║ Netflix Eureka ║
+╚════════════════╝
+we use Netflix Eureka to make a kind of server which can register the microservices & discover them when required by the other microservice. Every Microservice will register into the Eureka server with a service Id and Eureka server will have information(port, IP addresses etc.) of all the microservices running as client applications.
+in order to implement it, we create a microservice and include the dependency. A service annotated with @EnableEurekaServer will work as Eureka server.
+<groupId>org.springframework.cloud</groupId>
+<artifactId>spring-cloud-starter-eureka-server</artifactId> 
+╔══════════════════╗
+║ Circuit Breaker? ║
+╚══════════════════╝
+If the actual method of a microservice is continuously throwing exception, then stop executing actual method and redirect each request to a fallback method, such concept is called Circuit Breaker. In this situation, we configure a dummy method that will execute and give a response back to the client such as ‘Service Not Working’, ‘Unable to Process request at this time’, ‘try after some time’…etc.
+There are two types of circuit : open circuit & closed circuit. In Open Circuit, client request directly moves to Fallback method. But In closed Circuit, client request moves to the actual service method only.
+╔══════════════════════╗
+║ Spring Cloud Hystrix ║
+╚══════════════════════╝
+In order to implement Circuit Breaker mechanism, we use Spring cloud Hystrix. We add the @EnableHystrix annotation on our main application class to make our Spring Boot application act as a Circuit Breaker. In addition, @HystrixCommand(fallbackMethod = “DUMMY METHOD NAME”) at RestController method level. 
+<groupId>org.springframework.cloud</groupId>
+<artifactId>spring-cloud-starter-hystrix</artifactId>
+
+******** What is Hystrix? ********
+Hystrix is a fault-tolerance and latency library designed for isolating points of access to remote systems, third-party libraries, services, stopping cascading failures, and enabling resilience in complex distributed systems where failure is common and cannot be avoided.
+
+@EnableConfigServer 
+@EunableEurekaServer
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+@HystricCommand
+╔═════════════════╗
+║ Fault Tolerance ║
+╚═════════════════╝
+When we work on a microservices architecture based application, there are multiple small microservices, and they all communicate with each other. Suppose that a microservice goes down at any point of time, all the other microservices that are directly or indirectly dependent on it, will go down as well. Hence, we should have a solution in case a microservice fails. This aspect of a microservice is called fault tolerance.
+In order to implement complete Fault Tolerance, even including circuit breaker, we use Resilience4j API. It has multiple separate modules such as Rate Limiter, Time Limiter, Bulkhead, Circuit Breaker, Retry etc. We have separate annotations for each functionality as @RateLimiter, @TimeLimiter, @Bulkhead, @CircuitBreaker, @Retry respectively. However, we can also implement these functionalities programmatically by using Decorator pattern.
+╔══════════════════════╗
+║ Microservice working ║
+╚══════════════════════╝
+Clients: Different users send requests from various devices. 
+Identity Provider: Validate a user's or client's identity and issue security tokens.
+API Gateway: Handles the requests from clients. 
+Static Content: Contains all of the system's content. 
+Management: Services are balanced on nodes and failures are identified. 
+Service Discovery: A guide to discovering the routes of communication between microservices. 
+Content Delivery Network: Includes distributed network of proxy servers and their data centers. 
+Remote Service: Provides remote access to data or information that resides on networked computers and devices.
 
 *** Strategies for Ensuring Data Consistency in Microservices ***
 ╔══════════════╦═══════════════╦════════════════╗
@@ -117,43 +161,3 @@ In asynchronous communication, a service sends a request and does not wait for a
 **** Service Registration & Service Discovery ****
 
 When we have multiple serives running together within an application, they need to detect each other to communicate. In order to make it possible, there should exist one medium where all microservices register themselves. and when any service wants to communicate, it can connect to that medium and discovers other service to communicate. This medium is nothing but ‘Service Registry & Discovery’.
-
-**** Netflix Eureka ****
-
-we use Netflix Eureka to make a kind of server which can register the microservices & discover them when required by the other microservice. Every Microservice will register into the Eureka server with a service Id and Eureka server will have information(port, IP addresses etc.) of all the microservices running as client applications.
-in order to implement it, we create a microservice and include the dependency. A service annotated with @EnableEurekaServer will work as Eureka server.
-<groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-eureka-server</artifactId> 
-**** Circuit Breaker? ****
-
-If the actual method of a microservice is continuously throwing exception, then stop executing actual method and redirect each request to a fallback method, such concept is called Circuit Breaker. In this situation, we configure a dummy method that will execute and give a response back to the client such as ‘Service Not Working’, ‘Unable to Process request at this time’, ‘try after some time’…etc.
-There are two types of circuit : open circuit & closed circuit. In Open Circuit, client request directly moves to Fallback method. But In closed Circuit, client request moves to the actual service method only.
-
-**** Spring Cloud Hystrix ****
-In order to implement Circuit Breaker mechanism, we use Spring cloud Hystrix. We add the @EnableHystrix annotation on our main application class to make our Spring Boot application act as a Circuit Breaker. In addition, @HystrixCommand(fallbackMethod = “DUMMY METHOD NAME”) at RestController method level. 
-<groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-hystrix</artifactId>
-
-******** What is Hystrix? ********
-Hystrix is a fault-tolerance and latency library designed for isolating points of access to remote systems, third-party libraries, services, stopping cascading failures, and enabling resilience in complex distributed systems where failure is common and cannot be avoided.
-
-@EnableConfigServer 
-@EunableEurekaServer
-@EnableDiscoveryClient
-@EnableCircuitBreaker
-@HystricCommand
-
-**** Fault Tolerance in Microservices? ****
-
-When we work on a microservices architecture based application, there are multiple small microservices, and they all communicate with each other. Suppose that a microservice goes down at any point of time, all the other microservices that are directly or indirectly dependent on it, will go down as well. Hence, we should have a solution in case a microservice fails. This aspect of a microservice is called fault tolerance.
-In order to implement complete Fault Tolerance, even including circuit breaker, we use Resilience4j API. It has multiple separate modules such as Rate Limiter, Time Limiter, Bulkhead, Circuit Breaker, Retry etc. We have separate annotations for each functionality as @RateLimiter, @TimeLimiter, @Bulkhead, @CircuitBreaker, @Retry respectively. However, we can also implement these functionalities programmatically by using Decorator pattern.
-
-***** Microservice working ***
-Clients: Different users send requests from various devices. 
-Identity Provider: Validate a user's or client's identity and issue security tokens.
-API Gateway: Handles the requests from clients. 
-Static Content: Contains all of the system's content. 
-Management: Services are balanced on nodes and failures are identified. 
-Service Discovery: A guide to discovering the routes of communication between microservices. 
-Content Delivery Network: Includes distributed network of proxy servers and their data centers. 
-Remote Service: Provides remote access to data or information that resides on networked computers and devices.
