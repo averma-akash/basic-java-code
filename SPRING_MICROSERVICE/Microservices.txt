@@ -62,25 +62,57 @@ In synchronous communication, a service sends a request and waits (blocks) for a
 In asynchronous communication, a service sends a request and does not wait for a response. Instead, responses are handled later, usually via message queues (Kafka, RabbitMQ, SNS/SQS, etc.) or WebSockets.
 
 *** Strategies for Ensuring Data Consistency in Microservices ***
-╔══════════════════════════════╦════════════════════════════════════════════════════╦════════════════════════════════════════╗
-║ 1. Saga   Pattern            ║ Uses a sequence of local transactions with         ║ When multiple microservices must       ║
-║                              ║  compensating actions in case of failure           ║ coordinate a business transaction      ║
-╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
-║ 2. Two-Phase Commit (2PC)    ║ Coordinator manages distributed transactions,      ║ When strong   consistency is required, ║
-║                              ║  ensuring all services commit or rollback together ║ but can slow performance               ║
-╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
-║ 3. Outbox Pattern            ║ Stores events in a database before                 ║ When ensuring event                    ║
-║                              ║  publishing them asynchronously                    ║ delivery is critical                   ║
-╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
-║ 4. Change Data Capture (CDC) ║ Detects database changes and                       ║ When services need to react to         ║
-║                              ║ propagates them as events                          ║ real-time database updates             ║
-╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
-║ 5. Event Sourcing            ║ Stores state changes as an                         ║ When an audit   trail is needed        ║
-║                              ║ immutable sequence of events                       ║                                        ║
-╠══════════════════════════════╬════════════════════════════════════════════════════╬════════════════════════════════════════╣
-║ 6. Idempotency               ║ Ensures repeated operations do                     ║ When retries might occur               ║
-║                              ║ not cause duplicate actions                        ║  (e.g., network failures)              ║
-╚══════════════════════════════╩════════════════════════════════════════════════════╩════════════════════════════════════════╝
+╔══════════════╦═══════════════╦════════════════╗
+║              ║ Uses a        ║                ║
+║              ║ sequence      ║ Whenmultiple   ║
+║              ║ of local      ║ microservices  ║
+║ 1. Saga      ║ transactions  ║ must coordin   ║
+║ Pattern      ║ with compe    ║ ate a business ║
+║              ║ nsating       ║ transaction    ║
+║              ║ actions in    ║                ║
+║              ║ case failure  ║                ║
+╠══════════════╬═══════════════╬════════════════╣
+║              ║ Coordinator   ║                ║
+║              ║ manages       ║                ║
+║              ║ distributed   ║ When strong    ║
+║              ║ transactions  ║ consistency    ║
+║ Two-Phase    ║ ensuring      ║ required, but  ║
+║ Commit (2PC) ║ all services  ║ can slow       ║
+║              ║ commit        ║ performance    ║
+║              ║ or rollback   ║                ║
+║              ║ together      ║                ║
+╠══════════════╬═══════════════╬════════════════╣
+║              ║ Stores        ║                ║
+║              ║ events        ║ When ensur     ║
+║ Outbox       ║ in a data     ║ ing event      ║
+║ Pattern      ║ base befo     ║ delivery       ║
+║              ║ re publishing ║ is critical    ║
+║              ║ them asynch   ║                ║
+║              ║ ronously      ║                ║
+╠══════════════╬═══════════════╬════════════════╣
+║              ║ Detects       ║ When           ║
+║ Change       ║ database      ║ services       ║
+║ Data         ║ changes       ║ need to        ║
+║ Capture      ║ and propa     ║ react to       ║
+║ (CDC)        ║ gates them    ║ real-time      ║
+║              ║ as events     ║ database       ║
+║              ║               ║ updates        ║
+╠══════════════╬═══════════════╬════════════════╣
+║              ║ Stores        ║                ║
+║              ║ state changes ║ When an        ║
+║ Event        ║ as an         ║ audit          ║
+║ Sourcing     ║ immutable     ║ trail   is     ║
+║              ║ sequence      ║ needed         ║
+║              ║ of events     ║                ║
+╠══════════════╬═══════════════╬════════════════╣
+║              ║ Ensures       ║ When           ║
+║              ║ repeated      ║ retries        ║
+║              ║ operations    ║ might          ║
+║ Idempotency  ║ do not        ║ occur          ║
+║              ║ cause         ║ (e.g., network ║
+║              ║ duplicate     ║ failures)      ║
+║              ║ actions       ║                ║
+╚══════════════╩═══════════════╩════════════════╝
 
 **** Service Registration & Service Discovery ****
 
