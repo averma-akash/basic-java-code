@@ -1,0 +1,123 @@
+/*
+Abstract Factory Design Pattern belongs to the category of Creational Design Patterns.
+It provides an interface to create families of related or dependent objects without
+specifying their concrete classes.
+
+Advantages:
+1. Encapsulates object creation for related families.
+2. Makes the system easily extensible (new factories for new families).
+3. Promotes consistency among products of the same family.
+
+Where It’s Used in Real Projects?
+- GUI toolkits (Swing, AWT) for creating buttons, checkboxes, etc. (Windows/Mac look)
+- Spring Framework’s FactoryBean
+- Dependency Injection Containers
+*/
+
+// Step 1: Product Interfaces
+interface Notification {
+    void notifyUser();
+}
+
+interface Channel {
+    void connect();
+}
+
+// Step 2: Concrete Product Implementations
+// Corporate Ecosystem
+class EmailNotification implements Notification {
+    @Override
+    public void notifyUser() {
+        System.out.println("Sending Corporate Email Notification...");
+    }
+}
+
+class SMSNotification implements Notification {
+    @Override
+    public void notifyUser() {
+        System.out.println("Sending Corporate SMS Notification...");
+    }
+}
+
+class TeamsChannel implements Channel {
+    @Override
+    public void connect() {
+        System.out.println("Connecting via Microsoft Teams Channel...");
+    }
+}
+
+// Social Ecosystem
+class PushNotification implements Notification {
+    @Override
+    public void notifyUser() {
+        System.out.println("Sending Social Push Notification...");
+    }
+}
+
+class WhatsAppChannel implements Channel {
+    @Override
+    public void connect() {
+        System.out.println("Connecting via WhatsApp Channel...");
+    }
+}
+
+class SlackChannel implements Channel {
+    @Override
+    public void connect() {
+        System.out.println("Connecting via Slack Channel...");
+    }
+}
+
+// Step 3: Abstract Factory
+interface NotificationFactory {
+    Notification createNotification();
+    Channel createChannel();
+}
+
+// Step 4: Concrete Factories
+class CorporateNotificationFactory implements NotificationFactory {
+    @Override
+    public Notification createNotification() {
+        return new EmailNotification(); // Could also decide SMS
+    }
+
+    @Override
+    public Channel createChannel() {
+        return new TeamsChannel();
+    }
+}
+
+class SocialNotificationFactory implements NotificationFactory {
+    @Override
+    public Notification createNotification() {
+        return new PushNotification();
+    }
+
+    @Override
+    public Channel createChannel() {
+        return new WhatsAppChannel(); // or Slack
+    }
+}
+
+// Step 5: Client Code
+public class AbstractFactoryNotificationExample {
+    private static NotificationFactory configureFactory(String type) {
+        if (type.equalsIgnoreCase("CORPORATE")) {
+            return new CorporateNotificationFactory();
+        } else if (type.equalsIgnoreCase("SOCIAL")) {
+            return new SocialNotificationFactory();
+        }
+        throw new IllegalArgumentException("Unknown type");
+    }
+
+    public static void main(String[] args) {
+        // Example: we want Social ecosystem notifications
+        NotificationFactory factory = configureFactory("SOCIAL");
+
+        Notification notification = factory.createNotification();
+        Channel channel = factory.createChannel();
+
+        notification.notifyUser();  // Output: Sending Social Push Notification...
+        channel.connect();          // Output: Connecting via WhatsApp Channel...
+    }
+}
