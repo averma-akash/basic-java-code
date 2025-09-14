@@ -1,0 +1,23 @@
+hi My name is akash verma and i am having a total of 10 plus year of experience working in backend development 
+
+currently i am working with iris software and prior to iris i have worked with accenture.
+
+my current client is citi bank and i am working on its compliance project. 
+this project is web based application where we are using angular in front end springboot 3 and java 17 and oracle database
+
+the flow of this application is when user logged in to our system we chwck if user exist then matches the raw password to hashed password from db using password encoder.matches.
+
+on succesful authentication we generate the jwt token and claim and sign it with symetric key hs256 and return to the client application. and from angular this token os coming with every request.
+
+---------------------
+tampperd tpken check
+---------------------
+so jwt has 3 parts header payload and signature so once we recive the token we extract the token by removing bearer and then decode the header and payload and recompute the signature 
+and we compare the recumputed with token signature if it matches it means it is not tampered
+
+--------------------
+downstream service token validation
+--------------------
+After authentication at the API Gateway, the JWT token is passed along in the Authorization header for every downstream request.
+
+Each microservice has its own security filter that validates the token by verifying its HS256 signature against the shared secret key. If the token is valid and not expired, the request proceeds; otherwise we are rejecting the request
